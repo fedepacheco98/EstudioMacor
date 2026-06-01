@@ -851,30 +851,33 @@
           </div>
         </div>
       </div>
-      <form class="contact-form fade-up" style="transition-delay:0.15s" action="https://formspree.io/f/xaqkgeqv" method="POST">
+      <form class="contact-form fade-up" style="transition-delay:0.15s" id="contactForm">
         <div class="form-row">
-          <input type="text" placeholder="Razón social" required>
-          <input type="text" placeholder="Persona de contacto" required>
+          <input type="text" name="razon_social" placeholder="Razón social" required>
+          <input type="text" name="contacto" placeholder="Persona de contacto" required>
         </div>
         <div class="form-row">
-          <input type="email" placeholder="E-mail" required>
-          <input type="tel" placeholder="Teléfono">
+          <input type="email" name="email" placeholder="E-mail" required>
+          <input type="tel" name="telefono" placeholder="Teléfono">
         </div>
         <div class="form-row">
-          <input type="text" placeholder="Ciudad">
-          <input type="text" placeholder="Provincia / País">
+          <input type="text" name="ciudad" placeholder="Ciudad">
+          <input type="text" name="provincia" placeholder="Provincia / País">
         </div>
         <div class="select-wrap">
-        <select>
-          <option value="" disabled selected>Tipo de consulta</option>
-          <option>Importación</option>
-          <option>Permiso de embarque</option>
-          <option>Asesoramiento</option>
-          <option>Otro</option>
-        </select>
+          <select name="tipo_consulta">
+            <option value="" disabled selected>Tipo de consulta</option>
+            <option>Importación</option>
+            <option>Permiso de embarque</option>
+            <option>Asesoramiento</option>
+            <option>Otro</option>
+          </select>
         </div>
-        <textarea placeholder="Describí tu consulta o necesidad con el mayor detalle posible..."></textarea>
-        <button type="submit">Enviar consulta →</button>
+        <textarea name="mensaje" placeholder="Describí tu consulta o necesidad con el mayor detalle posible..."></textarea>
+        <button type="submit" id="submitBtn">Enviar consulta →</button>
+        <div id="formSuccess" style="display:none;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:16px;text-align:center;color:white;font-size:16px;font-weight:500;">
+          ✅ ¡Consulta enviada! Nos ponemos en contacto a la brevedad.
+        </div>
       </form>
     </div>
   </section>
@@ -926,19 +929,35 @@
       }
     }
 
-    function handleSubmit(e) {
+    // FORM AJAX
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button');
-      btn.textContent = '✓ Consulta enviada';
-      btn.style.background = '#d1fae5';
-      btn.style.color = '#065f46';
-      setTimeout(() => {
-        btn.textContent = 'Enviar consulta →';
-        btn.style.background = '';
-        btn.style.color = '';
-        e.target.reset();
-      }, 3000);
-    }
+      const btn = document.getElementById('submitBtn');
+      const success = document.getElementById('formSuccess');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      const data = new FormData(this);
+
+      try {
+        const res = await fetch('https://formspree.io/f/xaqkgeqv', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          btn.style.display = 'none';
+          success.style.display = 'block';
+          this.reset();
+        } else {
+          btn.textContent = 'Error al enviar. Intentá nuevamente.';
+          btn.disabled = false;
+        }
+      } catch(err) {
+        btn.textContent = 'Error al enviar. Intentá nuevamente.';
+        btn.disabled = false;
+      }
+    });
   </script>
 </body>
 </html>
