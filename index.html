@@ -93,15 +93,34 @@
       min-height: calc(100vh - 70px);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center; text-align: center;
-      padding: 80px 60px; background: var(--bg-alt);
+      padding: 80px 60px;
       position: relative; overflow: hidden;
     }
-    .hero::before {
-      content: ''; position: absolute; top: -120px; right: -120px;
-      width: 500px; height: 500px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(27,75,142,0.06) 0%, transparent 70%);
-      pointer-events: none;
+    .hero::before { display: none; }
+
+    /* CAROUSEL */
+    .hero-carousel {
+      position: absolute; inset: 0; z-index: 0;
     }
+    .hero-carousel-slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    .hero-carousel-slide.active { opacity: 1; }
+    .hero-carousel-slide::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(5,15,40,0.85) 0%, rgba(5,15,40,0.75) 100%);
+    }
+    .hero > .fade-up { position: relative; z-index: 1; }
+
+    .hero h1 { color: white; }
+    .hero h1 em { color: var(--gold); }
+    .hero p { color: white; }
+    .hero .btn-secondary { color: white; border-color: rgba(255,255,255,0.7); }
+    .hero .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+
+    /* Carousel dots - removed */
     .hero-tag {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--gold-light); color: var(--gold-mid);
@@ -112,10 +131,10 @@
     .hero h1 {
       font-family: 'Libre Baskerville', serif;
       font-size: 58px; font-weight: 700; line-height: 1.1;
-      letter-spacing: -1.5px; color: var(--text); margin-bottom: 22px; max-width: 700px;
+      letter-spacing: -1.5px; color: white; margin-bottom: 22px; max-width: 700px;
     }
     .hero h1 em { font-style: normal; color: var(--gold); font-weight: 700; }
-    .hero p { font-size: 18px; font-weight: 400; color: var(--muted); line-height: 1.75; margin-bottom: 36px; max-width: 560px; }
+    .hero p { font-size: 18px; font-weight: 400; color: white; line-height: 1.75; margin-bottom: 36px; max-width: 560px; }
     .hero-btns { display: flex; gap: 14px; justify-content: center; }
     .btn-primary {
       background: var(--blue); color: white; border: none;
@@ -262,6 +281,41 @@
     .footer-links a { font-size: 15px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: rgba(255,255,255,0.75); }
     .footer-copy { font-size: 14px; color: rgba(255,255,255,0.3); }
+
+    /* CONTENEDORES */
+    .cont-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .cont-card {
+      background: white; border: 1px solid var(--border); border-radius: 14px;
+      padding: 28px 24px; transition: border-color 0.2s, transform 0.2s;
+    }
+    .cont-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .cont-icon { font-size: 28px; margin-bottom: 14px; }
+    .cont-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .cont-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* TRANSPORTE */
+    .trans-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .trans-card {
+      background: white; border: 1px solid var(--border); border-radius: 14px;
+      padding: 28px 24px; display: flex; align-items: flex-start; gap: 18px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .trans-card:hover { border-color: var(--blue); transform: translateY(-3px); }
+    .trans-card--wide { grid-column: 1 / -1; }
+    .trans-icon { font-size: 32px; flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+    .trans-icon--blue { background: var(--blue-light); }
+    .trans-icon--gold { background: var(--gold-light); }
+    .trans-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .trans-card p { font-size: 15px; color: var(--muted); line-height: 1.65; }
+
+    @media (max-width: 900px) {
+      .cont-grid { grid-template-columns: 1fr 1fr; }
+      .trans-grid { grid-template-columns: 1fr; }
+      .trans-card--wide { grid-column: 1; }
+    }
+    @media (max-width: 480px) {
+      .cont-grid { grid-template-columns: 1fr; }
+    }
 
     /* CONTACT BAR */
     .contact-bar {
@@ -549,8 +603,13 @@
 
   <!-- HERO -->
   <section class="hero" id="inicio">
+    <!-- CARRUSEL -->
+    <div class="hero-carousel" id="heroCarousel">
+      <div class="hero-carousel-slide active" style="background-image:url('carrusel1.webp')"></div>
+      <div class="hero-carousel-slide" style="background-image:url('carrusel2.webp')"></div>
+      <div class="hero-carousel-slide" style="background-image:url('carrusel3.webp')"></div>
+    </div>
     <div class="fade-up">
-      <img src="LogoMacor2.svg" alt="Estudio MACOR" style="width:340px;height:auto;display:block;margin-bottom:28px;margin-left:auto;margin-right:auto;">
       <h1>Tu comercio exterior, en <em>manos expertas</em></h1>
       <p>Asesoramos y gestionamos operaciones de importación y exportación con precisión técnica, seguridad jurídica y acompañamiento personalizado en cada etapa.</p>
       <div class="hero-btns">
@@ -641,6 +700,124 @@
           <div style="font-size:17px;color:var(--muted);margin-top:6px;">De trayectoria en comercio exterior</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- CONTENEDORES -->
+  <section id="contenedores">
+    <div class="section-label fade-up">Operaciones</div>
+    <div class="section-title fade-up">Tipos de contenedores</div>
+    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:620px;margin-bottom:48px;line-height:1.75;">Ponemos a tu disposición una amplia variedad de contenedores adaptados a cada tipo de carga, garantizando seguridad y eficiencia en tus operaciones.</p>
+    <div class="cont-grid fade-up">
+
+      <div class="cont-card">
+        <div class="cont-icon">📦</div>
+        <h4>Dry (Seco)</h4>
+        <p>Carga general, pallets, cajas, productos no perecederos. Disponible en 20' y 40'. Totalmente cerrado y hermético.</p>
+      </div>
+
+      <div class="cont-card">
+        <div class="cont-icon">❄️</div>
+        <h4>Reefer (Refrigerado)</h4>
+        <p>Alimentos, farmacéuticos y mercadería perecedera. Control de temperatura y monitoreo constante.</p>
+      </div>
+
+      <div class="cont-card">
+        <div class="cont-icon">🏗️</div>
+        <h4>Open Top</h4>
+        <p>Cargas sobredimensionadas en altura. Sin techo rígido, permite carga superior y operaciones con grúa.</p>
+      </div>
+
+      <div class="cont-card">
+        <div class="cont-icon">⚙️</div>
+        <h4>Flat Rack</h4>
+        <p>Maquinaria pesada, vehículos y cargas de gran tamaño. Sin paredes ni techo, alta resistencia estructural.</p>
+      </div>
+
+      <div class="cont-card">
+        <div class="cont-icon">🔓</div>
+        <h4>Open Side</h4>
+        <p>Mercadería que requiere acceso lateral amplio. Apertura lateral completa, versátil para distintos tipos de carga.</p>
+      </div>
+
+      <div class="cont-card">
+        <div class="cont-icon">🛢️</div>
+        <h4>Tank (ISO Tank)</h4>
+        <p>Líquidos a granel: químicos, aceites, alimentos líquidos. Cumple normas internacionales de seguridad.</p>
+      </div>
+
+      <div class="cont-card">
+        <div class="cont-icon">📐</div>
+        <h4>High Cube</h4>
+        <p>Mercadería voluminosa. Mayor altura que el contenedor estándar, optimización del volumen de carga.</p>
+      </div>
+
+      <div class="cont-card">
+        <div class="cont-icon">🌬️</div>
+        <h4>Ventilado</h4>
+        <p>Productos que requieren circulación de aire: café, granos, semillas. Previene humedad y condensación.</p>
+      </div>
+
+      <div class="cont-card">
+        <div class="cont-icon">🏋️</div>
+        <h4>Platform</h4>
+        <p>Cargas de dimensiones o pesos extremos. Solo base, máxima capacidad, para proyectos especiales.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- MEDIOS DE TRANSPORTE -->
+  <section id="transporte" style="background:var(--bg-alt)">
+    <div class="section-label fade-up">Operaciones</div>
+    <div class="section-title fade-up">Medios de transporte internacional</div>
+    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:620px;margin-bottom:48px;line-height:1.75;">Elegir el medio de transporte adecuado es clave para optimizar costos, tiempos y seguridad en tus operaciones.</p>
+    <div class="trans-grid fade-up">
+
+      <div class="trans-card">
+        <div class="trans-icon trans-icon--blue">🚢</div>
+        <div>
+          <h4>Marítimo</h4>
+          <p>Grandes volúmenes de carga, mercadería pesada o no urgente. Costo más económico por volumen, ideal para larga distancia.</p>
+        </div>
+      </div>
+
+      <div class="trans-card">
+        <div class="trans-icon trans-icon--gold">✈️</div>
+        <div>
+          <h4>Aéreo</h4>
+          <p>Mercadería urgente, de alto valor o perecedera. Máxima rapidez en tránsito y alta seguridad.</p>
+        </div>
+      </div>
+
+      <div class="trans-card">
+        <div class="trans-icon trans-icon--blue">🚛</div>
+        <div>
+          <h4>Terrestre</h4>
+          <p>Operaciones regionales dentro del MERCOSUR. Servicio puerta a puerta, flexible y rápido en distancias cortas.</p>
+        </div>
+      </div>
+
+      <div class="trans-card">
+        <div class="trans-icon trans-icon--gold">🚂</div>
+        <div>
+          <h4>Ferroviario</h4>
+          <p>Grandes volúmenes en trayectos terrestres largos. Alta capacidad de carga y menor impacto ambiental.</p>
+        </div>
+      </div>
+
+      <div class="trans-card trans-card--wide">
+        <div class="trans-icon trans-icon--blue">🔄</div>
+        <div>
+          <h4>Multimodal</h4>
+          <p>Operaciones que combinan dos o más medios de transporte. Optimización de costos y tiempos, integración de toda la cadena bajo un solo operador.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -945,7 +1122,21 @@
       }
     }
 
-    // FORM AJAX
+    // CAROUSEL
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-carousel-slide');
+
+    function goToSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = n;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(() => {
+      goToSlide((currentSlide + 1) % slides.length);
+    }, 5000);
+
+    // SCROLL ANIMATIONS
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
