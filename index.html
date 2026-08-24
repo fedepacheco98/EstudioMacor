@@ -408,13 +408,11 @@
       .section-title { font-size: 28px; margin-bottom: 32px; }
       .section-label { font-size: 12px; }
 
-      /* Ajuste dinámico de campos de entrada */
       .form-control, input, select, textarea {
         font-size: 16px !important;
         padding: 12px 14px;
       }
 
-      /* Reestructuración a 1 columna de grillas internas */
       div[style*="grid-template-columns"] {
         grid-template-columns: 1fr !important;
         gap: 12px !important;
@@ -603,7 +601,7 @@
 
           <!-- AVISO LEGAL DE VERIFICACIÓN NORMATIVA -->
           <div id="avisoNormativo" style="display:none; background:rgba(201,168,76,0.15); border:1px solid var(--gold); border-radius:6px; padding:10px; margin-top:12px; font-size:12px; color:var(--gold-light);">
-            ⚠️ <strong>Aviso de Verificación Normativa:</strong> Se recomienda la revisión directa del Despachante de Aduana ante la ARCA-DGA para confirmar el cumplimiento de intervenciones específicas.
+            ⚠️ <strong>Aviso de Verificación Normativa:</strong> Se recomienda la revisión directa de un Despachante de Aduana ante la ARCA-DGA para confirmar el cumplimiento de intervenciones específicas.
           </div>
 
           <button onclick="trasladarALiquidador()" style="background:var(--blue); color:white; border:none; padding:8px 14px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; margin-top:14px;">
@@ -994,7 +992,6 @@
       </p>
     </div>
 
-    <!-- TARJETAS CON ALTURA, SOMBRAS Y ACENTOS ELEGANTES -->
     <div class="why-grid-v2">
       <div class="why-card-v2 fade-up">
         <div>
@@ -1414,6 +1411,14 @@
       return Math.abs(hash);
     }
 
+    function getDeterministicSIMSuffix(str) {
+      const hash = hashCode(str || 'macor');
+      const num = (hash % 899) + 100;
+      const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+      const letter = letters[hash % letters.length];
+      return `${num}${letter}`;
+    }
+
     function normalizarTexto(txt) {
       return (txt || '').toLowerCase()
         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -1423,7 +1428,7 @@
     const BASE_NCM_OFICIAL = [
       // 1. MUEBLES E ILUMINACIÓN (Capítulo 94)
       {
-        keywords: ['silla', 'sillón', 'sofá', 'banco', 'asiento'],
+        keywords: ['silla', 'sillon', 'sofa', 'banco', 'asiento'],
         codigoSIM: '9401.61.00.100A',
         glosa: 'Asientos con armazón de madera, tapizados',
         fundamento: 'RGI 1 y 6. Partida 94.01. Clasificación por materia constitutiva del armazón (madera) y acabado.',
@@ -1439,7 +1444,7 @@
         die: 18, te: 3, iva: 21, aviso: false
       },
       {
-        keywords: ['lampara', 'foco', 'led', 'velador', 'luminaria', 'araña', 'plafon', 'spot'],
+        keywords: ['lampara', 'foco', 'led', 'velador', 'luminaria', 'arana', 'plafon', 'spot'],
         codigoSIM: '9405.21.00.100B',
         glosa: 'Aparatos eléctricos de alumbrado para diseñar paredes o techos, diseñados para emitir luz LED',
         fundamento: 'RGI 1, 3b y 6. Partida 94.05. Clasificación según tecnología de iluminación (LED) y uso.',
@@ -1541,7 +1546,7 @@
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['zapato', 'calzado de cuero', 'bota', 'sandalia de cuero'],
+        keywords: ['zapato', 'calzado de cuero', 'bota', 'sandalia'],
         codigoSIM: '6403.99.00.100F',
         glosa: 'Calzado con suela de caucho, plástico o cuero natural y parte superior de cuero natural',
         fundamento: 'RGI 1 y 6. Partida 64.03. Clasificación por capellada de cuero natural.',
@@ -1617,7 +1622,7 @@
         die: 0, te: 0, iva: 21, aviso: false
       },
       {
-        keywords: ['equipo medico', 'ecografo', 'ecografo', 'tensiómetro', 'estetoscopio', 'jeringa'],
+        keywords: ['equipo medico', 'ecografo', 'tensiometro', 'estetoscopio', 'jeringa'],
         codigoSIM: '9018.12.00.100C',
         glosa: 'Aparatos de diagnóstico por exploración ultrasónica (ecógrafos)',
         fundamento: 'RGI 1 y 6. Partida 90.18. Instrumentos y aparatos de medicina, cirugía o veterinaria.',
@@ -1681,7 +1686,7 @@
 
       // 10. JUGUETES Y DEPORTES (Capítulo 95)
       {
-        keywords: ['juguete', 'muñeco', 'muñeca', 'juego de mesa', 'pista', 'bloques'],
+        keywords: ['juguete', 'muneco', 'muneca', 'juego de mesa', 'pista', 'bloques'],
         codigoSIM: '9503.00.99.100V',
         glosa: 'Los demás juguetes; modelos reducidos y modelos similares para entretenimiento',
         fundamento: 'RGI 1 y 6. Partida 95.03. Triciclos, patinetes, muñecos y juguetes en general.',
@@ -1691,96 +1696,115 @@
     ];
 
     async function ejecutarClasificacion(e) {
-      e.preventDefault();
+      if (e) e.preventDefault();
       const btn = document.getElementById('btnClasificar');
       const resCard = document.getElementById('resClasificacion');
       const statusBadge = document.getElementById('statusBadge');
 
-      const nombre = document.getElementById('prodNombre')?.value || '';
-      const material = document.getElementById('prodMaterial')?.value || '';
-      const uso = document.getElementById('prodUso')?.value || '';
-      const estado = document.getElementById('prodEstado')?.value || '';
-      const origen = document.getElementById('prodOrigen')?.value || '';
+      if (!btn) return;
 
       btn.disabled = true;
       btn.textContent = '⏳ Analizando NCM/SIM...';
 
-      const fullKey = `${nombre} ${material} ${uso}`.trim();
-      const qNorm = normalizarTexto(fullKey);
+      try {
+        const nombre = document.getElementById('prodNombre')?.value || '';
+        const material = document.getElementById('prodMaterial')?.value || '';
+        const uso = document.getElementById('prodUso')?.value || '';
+        const estado = document.getElementById('prodEstado')?.value || '';
+        const origen = document.getElementById('prodOrigen')?.value || '';
 
-      // Algoritmo de Coincidencia Ponderada sobre la NCM
-      let mejorMatch = null;
-      let maxPuntos = 0;
+        const fullKey = `${nombre} ${material} ${uso}`.trim();
+        const qNorm = normalizarTexto(fullKey);
 
-      for (const item of BASE_NCM_OFICIAL) {
-        let puntos = 0;
-        for (const kw of item.keywords) {
-          const kwNorm = normalizarTexto(kw);
-          if (qNorm.includes(kwNorm)) {
-            puntos += kwNorm.length * 2; // Mayor peso a coincidencias más específicas
+        let mejorMatch = null;
+        let maxPuntos = 0;
+
+        for (const item of BASE_NCM_OFICIAL) {
+          let puntos = 0;
+          for (const kw of item.keywords) {
+            const kwNorm = normalizarTexto(kw);
+            if (qNorm.includes(kwNorm) || kwNorm.includes(qNorm)) {
+              puntos += kwNorm.length * 2;
+            } else {
+              const words = qNorm.split(/\s+/);
+              for (const w of words) {
+                if (w.length > 3 && (kwNorm.includes(w) || w.includes(kwNorm))) {
+                  puntos += 3;
+                }
+              }
+            }
+          }
+          if (puntos > maxPuntos) {
+            maxPuntos = puntos;
+            mejorMatch = item;
           }
         }
-        if (puntos > maxPuntos) {
-          maxPuntos = puntos;
-          mejorMatch = item;
-        }
-      }
 
-      let resultadoFinal = null;
+        let resultadoFinal = null;
 
-      if (mejorMatch && maxPuntos >= 3) {
-        resultadoFinal = {
-          codigoSIM: mejorMatch.codigoSIM,
-          glosa: mejorMatch.glosa,
-          fundamento: mejorMatch.fundamento,
-          intervenciones: mejorMatch.intervenciones,
-          die: mejorMatch.die,
-          te: mejorMatch.te,
-          iva: mejorMatch.iva,
-          legislacionAviso: mejorMatch.aviso,
-          esOficial: true
-        };
-      } else {
-        // Motor de Contingencia Deterministico por Capitulos de la NCM
-        resultadoFinal = obtenerRespuestaDeterministica(fullKey, nombre, material, uso, estado, origen);
-      }
-
-      setTimeout(() => {
-        if (resultadoFinal.esOficial) {
-          statusBadge.innerHTML = `<span style="color:#10b981; font-weight:600;">✓ Posición SIM Detectada en Nomenclador Oficial</span>`;
+        if (mejorMatch && maxPuntos >= 3) {
+          resultadoFinal = {
+            codigoSIM: mejorMatch.codigoSIM,
+            glosa: mejorMatch.glosa,
+            fundamento: mejorMatch.fundamento,
+            intervenciones: mejorMatch.intervenciones,
+            die: mejorMatch.die,
+            te: mejorMatch.te,
+            iva: mejorMatch.iva,
+            legislacionAviso: mejorMatch.aviso,
+            esOficial: true
+          };
         } else {
-          statusBadge.innerHTML = `<span style="color:var(--gold); font-weight:600;">⚡ Posición Arancelaria Estimada por Capítulos NCM</span>`;
+          resultadoFinal = obtenerRespuestaDeterministica(fullKey, nombre, material, uso, estado, origen);
         }
-        
-        mostrarResultado(resultadoFinal);
+
+        setTimeout(() => {
+          if (statusBadge) {
+            if (resultadoFinal.esOficial) {
+              statusBadge.innerHTML = `<span style="color:#10b981; font-weight:600;">✓ Posición SIM Detectada en Nomenclador Oficial</span>`;
+            } else {
+              statusBadge.innerHTML = `<span style="color:var(--gold); font-weight:600;">⚡ Posición Arancelaria Estimada por Capítulos NCM</span>`;
+            }
+          }
+          mostrarResultado(resultadoFinal);
+          btn.disabled = false;
+          btn.textContent = '🔍 Clasificar Posición SIM';
+          if (resCard) resCard.style.display = 'block';
+        }, 250);
+
+      } catch (err) {
+        console.error("Error en clasificación:", err);
         btn.disabled = false;
         btn.textContent = '🔍 Clasificar Posición SIM';
-        if (resCard) resCard.style.display = 'block';
-      }, 300);
+      }
     }
 
     /* MOTOR DE CLASIFICACIÓN TÁCTICO POR CAPÍTULOS SI NO HAY MATCH DIRECTO */
     function obtenerRespuestaDeterministica(fullKey, nombre, material, uso, estado, origen) {
       const q = normalizarTexto(fullKey);
-      const suf = getDeterministicSIMSuffix(fullKey, '00');
+      const suf = getDeterministicSIMSuffix(fullKey);
 
-      let chapter = "84";
-      let glosaGen = "Artículos y manufacturas específicas de: " + (nombre.toUpperCase() || 'MERCADERÍA GENERAL');
+      let chapter = "8479.89.99";
+      let glosaGen = "Las demás máquinas y aparatos mecánicos con función propia: " + (nombre.toUpperCase() || 'MERCADERÍA GENERAL');
       let dieRate = 14;
       let interv = ["Verificación Documental y Física DGA"];
 
-      if (q.includes('madera') || q.includes('mueble')) {
+      if (q.includes('madera') || q.includes('mueble') || q.includes('silla') || q.includes('mesa')) {
         chapter = "9403.60.00"; glosaGen = "Los demás muebles de madera"; dieRate = 18;
-      } else if (q.includes('plastico') || q.includes('polimero')) {
+      } else if (q.includes('plastico') || q.includes('polimero') || q.includes('pvc')) {
         chapter = "3926.90.90"; glosaGen = "Las demás manufacturas de plástico"; dieRate = 18;
-      } else if (q.includes('metal') || q.includes('acero') || q.includes('hierro')) {
+      } else if (q.includes('metal') || q.includes('acero') || q.includes('hierro') || q.includes('aluminio')) {
         chapter = "7326.90.90"; glosaGen = "Las demás manufacturas de hierro o acero"; dieRate = 16;
       } else if (q.includes('vidrio') || q.includes('cristal')) {
         chapter = "7020.00.90"; glosaGen = "Las demás manufacturas de vidrio"; dieRate = 16;
       } else if (q.includes('papel') || q.includes('carton')) {
         chapter = "4823.90.90"; glosaGen = "Las demás manufacturas de papel o cartón"; dieRate = 14;
-      } else if (q.includes('electric') || q.includes('electroni')) {
+      } else if (q.includes('electric') || q.includes('electroni') || q.includes('cable') || q.includes('led')) {
         chapter = "8543.70.99"; glosaGen = "Aparatos eléctricos con función propia"; dieRate = 18; interv.push("Seguridad Eléctrica");
+      } else if (q.includes('ropa') || q.includes('textil') || q.includes('tela') || q.includes('algodon')) {
+        chapter = "6217.10.00"; glosaGen = "Los demás accesorios de vestir confeccionados"; dieRate = 35; interv.push("Etiquetado Textil");
+      } else if (q.includes('alimento') || q.includes('comida') || q.includes('fruta') || q.includes('carne')) {
+        chapter = "2106.90.90"; glosaGen = "Preparaciones alimenticias no expresadas en otra parte"; dieRate = 16; interv.push("ANMAT / SENASA");
       }
 
       return {
@@ -1800,10 +1824,12 @@
       document.getElementById('resFundamento').textContent = data.fundamento || '--';
 
       const intervBox = document.getElementById('resIntervenciones');
-      if (data.intervenciones && data.intervenciones.length > 0) {
-        intervBox.innerHTML = data.intervenciones.map(i => `<span style="background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:4px; font-size:11px; margin-right:4px;">${i}</span>`).join(' ');
-      } else {
-        intervBox.innerHTML = '<span style="font-size:12px; color:rgba(255,255,255,0.5);">Sin intervenciones obligatorias detectadas</span>';
+      if (intervBox) {
+        if (data.intervenciones && data.intervenciones.length > 0) {
+          intervBox.innerHTML = data.intervenciones.map(i => `<span style="background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:4px; font-size:11px; margin-right:4px;">${i}</span>`).join(' ');
+        } else {
+          intervBox.innerHTML = '<span style="font-size:12px; color:rgba(255,255,255,0.5);">Sin intervenciones obligatorias detectadas</span>';
+        }
       }
 
       if (document.getElementById('rateDIE')) document.getElementById('rateDIE').value = data.die || 0;
@@ -1811,10 +1837,12 @@
       if (document.getElementById('rateIVA')) document.getElementById('rateIVA').value = data.iva || 21;
 
       const aviso = document.getElementById('avisoNormativo');
-      if (data.legislacionAviso) {
-        aviso.style.display = 'block';
-      } else {
-        aviso.style.display = 'none';
+      if (aviso) {
+        if (data.legislacionAviso) {
+          aviso.style.display = 'block';
+        } else {
+          aviso.style.display = 'none';
+        }
       }
 
       recalcularLiquidacion();
