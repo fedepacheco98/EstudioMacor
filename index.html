@@ -10,10 +10,13 @@
   <meta property="og:title" content="Estudio MACOR — Estudio Integral de Comercio Exterior">
   <meta property="og:description" content="Su oficina de comercio exterior tercerizada. Despacho aduanero, asesoramiento jurídico, transporte internacional y desarrollo de mercados.">
   <meta property="og:type" content="website">
+  
+  <!-- FAVICONS ORIGINALES -->
   <link rel="icon" type="image/png" sizes="32x32" href="faviconMACOR2.png">
   <link rel="icon" type="image/png" sizes="16x16" href="faviconMACOR2.png">
   <link rel="shortcut icon" href="faviconMACOR2.png">
   <link rel="apple-touch-icon" href="faviconMACOR2.png">
+  
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
@@ -22,8 +25,14 @@
     gtag('js', new Date());
     gtag('config', 'G-XXXXXXXXXX');
   </script>
+
+  <!-- Chart.js para visualización tributaria -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Google Fonts ORIGINALES -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -44,6 +53,23 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
 
+    /* CONTACT BAR */
+    .contact-bar {
+      background: var(--blue-dark);
+      padding: 9px 60px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .contact-bar-inner {
+      display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .contact-bar-item {
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .contact-bar-item:hover { color: var(--gold); }
+
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 200;
@@ -54,30 +80,8 @@
       display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo img { height: 56px; width: auto; object-fit: contain; display: block; }
-    .nav-logo-img {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      background: var(--text);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; flex-shrink: 0;
-    }
-    .nav-logo-img img { width: 100%; height: 100%; object-fit: cover; filter: invert(1); }
-    .nav-logo-text {
-      display: flex; flex-direction: column; gap: 1px;
-    }
-    .nav-logo-name {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 18px; font-weight: 700;
-      letter-spacing: 2.5px; color: var(--text); line-height: 1.1;
-    }
-    .nav-logo-sub {
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 10px; font-weight: 400;
-      letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); line-height: 1;
-    }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-logo img { height: 52px; width: auto; object-fit: contain; display: block; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a { font-size: 15px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; letter-spacing: 0.2px; }
     .nav-links a:hover { color: var(--text); }
     .nav-cta {
@@ -96,12 +100,7 @@
       padding: 80px 60px;
       position: relative; overflow: hidden;
     }
-    .hero::before { display: none; }
-
-    /* CAROUSEL */
-    .hero-carousel {
-      position: absolute; inset: 0; z-index: 0;
-    }
+    .hero-carousel { position: absolute; inset: 0; z-index: 0; }
     .hero-carousel-slide {
       position: absolute; inset: 0;
       background-size: cover; background-position: center;
@@ -113,21 +112,6 @@
       background: linear-gradient(to bottom, rgba(5,15,40,0.85) 0%, rgba(5,15,40,0.75) 100%);
     }
     .hero > .fade-up { position: relative; z-index: 1; }
-
-    .hero h1 { color: white; }
-    .hero h1 em { color: var(--gold); }
-    .hero p { color: white; }
-    .hero .btn-secondary { color: white; border-color: rgba(255,255,255,0.7); }
-    .hero .btn-secondary:hover { background: rgba(255,255,255,0.15); }
-
-    /* Carousel dots - removed */
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--gold-light); color: var(--gold-mid);
-      font-size: 13px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase;
-      padding: 6px 14px; border-radius: 20px; margin-bottom: 22px;
-    }
-    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
     .hero h1 {
       font-family: 'Libre Baskerville', serif;
       font-size: 58px; font-weight: 700; line-height: 1.1;
@@ -135,7 +119,8 @@
     }
     .hero h1 em { font-style: normal; color: var(--gold); font-weight: 700; }
     .hero p { font-size: 18px; font-weight: 400; color: white; line-height: 1.75; margin-bottom: 36px; max-width: 560px; text-align: center; margin-left: auto; margin-right: auto; }
-    .hero-btns { display: flex; gap: 14px; justify-content: center; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    
     .btn-primary {
       background: var(--blue); color: white; border: none;
       padding: 15px 30px; border-radius: 8px; font-size: 17px; font-weight: 600;
@@ -145,37 +130,12 @@
     }
     .btn-primary:hover { background: var(--blue-mid); transform: translateY(-1px); }
     .btn-secondary {
-      background: transparent; color: var(--gold-mid); border: 1.5px solid var(--gold);
+      background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.7);
       padding: 15px 30px; border-radius: 8px; font-size: 17px; font-weight: 600;
       font-family: 'Source Sans 3', sans-serif; cursor: pointer; text-decoration: none;
       display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s;
     }
-    .btn-secondary:hover { background: var(--gold-light); }
-    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .stat-card {
-      background: white; border: 1px solid var(--border); border-radius: 14px;
-      padding: 24px 22px; display: flex; flex-direction: column; gap: 8px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(27,75,142,0.10); }
-    /* FEAT CARDS */
-    .hero-stats { display: flex; flex-direction: column; gap: 16px; }
-    .feat-card {
-      display: flex; align-items: center; gap: 20px;
-      background: white; border: 1px solid var(--border);
-      border-left: 5px solid var(--blue);
-      border-radius: 12px; padding: 22px 28px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .feat-card:hover { transform: translateX(4px); box-shadow: 0 8px 28px rgba(27,75,142,0.10); }
-    .feat-card--gold { border-left-color: var(--gold); }
-    .feat-card--dark { background: var(--blue); border-color: var(--blue); border-left-color: var(--gold); }
-    .feat-icon { font-size: 32px; flex-shrink: 0; }
-    .feat-body { display: flex; flex-direction: column; gap: 3px; }
-    .feat-num { font-family: 'Libre Baskerville', serif; font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
-    .feat-card--dark .feat-num { color: white; }
-    .feat-lbl { font-size: 15px; font-weight: 500; color: var(--muted); }
-    .feat-card--dark .feat-lbl { color: rgba(255,255,255,0.65); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.15); }
 
     /* SECTIONS */
     section { padding: 90px 60px; }
@@ -193,6 +153,32 @@
     .service-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--gold-light); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 22px; }
     .service-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
     .service-card p { font-size: 16px; font-weight: 400; color: var(--muted); line-height: 1.7; }
+
+    /* HERRAMIENTAS ADUANERAS (CLASIFICADOR & LIQUIDADOR) */
+    #herramientas { background: var(--blue-dark); color: white; }
+    .tools-container { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 30px; }
+    .tool-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 32px 28px; }
+    .tool-box-title { font-family: 'Libre Baskerville', serif; font-size: 22px; color: white; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold-light); margin-bottom: 6px; }
+    .form-control {
+      width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px; padding: 12px 14px; font-size: 15px; color: white; outline: none;
+      font-family: 'Source Sans 3', sans-serif; transition: border-color 0.2s;
+    }
+    .form-control:focus { border-color: var(--gold); background: rgba(255,255,255,0.12); }
+    .form-control option { background: #0d2456; color: white; }
+
+    .btn-gold-action {
+      width: 100%; background: var(--gold); color: var(--blue-dark); border: none;
+      padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 10px;
+    }
+    .btn-gold-action:hover { background: var(--gold-mid); color: white; }
+
+    .res-card { background: rgba(0,0,0,0.25); border: 1px dashed var(--gold); border-radius: 12px; padding: 20px; margin-top: 20px; }
+    .res-code { font-family: monospace; font-size: 22px; font-weight: 700; color: var(--gold); letter-spacing: 1px; }
 
     /* OPERACIONES */
     #operaciones { background: var(--bg-alt); padding: 90px 60px; }
@@ -214,38 +200,143 @@
     .ie-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 16px; font-weight: 400; line-height: 1.55; }
     .ie-card.light .ie-list li { color: #555; }
     .ie-card.dark .ie-list li { color: rgba(255,255,255,0.8); }
-    .ie-list li::before { content: '→'; font-weight: 600; flex-shrink: 0; margin-top: 1px; }
-    .ie-card.light .ie-list li::before { color: var(--gold); }
-    .ie-card.dark .ie-list li::before { color: var(--gold); }
+    .ie-list li::before { content: '→'; font-weight: 600; flex-shrink: 0; margin-top: 1px; color: var(--gold); }
 
-    /* NOSOTROS */
+    /* NOSOTROS - REDISEÑADO CON TARJETAS ELEGANTES */
     #nosotros { background: white; }
-    .why-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 60px; }
+    .why-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-end; margin-bottom: 50px; }
     .why-intro p { font-size: 18px; font-weight: 400; color: var(--muted); line-height: 1.75; }
-    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
-    .why-card { padding: 32px 28px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .why-num { font-family: 'Libre Baskerville', serif; font-size: 42px; color: var(--gold-light); font-weight: 700; line-height: 1; margin-bottom: 12px; }
-    .why-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .why-card p { font-size: 15px; font-weight: 400; color: var(--muted); line-height: 1.65; }
+    .why-grid-v2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .why-card-v2 {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .why-card-v2::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--blue));
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+    .why-card-v2:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(13, 36, 86, 0.08);
+      border-color: var(--gold);
+      background: white;
+    }
+    .why-card-v2:hover::before { opacity: 1; }
+    .why-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .why-num-v2 { font-family: 'Libre Baskerville', serif; font-size: 32px; font-weight: 700; color: var(--gold-mid); opacity: 0.8; }
+    .why-icon-v2 {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--blue-light); color: var(--blue);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .why-card-v2:hover .why-icon-v2 { background: var(--gold-light); color: var(--gold-mid); }
+    .why-card-v2 h4 { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+    .why-card-v2 p { font-size: 15px; color: var(--muted); line-height: 1.65; }
 
-    /* HERRAMIENTAS */
-    #herramientas { background: var(--bg-alt); }
-    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 50px; }
-    .tool-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; display: flex; align-items: flex-start; gap: 16px; transition: border-color 0.2s; }
-    .tool-card:hover { border-color: var(--gold); }
-    .tool-icon { font-size: 26px; flex-shrink: 0; }
-    .tool-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-    .tool-card p { font-size: 15px; font-weight: 400; color: var(--muted); line-height: 1.6; }
+    /* CONTENEDORES Y TRANSPORTE */
+    .cont-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .cont-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; transition: border-color 0.2s, transform 0.2s; }
+    .cont-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .cont-icon { font-size: 28px; margin-bottom: 14px; }
+    .cont-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .cont-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
-    /* NOVEDADES */
-    #novedades { background: white; }
-    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
-    .news-card { border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, transform 0.2s; cursor: pointer; }
-    .news-card:hover { border-color: var(--gold); transform: translateY(-2px); }
-    .news-tag { font-size: 10px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold-mid); background: var(--gold-light); padding: 4px 10px; border-radius: 20px; width: fit-content; }
-    .news-card h4 { font-size: 18px; font-weight: 700; line-height: 1.5; }
-    .news-card p { font-size: 15px; font-weight: 400; color: var(--muted); line-height: 1.6; flex: 1; }
-    .news-date { font-size: 12px; color: var(--subtle); border-top: 1px solid var(--border); padding-top: 12px; }
+    .trans-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .trans-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; display: flex; align-items: flex-start; gap: 18px; transition: border-color 0.2s, transform 0.2s; }
+    .trans-card:hover { border-color: var(--blue); transform: translateY(-3px); }
+    .trans-card--wide { grid-column: 1 / -1; }
+    .trans-icon { font-size: 32px; flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+    .trans-icon--blue { background: var(--blue-light); }
+    .trans-icon--gold { background: var(--gold-light); }
+    .trans-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .trans-card p { font-size: 15px; color: var(--muted); line-height: 1.65; }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; margin-top: 10px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 22px 0; font-size: 17px; font-weight: 600; font-family: 'Source Sans 3', sans-serif; color: var(--text); text-align: left; gap: 16px; transition: color 0.2s; }
+    .faq-q:hover { color: var(--blue); }
+    .faq-arrow { font-size: 20px; color: var(--gold); flex-shrink: 0; transition: transform 0.3s; }
+    .faq-q.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s ease; }
+    .faq-a.open { max-height: 300px; padding-bottom: 20px; }
+    .faq-a p { font-size: 16px; color: var(--muted); line-height: 1.75; }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* SOCIAL PILLS ORIGINALES */
+    .social-pill { display: flex; align-items: center; gap: 16px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 22px; text-decoration: none; min-width: 320px; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .social-pill:hover { border-color: var(--gold); transform: translateX(4px); box-shadow: 0 8px 24px rgba(27,75,142,0.09); }
+    .social-pill-icon { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .social-pill-icon--ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .social-pill-icon--fb { background: #1877f2; }
+    .social-pill-icon--li { background: #0a66c2; }
+    .social-pill-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+    .social-pill-name { font-size: 16px; font-weight: 700; color: var(--text); }
+    .social-pill-handle { font-size: 14px; color: var(--muted); }
+    .social-pill-arrow { color: var(--subtle); flex-shrink: 0; transition: color 0.2s; }
+
+    /* ESTILOS DE SECCIÓN DE NOTICIAS Y MODAL */
+    #noticias { background: var(--bg-alt); }
+    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; }
+    .news-card {
+      background: white; border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer;
+    }
+    .news-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 12px 32px rgba(201,168,76,0.12); }
+    .news-badge {
+      display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1.2px; color: var(--gold-mid); background: var(--gold-light);
+      padding: 4px 12px; border-radius: 20px; width: fit-content; margin-bottom: 14px;
+    }
+    .news-card h3 { font-family: 'Libre Baskerville', serif; font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.35; margin-bottom: 12px; }
+    .news-card p { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+    .news-meta { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 14px; font-size: 13px; color: var(--subtle); }
+    .news-read-link { font-weight: 600; color: var(--blue); display: flex; align-items: center; gap: 4px; }
+
+    /* MODAL OVERLAY GENERAL */
+    .news-modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(13, 36, 86, 0.82); backdrop-filter: blur(6px);
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .news-modal-overlay.active { display: flex; }
+    .news-modal-container {
+      background: white; border-radius: 20px; max-width: 760px; width: 100%;
+      max-height: 85vh; overflow-y: auto; padding: 40px; position: relative;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.3); animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .news-modal-close {
+      position: absolute; top: 20px; right: 24px; background: var(--bg-alt);
+      border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      cursor: pointer; color: var(--muted); transition: background 0.2s, color 0.2s;
+    }
+    .news-modal-close:hover { background: var(--blue); color: white; }
+    .news-modal-body h2 { font-family: 'Libre Baskerville', serif; font-size: 32px; color: var(--text); line-height: 1.25; margin: 12px 0 16px; }
+    .news-modal-body .modal-subtitle { font-size: 18px; color: var(--muted); line-height: 1.6; font-style: italic; margin-bottom: 24px; border-left: 3px solid var(--gold); padding-left: 16px; }
+    .news-modal-content { font-size: 16px; color: #334155; line-height: 1.8; }
+    .news-modal-content p { margin-bottom: 16px; }
+    .news-modal-content h4 { font-size: 18px; font-weight: 700; color: var(--blue-dark); margin: 24px 0 10px; }
+    .news-modal-footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
 
     /* CONTACTO */
     #contacto { background: var(--blue-dark); padding: 90px 60px; }
@@ -259,11 +350,7 @@
     .contact-item-text span { font-size: 15px; color: rgba(255,255,255,0.55); }
     .contact-form { display: flex; flex-direction: column; gap: 14px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .contact-form input, .contact-form textarea, .contact-form select {
-      width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 8px; padding: 14px 16px; font-size: 16px; color: white;
-      font-family: 'Source Sans 3', sans-serif; outline: none; transition: border-color 0.2s, background 0.2s; appearance: none;
-    }
+    .contact-form input, .contact-form textarea, .contact-form select { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 14px 16px; font-size: 16px; color: white; font-family: 'Source Sans 3', sans-serif; outline: none; transition: border-color 0.2s, background 0.2s; appearance: none; }
     .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,0.3); }
     .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1); }
     .contact-form select option { background: #1a3660; color: white; }
@@ -271,292 +358,34 @@
     .contact-form button { background: white; color: var(--blue); border: none; padding: 16px; border-radius: 8px; font-size: 17px; font-weight: 600; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; }
     .contact-form button:hover { background: var(--blue-light); transform: translateY(-1px); }
 
-    /* FOOTER */
+    /* FOOTER ORIGINAL */
     footer { background: #080f1c; padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
     .footer-logo { display: flex; align-items: center; gap: 10px; }
-    .footer-logo-img { width: 32px; height: 32px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
-    .footer-logo-img img { width: 100%; height: 100%; object-fit: cover; }
-    .footer-logo-text { font-family: 'Libre Baskerville', serif; font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 2px; }
     .footer-links { display: flex; gap: 24px; }
     .footer-links a { font-size: 15px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: rgba(255,255,255,0.75); }
     .footer-copy { font-size: 14px; color: rgba(255,255,255,0.3); }
 
-    /* CONTENEDORES */
-    .cont-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .cont-card {
-      background: white; border: 1px solid var(--border); border-radius: 14px;
-      padding: 28px 24px; transition: border-color 0.2s, transform 0.2s;
-    }
-    .cont-card:hover { border-color: var(--gold); transform: translateY(-3px); }
-    .cont-icon { font-size: 28px; margin-bottom: 14px; }
-    .cont-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-    .cont-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-
-    /* TRANSPORTE */
-    .trans-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .trans-card {
-      background: white; border: 1px solid var(--border); border-radius: 14px;
-      padding: 28px 24px; display: flex; align-items: flex-start; gap: 18px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .trans-card:hover { border-color: var(--blue); transform: translateY(-3px); }
-    .trans-card--wide { grid-column: 1 / -1; }
-    .trans-icon { font-size: 32px; flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
-    .trans-icon--blue { background: var(--blue-light); }
-    .trans-icon--gold { background: var(--gold-light); }
-    .trans-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-    .trans-card p { font-size: 15px; color: var(--muted); line-height: 1.65; }
-
-    @media (max-width: 900px) {
-      .cont-grid { grid-template-columns: 1fr 1fr; }
-      .trans-grid { grid-template-columns: 1fr; }
-      .trans-card--wide { grid-column: 1; }
-    }
-    @media (max-width: 480px) {
-      .cont-grid { grid-template-columns: 1fr; }
-    }
-
-    /* CONTACT BAR */
-    .contact-bar {
-      background: var(--blue-dark);
-      padding: 9px 60px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .contact-bar-inner {
-      display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .contact-bar-item {
-      font-size: 13px; color: rgba(255,255,255,0.7);
-      text-decoration: none; display: flex; align-items: center; gap: 6px;
-      transition: color 0.2s;
-    }
-    .contact-bar-item:hover { color: var(--gold); }
-    @media (max-width: 900px) {
-      .contact-bar { padding: 8px 16px; }
-      .contact-bar-inner { gap: 12px; justify-content: center; flex-wrap: wrap; }
-      .contact-bar-item { font-size: 12px; }
-    }
-
-    /* FAQ */
-    .faq-list { display: flex; flex-direction: column; margin-top: 10px; }
-    .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-q {
-      width: 100%; background: none; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 22px 0; font-size: 17px; font-weight: 600;
-      font-family: 'Source Sans 3', sans-serif; color: var(--text);
-      text-align: left; gap: 16px; transition: color 0.2s;
-    }
-    .faq-q:hover { color: var(--blue); }
-    .faq-arrow { font-size: 20px; color: var(--gold); flex-shrink: 0; transition: transform 0.3s; }
-    .faq-q.open .faq-arrow { transform: rotate(180deg); }
-    .faq-a {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.3s ease;
-    }
-    .faq-a.open { max-height: 300px; padding-bottom: 20px; }
-    .faq-a p { font-size: 16px; color: var(--muted); line-height: 1.75; }
-
-    /* MAP RESPONSIVE */
-    @media (max-width: 900px) {
-      #mapa > div { grid-template-columns: 1fr !important; }
-      #mapa > div > div:first-child { padding: 50px 20px; }
-      #mapa iframe { min-height: 300px !important; height: 300px !important; }
-    }
-
-    /* QUIENES SOMOS RESPONSIVE */
-    @media (max-width: 900px) {
-      #quienes > div { grid-template-columns: 1fr !important; gap: 36px !important; }
-    }
-
-    hr { border: none; border-top: 1px solid var(--border); margin: 0; }
-
-    /* ANIMATIONS */
-    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-    /* SOCIAL PILLS */
-    .social-pill {
-      display: flex; align-items: center; gap: 16px;
-      background: white; border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px 22px;
-      text-decoration: none; min-width: 320px;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-    .social-pill:hover { border-color: var(--gold); transform: translateX(4px); box-shadow: 0 8px 24px rgba(27,75,142,0.09); }
-    .social-pill-icon {
-      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .social-pill-icon--ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-    .social-pill-icon--fb { background: #1877f2; }
-    .social-pill-icon--li { background: #0a66c2; }
-    .social-pill-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-    .social-pill-name { font-size: 16px; font-weight: 700; color: var(--text); }
-    .social-pill-handle { font-size: 14px; color: var(--muted); }
-    .social-pill-arrow { color: var(--subtle); flex-shrink: 0; transition: color 0.2s; }
-    .social-pill:hover .social-pill-arrow { color: var(--gold-mid); }
-
-    /* SELECT ARROW */
-    .select-wrap { position: relative; }
-    .select-wrap::after {
-      content: '▾';
-      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-      color: rgba(255,255,255,0.6); font-size: 16px; pointer-events: none;
-    }
-    .select-wrap select { padding-right: 38px; }
-
-    /* ── HAMBURGER ── */
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px; z-index: 300;
-      position: relative;
-    }
-    .hamburger span {
-      display: block; width: 24px; height: 2px;
-      background: var(--text); border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-    .hamburger.open span { background: var(--text); }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* ── MOBILE MENU OVERLAY ── */
-    .mobile-menu {
-      display: none; position: fixed; inset: 0; z-index: 150;
-      background: white; flex-direction: column;
-      justify-content: center; align-items: center; gap: 32px;
-    }
+    /* HAMBURGER Y RESPONSIVE */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 300; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 150; background: white; flex-direction: column; justify-content: center; align-items: center; gap: 32px; }
     .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 30px; font-weight: 700; color: var(--text);
-      text-decoration: none; letter-spacing: -0.5px;
-      transition: color 0.2s;
-    }
-    .mobile-menu a:hover { color: var(--blue); }
-    .mobile-menu .mobile-cta {
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 18px; font-weight: 600;
-      background: var(--gold); color: var(--blue-dark);
-      padding: 14px 36px; border-radius: 8px; margin-top: 8px;
-    }
+    .mobile-menu a { font-family: 'Libre Baskerville', serif; font-size: 28px; font-weight: 700; color: var(--text); text-decoration: none; }
 
-    /* ── TABLET (≤ 900px) ── */
     @media (max-width: 900px) {
       nav { padding: 10px 20px; height: 70px; }
       nav .nav-links, nav .nav-cta { display: none; }
       .hamburger { display: flex; }
-      nav .nav-logo { flex: 1; justify-content: center; }
-      nav .nav-logo img { height: 46px; }
-
-      .hero {
-        grid-template-columns: 1fr; gap: 36px;
-        min-height: auto; padding: 48px 20px 44px;
-      }
-      .hero img[alt="Estudio MACOR"] { width: 260px !important; }
-      .hero h1 { font-size: 38px; letter-spacing: -0.8px; }
-      .hero p { font-size: 17px; max-width: 100%; }
-      .hero-btns { flex-direction: column; gap: 12px; }
-      .hero-btns a { justify-content: center; text-align: center; }
-      .hero-stats { flex-direction: column; gap: 14px; }
-      .feat-card { padding: 18px 22px; }
-
+      .tools-container, .services-grid, .ie-grid, .cont-grid, .trans-grid, .contact-inner { grid-template-columns: 1fr; }
+      .why-grid-v2 { grid-template-columns: 1fr 1fr; }
+      .news-grid { grid-template-columns: 1fr; }
       section { padding: 60px 20px; }
-      #operaciones { padding: 60px 20px; }
-      #contacto { padding: 60px 20px; }
-      #novedades { padding: 50px 20px !important; }
-      #novedades > div { flex-direction: column !important; gap: 24px !important; }
-      .social-pill { min-width: unset; width: 100%; }
-      .section-title { font-size: 34px; }
-
-      .services-grid { grid-template-columns: 1fr; gap: 14px; }
-      .ie-grid { grid-template-columns: 1fr; }
-      .ie-card { padding: 28px 24px; }
-      .why-intro { grid-template-columns: 1fr; gap: 16px; }
-      .why-grid { grid-template-columns: 1fr 1fr; }
-      .tools-grid { grid-template-columns: 1fr; gap: 14px; }
-      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-      .form-row { grid-template-columns: 1fr; gap: 12px; }
-
-      .social-card-v2-netname { font-size: 20px; }
-      .social-card-v2-handle { font-size: 15px; }
-
-      /* FOOTER centrado */
-      footer { padding: 32px 20px; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
-      .footer-links { display: none; }
-      footer img[alt="Estudio MACOR"] { width: 140px !important; }
-      .footer-copy { text-align: center; }
+      footer { padding: 32px 20px; flex-direction: column; text-align: center; }
     }
-
-    /* ── MOBILE (≤ 480px) ── */
-    @media (max-width: 480px) {
-      nav { height: 62px; padding: 8px 16px; }
-      nav .nav-logo img { height: 38px; }
-      nav .nav-logo { flex: 1; justify-content: center; }
-
-      .hero { padding: 36px 16px 36px; gap: 28px; }
-      .hero img[alt="Estudio MACOR"] { width: 200px !important; margin-bottom: 16px !important; }
-      .hero h1 { font-size: 30px; line-height: 1.15; }
-      .hero p { font-size: 15px; }
-      .btn-primary, .btn-secondary { padding: 13px 18px; font-size: 15px; width: 100%; justify-content: center; }
-
-      .feat-card { padding: 16px 18px; gap: 14px; }
-      .feat-icon { font-size: 26px; }
-      .feat-num { font-size: 22px; }
-      .feat-lbl { font-size: 13px; }
-
-      section { padding: 44px 16px; }
-      #operaciones { padding: 44px 16px; }
-      #contacto { padding: 44px 16px; }
-      #novedades { padding: 44px 16px !important; }
-      .section-title { font-size: 26px; letter-spacing: -0.2px; }
-      .section-label { font-size: 11px; }
-
-      .service-card { padding: 20px 16px; }
-      .service-icon { width: 40px; height: 40px; font-size: 18px; }
-      .service-card h3 { font-size: 17px; }
-      .service-card p { font-size: 14px; }
-
-      .ie-card { padding: 22px 18px; }
-      .ie-card h3 { font-size: 22px; }
-      .ie-card p { font-size: 14px; }
-      .ie-list li { font-size: 14px; }
-
-      .why-grid { grid-template-columns: 1fr; }
-      .why-card { padding: 20px 16px; }
-      .why-num { font-size: 30px; }
-      .why-card h4 { font-size: 16px; }
-      .why-card p { font-size: 14px; }
-
-      .tool-card { padding: 18px 14px; gap: 12px; }
-      .tool-icon { font-size: 22px; }
-      .tool-card h4 { font-size: 16px; }
-      .tool-card p { font-size: 13px; }
-
-      /* SOCIAL */
-      .social-card-v2-top { padding: 20px 20px 18px; gap: 12px; }
-      .social-card-v2-top svg { width: 30px; height: 30px; }
-      .social-card-v2-netname { font-size: 18px; }
-      .social-card-v2-body { padding: 16px 20px; }
-      .social-card-v2-handle { font-size: 14px; }
-
-      .contact-left h2 { font-size: 26px; }
-      .contact-left p { font-size: 15px; }
-      .contact-items { gap: 12px; }
-      .contact-item-icon { width: 36px; height: 36px; font-size: 15px; }
-      .contact-item-text strong { font-size: 14px; }
-      .contact-item-text span { font-size: 13px; }
-      .contact-form input, .contact-form textarea, .contact-form select { font-size: 15px; padding: 12px 14px; }
-      .contact-form button { font-size: 16px; padding: 14px; }
-
-      footer { padding: 24px 16px; align-items: center; text-align: center; }
-      footer img[alt="Estudio MACOR"] { width: 120px !important; }
-      .footer-copy { font-size: 12px; text-align: center; }
-      nav .nav-logo img { height: 34px; }
+    @media (max-width: 540px) {
+      .why-grid-v2 { grid-template-columns: 1fr; }
+      .why-intro { grid-template-columns: 1fr; gap: 16px; }
     }
   </style>
 </head>
@@ -581,6 +410,8 @@
     </a>
     <ul class="nav-links">
       <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#herramientas">Calculadora & NCM</a></li>
+      <li><a href="#noticias">Noticias</a></li>
       <li><a href="#operaciones">Operaciones</a></li>
       <li><a href="#mercados">Desarrollo de Mercados</a></li>
       <li><a href="#quienes">Quiénes somos</a></li>
@@ -596,6 +427,8 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#servicios" onclick="closeMenu()">Servicios</a>
+    <a href="#herramientas" onclick="closeMenu()">Calculadora & NCM</a>
+    <a href="#noticias" onclick="closeMenu()">Noticias</a>
     <a href="#operaciones" onclick="closeMenu()">Operaciones</a>
     <a href="#mercados" onclick="closeMenu()">Desarrollo de Mercados</a>
     <a href="#quienes" onclick="closeMenu()">Quiénes somos</a>
@@ -605,7 +438,6 @@
 
   <!-- HERO -->
   <section class="hero" id="inicio">
-    <!-- CARRUSEL -->
     <div class="hero-carousel" id="heroCarousel">
       <div class="hero-carousel-slide active" style="background-image:url('carrusel1.webp')"></div>
       <div class="hero-carousel-slide" style="background-image:url('carrusel2.webp')"></div>
@@ -616,7 +448,7 @@
       <p>Usted se dedica a producir y vender. Nosotros nos encargamos de todo el proceso operativo, logístico, jurídico y documental de sus importaciones y exportaciones, con la seguridad de contar con especialistas en despacho aduanero al frente de cada operación.</p>
       <div class="hero-btns">
         <a href="#contacto" class="btn-primary">Solicitar asesoramiento →</a>
-        <a href="#servicios" class="btn-secondary">Ver servicios</a>
+        <a href="#herramientas" class="btn-secondary">Calculadora & Clasificador</a>
       </div>
     </div>
   </section>
@@ -646,6 +478,156 @@
         <h3>Desarrollo de Mercados</h3>
         <p>Ayudamos a identificar compradores potenciales en el exterior para su producción, sumando a la gestión aduanera y logística una puerta de entrada a nuevos mercados.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- HERRAMIENTAS: CLASIFICADOR IA & LIQUIDADOR TRIBUTARIO -->
+  <section id="herramientas">
+    <div class="section-label fade-up" style="color:var(--gold);">Módulo Operativo MACOR</div>
+    <div class="section-title fade-up" style="color:white; max-width:700px;">Clasificación NCM/SIM con IA & Liquidador Tributario</div>
+    <p class="fade-up" style="color:rgba(255,255,255,0.8); max-width:650px; margin-bottom:16px;">
+      Determine la posición arancelaria oficial NCM/SIM de su producto mediante Inteligencia Artificial y liquide los impuestos aduaneros para la nacionalización en Argentina.
+    </p>
+
+    <!-- AVISO DE CARÁCTER ESTIMATIVO -->
+    <div class="fade-up" style="background: rgba(201,168,76,0.12); border: 1px solid var(--gold); border-radius: 10px; padding: 14px 18px; margin-bottom: 28px; max-width: 900px; color: var(--gold-light); font-size: 13.5px; display: flex; align-items: center; gap: 12px; line-height: 1.5;">
+      <span style="font-size: 22px; flex-shrink: 0;">⚠️</span>
+      <span><strong>Aviso Legal & Operativo:</strong> Todos los resultados, clasificaciones arancelarias y valores de liquidación provistos por esta herramienta son de carácter <strong>estrictamente estimativo e informativo</strong>. Para la oficialización de despachos de importación/exportación ante la ARCA-DGA, es indispensable la evaluación directa y confirmación de un <strong>Despachante de Aduana</strong>.</span>
+    </div>
+
+    <div class="tools-container">
+      
+      <!-- LADO IZQUIERDO: CLASIFICADOR NCM/SIM CON IA -->
+      <div class="tool-box fade-up">
+        <div class="tool-box-title">
+          <span>🧠</span> Clasificador NCM / SIM
+        </div>
+        
+        <form id="formClasificador" onsubmit="ejecutarClasificacion(event)">
+          <div class="form-group">
+            <label>Descripción detallada del producto *</label>
+            <input type="text" id="prodNombre" class="form-control" placeholder="Ej: Zapatillas deportivas con capellada textil y suela de caucho" required>
+          </div>
+          <div class="form-group">
+            <label>Composición / Materiales principales</label>
+            <input type="text" id="prodMaterial" class="form-control" placeholder="Ej: 100% Poliéster / Caucho sintético">
+          </div>
+          <div class="form-group">
+            <label>Uso / Aplicación</label>
+            <input type="text" id="prodUso" class="form-control" placeholder="Ej: Calzado para entrenamiento deportivo">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label>Estado</label>
+              <select id="prodEstado" class="form-control">
+                <option value="Nuevo">Nuevo</option>
+                <option value="Usado">Usado</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Origen</label>
+              <input type="text" id="prodOrigen" class="form-control" placeholder="Ej: China">
+            </div>
+          </div>
+          <button type="submit" id="btnClasificar" class="btn-gold-action">
+            🔍 Clasificar Posición SIM
+          </button>
+        </form>
+
+        <div id="resClasificacion" class="res-card" style="display:none;">
+          <div id="statusBadge" style="font-size:12px; margin-bottom:8px;"></div>
+          <div style="font-size:12px; text-transform:uppercase; color:var(--gold-light);">Posición SIM Sugerida:</div>
+          <div id="resCodigoSIM" class="res-code">--</div>
+          <div id="resGlosa" style="font-size:14px; color:white; font-style:italic; margin-top:4px;">--</div>
+          
+          <div style="margin-top:14px; font-size:13px; color:rgba(255,255,255,0.85); line-height:1.5;">
+            <strong>Fundamento Arancelario (RGI):</strong>
+            <div id="resFundamento" style="color:rgba(255,255,255,0.7); margin-top:2px;">--</div>
+          </div>
+
+          <div style="margin-top:10px; font-size:13px; color:rgba(255,255,255,0.85);">
+            <strong>Intervenciones previas estimadas:</strong>
+            <div id="resIntervenciones" style="margin-top:4px;">--</div>
+          </div>
+
+          <!-- AVISO LEGAL SI NO SE ENCUENTRA LEGISLACION ESPECIFICA -->
+          <div id="avisoNormativo" style="display:none; background:rgba(201,168,76,0.15); border:1px solid var(--gold); border-radius:6px; padding:10px; margin-top:12px; font-size:12px; color:var(--gold-light);">
+            ⚠️ <strong>Aviso de Verificación Normativa:</strong> No se detectó resolución legal específica vigente en la consulta automática. Se recomienda la revisión directa del Despachante de Aduana ante la ARCA-DGA.
+          </div>
+
+          <button onclick="trasladarALiquidador()" style="background:var(--blue); color:white; border:none; padding:8px 14px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; margin-top:14px;">
+            ↙ Trasladar al Liquidador Tributario
+          </button>
+        </div>
+      </div>
+
+      <!-- LADO DERECHO: LIQUIDADOR DE TRIBUTOS ADUANEROS -->
+      <div class="tool-box fade-up" style="transition-delay:0.15s">
+        <div class="tool-box-title">
+          <span>🧮</span> Liquidador Tributario de Importación
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label>Valor FOB (USD)</label>
+            <input type="number" id="valFOB" value="10000" class="form-control" oninput="recalcularLiquidacion()">
+          </div>
+          <div class="form-group">
+            <label>Flete Int. (USD)</label>
+            <input type="number" id="valFlete" value="1200" class="form-control" oninput="recalcularLiquidacion()">
+          </div>
+          <div class="form-group">
+            <label>Seguro Int. (USD)</label>
+            <input type="number" id="valSeguro" value="100" class="form-control" oninput="recalcularLiquidacion()">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:6px;">
+          <div class="form-group">
+            <label>D.I.E. (%)</label>
+            <input type="number" id="rateDIE" value="16" step="0.5" class="form-control" oninput="recalcularLiquidacion()">
+          </div>
+          <div class="form-group">
+            <label>Tasa Estad. (%)</label>
+            <input type="number" id="rateTE" value="3" step="0.5" class="form-control" oninput="recalcularLiquidacion()">
+          </div>
+          <div class="form-group">
+            <label>Alícuota IVA (%)</label>
+            <select id="rateIVA" class="form-control" onchange="recalcularLiquidacion()">
+              <option value="21">21.0%</option>
+              <option value="10.5">10.5%</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- RESUMEN DE LIQUIDACION -->
+        <div style="background:rgba(0,0,0,0.3); border-radius:10px; padding:16px; margin-top:16px;">
+          <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px; color:rgba(255,255,255,0.8);">
+            <span>Valor Aduanero CIF:</span>
+            <strong id="dispCIF" style="color:white;">USD 11.300,00</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px; color:rgba(255,255,255,0.8);">
+            <span>Derechos y Tasa Estadística:</span>
+            <strong id="dispAduana" style="color:var(--gold);">USD 2.147,00</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px; color:rgba(255,255,255,0.8);">
+            <span>Impuestos Interiores (IVA/Percepciones):</span>
+            <strong id="dispInteriores" style="color:#10b981;">USD 6.666,26</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:16px; margin-top:10px; border-top:1px solid rgba(255,255,255,0.1); padding-top:8px;">
+            <span>Costo Nacionalizado Estimado:</span>
+            <strong id="dispLanded" style="color:var(--gold-light); font-size:18px;">USD 20.113,26</strong>
+          </div>
+          <div style="margin-top: 10px; font-size: 11px; color: rgba(255,255,255,0.55); text-align: center; font-style: italic;">
+            * Cálculo de referencia no vinculante. Consulte con nuestro equipo de despachantes para un presupuesto formal.
+          </div>
+        </div>
+
+        <div style="height:150px; margin-top:14px;">
+          <canvas id="chartTributos"></canvas>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -702,6 +684,20 @@
     </div>
   </section>
 
+  <!-- SECCIÓN DE NOTICIAS Y NOVEDADES DEL SECTOR -->
+  <section id="noticias">
+    <div class="section-label fade-up">Novedades & Normativa</div>
+    <div class="section-title fade-up">Actualidad del Comercio Exterior en Argentina</div>
+    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:640px;margin-bottom:36px;">
+      Manténgase informado sobre resoluciones aduaneras, cambios normativos de la ARCA-DGA, tendencias en transporte internacional e incentivos para exportadores.
+    </p>
+
+    <!-- GRILLA DINÁMICA DE NOTICIAS -->
+    <div class="news-grid fade-up" id="newsGridContainer">
+      <!-- Se renderiza dinámicamente desde el Admin / LocalStorage -->
+    </div>
+  </section>
+
   <hr>
 
   <!-- QUIENES SOMOS -->
@@ -745,61 +741,51 @@
     <div class="section-title fade-up">Tipos de contenedores</div>
     <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:620px;margin-bottom:48px;line-height:1.75;">Ponemos a tu disposición una amplia variedad de contenedores adaptados a cada tipo de carga, garantizando seguridad y eficiencia en tus operaciones.</p>
     <div class="cont-grid fade-up">
-
       <div class="cont-card">
         <div class="cont-icon">📦</div>
         <h4>Dry (Seco)</h4>
         <p>Carga general, pallets, cajas, productos no perecederos. Disponible en 20' y 40'. Totalmente cerrado y hermético.</p>
       </div>
-
       <div class="cont-card">
         <div class="cont-icon">❄️</div>
         <h4>Reefer (Refrigerado)</h4>
         <p>Alimentos, farmacéuticos y mercadería perecedera. Control de temperatura y monitoreo constante.</p>
       </div>
-
       <div class="cont-card">
         <div class="cont-icon">🏗️</div>
         <h4>Open Top</h4>
         <p>Cargas sobredimensionadas en altura. Sin techo rígido, permite carga superior y operaciones con grúa.</p>
       </div>
-
       <div class="cont-card">
         <div class="cont-icon">⚙️</div>
         <h4>Flat Rack</h4>
         <p>Maquinaria pesada, vehículos y cargas de gran tamaño. Sin paredes ni techo, alta resistencia estructural.</p>
       </div>
-
       <div class="cont-card">
         <div class="cont-icon">🔓</div>
         <h4>Open Side</h4>
         <p>Mercadería que requiere acceso lateral amplio. Apertura lateral completa, versátil para distintos tipos de carga.</p>
       </div>
-
       <div class="cont-card">
         <div class="cont-icon">🛢️</div>
         <h4>Tank (ISO Tank)</h4>
         <p>Líquidos a granel: químicos, aceites, alimentos líquidos. Cumple normas internacionales de seguridad.</p>
       </div>
-
       <div class="cont-card">
         <div class="cont-icon">📐</div>
         <h4>High Cube</h4>
         <p>Mercadería voluminosa. Mayor altura que el contenedor estándar, optimización del volumen de carga.</p>
       </div>
-
       <div class="cont-card">
         <div class="cont-icon">🌬️</div>
         <h4>Ventilado</h4>
         <p>Productos que requieren circulación de aire: café, granos, semillas. Previene humedad y condensación.</p>
       </div>
-
       <div class="cont-card">
         <div class="cont-icon">🏋️</div>
         <h4>Platform</h4>
         <p>Cargas de dimensiones o pesos extremos. Solo base, máxima capacidad, para proyectos especiales.</p>
       </div>
-
     </div>
   </section>
 
@@ -811,7 +797,6 @@
     <div class="section-title fade-up">Medios de transporte internacional</div>
     <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:620px;margin-bottom:48px;line-height:1.75;">Elegir el medio de transporte adecuado es clave para optimizar costos, tiempos y seguridad en tus operaciones.</p>
     <div class="trans-grid fade-up">
-
       <div class="trans-card">
         <div class="trans-icon trans-icon--blue">🚢</div>
         <div>
@@ -819,7 +804,6 @@
           <p>Grandes volúmenes de carga, mercadería pesada o no urgente. Costo más económico por volumen, ideal para larga distancia.</p>
         </div>
       </div>
-
       <div class="trans-card">
         <div class="trans-icon trans-icon--gold">✈️</div>
         <div>
@@ -827,7 +811,6 @@
           <p>Mercadería urgente, de alto valor o perecedera. Máxima rapidez en tránsito y alta seguridad.</p>
         </div>
       </div>
-
       <div class="trans-card">
         <div class="trans-icon trans-icon--blue">🚛</div>
         <div>
@@ -835,7 +818,6 @@
           <p>Operaciones regionales dentro del MERCOSUR. Servicio puerta a puerta, flexible y rápido en distancias cortas.</p>
         </div>
       </div>
-
       <div class="trans-card">
         <div class="trans-icon trans-icon--gold">🚂</div>
         <div>
@@ -843,7 +825,6 @@
           <p>Grandes volúmenes en trayectos terrestres largos. Alta capacidad de carga y menor impacto ambiental.</p>
         </div>
       </div>
-
       <div class="trans-card trans-card--wide">
         <div class="trans-icon trans-icon--blue">🔄</div>
         <div>
@@ -851,7 +832,6 @@
           <p>Operaciones que combinan dos o más medios de transporte. Optimización de costos y tiempos, integración de toda la cadena bajo un solo operador.</p>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -862,7 +842,6 @@
     <div class="section-label fade-up">Preguntas frecuentes</div>
     <div class="section-title fade-up">Lo que más nos consultan</div>
     <div class="faq-list fade-up">
-
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           ¿Qué documentación necesito para importar?
@@ -872,7 +851,6 @@
           <p>Para una importación estándar necesitás: factura comercial del proveedor, lista de empaque (packing list), conocimiento de embarque o guía aérea (BL o AWB), certificado de origen si aplica, y los permisos previos según el tipo de mercadería (SIMI, SIVEP, etc.). Te asesoramos en cada caso particular.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           ¿Cuánto tarda un despacho de importación?
@@ -882,7 +860,6 @@
           <p>El tiempo varía según el canal de selectividad asignado por la ARCA-DGA (verde, naranja o rojo), el tipo de mercadería y los permisos previos requeridos. Un despacho en canal verde puede resolverse en 24-48 horas hábiles. Te informamos el estado en tiempo real durante todo el proceso.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           ¿Trabajan con todos los tipos de mercadería?
@@ -892,7 +869,6 @@
           <p>Sí, tenemos experiencia en una amplia variedad de productos: maquinaria industrial, insumos, alimentos, productos químicos, textiles, tecnología y más. Contamos con conocimiento específico de los organismos intervinientes para cada tipo de mercadería.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           ¿Qué es el permiso de embarque y cuándo se necesita?
@@ -902,7 +878,6 @@
           <p>El permiso de embarque es el documento habilitante para exportar mercadería desde Argentina. Se tramita ante la ARCA-DGA antes de cargar la mercadería en el medio de transporte. Es obligatorio para toda exportación formal y lo gestionamos de manera completa.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           ¿Cómo se calculan los aranceles y tributos de importación?
@@ -912,7 +887,6 @@
           <p>Los tributos dependen de la posición arancelaria (NCM) de la mercadería y su valor en aduana. Incluyen Derecho de Importación, IVA, IVA adicional, Impuesto a las Ganancias y estadística, entre otros. Te brindamos una estimación detallada antes de cada operación.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           ¿Trabajan con empresas de todo el país o solo de Rosario?
@@ -922,7 +896,6 @@
           <p>Trabajamos con clientes de todo el país. Si bien tenemos nuestra base en Rosario, gestionamos operaciones en los principales puertos y aeropuertos de Argentina. La comunicación es siempre fluida y personalizada sin importar dónde estés.</p>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -958,7 +931,7 @@
 
   <hr>
 
-  <!-- NOSOTROS -->
+  <!-- NOSOTROS (REDISEÑADO CON TARJETAS ELEGANTES) -->
   <section id="nosotros">
     <div class="why-intro">
       <div>
@@ -969,25 +942,50 @@
         Somos un equipo de profesionales con sólida formación en comercio exterior y derecho aduanero. Entendemos que cada operación es única y que el tiempo es un factor crítico. Por eso trabajamos con agilidad, precisión y comunicación constante con nuestros clientes.
       </p>
     </div>
-    <div class="why-grid">
-      <div class="why-card fade-up">
-        <div class="why-num">01</div>
-        <h4>Seguridad jurídica y tributaria</h4>
+
+    <!-- TARJETAS CON ALTURA, SOMBRAS Y ACENTOS ELEGANTES -->
+    <div class="why-grid-v2">
+      <div class="why-card-v2 fade-up">
+        <div>
+          <div class="why-card-header">
+            <span class="why-num-v2">01</span>
+            <div class="why-icon-v2">⚖️</div>
+          </div>
+          <h4>Seguridad jurídica y tributaria</h4>
+        </div>
         <p>Operamos con pleno cumplimiento del Código Aduanero y la normativa ARCA-DGA vigente, garantizando que cada operación esté cubierta legalmente.</p>
       </div>
-      <div class="why-card fade-up" style="transition-delay:0.1s">
-        <div class="why-num">02</div>
-        <h4>Seguimiento personalizado</h4>
+
+      <div class="why-card-v2 fade-up" style="transition-delay:0.1s">
+        <div>
+          <div class="why-card-header">
+            <span class="why-num-v2">02</span>
+            <div class="why-icon-v2">👤</div>
+          </div>
+          <h4>Seguimiento personalizado</h4>
+        </div>
         <p>Cada operación tiene un profesional responsable asignado que mantiene al cliente informado en tiempo real durante todo el proceso.</p>
       </div>
-      <div class="why-card fade-up" style="transition-delay:0.2s">
-        <div class="why-num">03</div>
-        <h4>Optimización tributaria</h4>
+
+      <div class="why-card-v2 fade-up" style="transition-delay:0.2s">
+        <div>
+          <div class="why-card-header">
+            <span class="why-num-v2">03</span>
+            <div class="why-icon-v2">📈</div>
+          </div>
+          <h4>Optimización tributaria</h4>
+        </div>
         <p>Identificamos los regímenes, posiciones arancelarias y reintegros más convenientes para maximizar la eficiencia de cada operación.</p>
       </div>
-      <div class="why-card fade-up" style="transition-delay:0.3s">
-        <div class="why-num">04</div>
-        <h4>Respuesta ágil</h4>
+
+      <div class="why-card-v2 fade-up" style="transition-delay:0.3s">
+        <div>
+          <div class="why-card-header">
+            <span class="why-num-v2">04</span>
+            <div class="why-icon-v2">⚡</div>
+          </div>
+          <h4>Respuesta ágil</h4>
+        </div>
         <p>En comercio exterior los plazos son determinantes. Actuamos con rapidez y precisión para evitar demoras y costos innecesarios.</p>
       </div>
     </div>
@@ -1111,40 +1109,138 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- FOOTER ORIGINAL CON ENLACE AL PANEL ADMIN -->
   <footer>
     <div class="footer-logo">
       <img src="LogoMacor2.svg" alt="Estudio MACOR" style="width:180px;height:auto;display:block;filter:invert(1);opacity:0.85;">
     </div>
     <div class="footer-links">
       <a href="#quienes">Quiénes somos</a>
+      <a href="#noticias">Noticias</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#faq">FAQ</a>
       <a href="#contacto">Contacto</a>
-
+      <a href="#" onclick="abrirAdminLogin(event)" style="color:var(--gold); font-weight:600;">⚙️ Panel Admin</a>
     </div>
     <div class="footer-copy">© 2026 Estudio MACOR · Todos los derechos reservados</div>
   </footer>
 
+  <!-- MODAL DE LECTURA DE NOTICIAS -->
+  <div class="news-modal-overlay" id="modalNoticia" onclick="cerrarNoticiaEnFondo(event)">
+    <div class="news-modal-container">
+      <button class="news-modal-close" onclick="cerrarNoticia()" aria-label="Cerrar noticia">✕</button>
+      <div class="news-modal-body">
+        <span class="news-badge" id="modalBadge">--</span>
+        <div style="font-size:13px; color:var(--subtle);" id="modalFecha">--</div>
+        <h2 id="modalTitulo">--</h2>
+        <div class="modal-subtitle" id="modalSubtitulo">--</div>
+        <div class="news-modal-content" id="modalCuerpo">--</div>
+      </div>
+      <div class="news-modal-footer">
+        <span style="font-size:13px; color:var(--muted);">Estudio MACOR · Asesoramiento Especializado</span>
+        <a href="#contacto" onclick="cerrarNoticia()" class="btn-primary" style="padding:10px 20px; font-size:14px;">Consultar sobre esta nota →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 1: INGRESO CON PIN DE ADMINISTRADOR -->
+  <div class="news-modal-overlay" id="modalAdminLogin" onclick="if(event.target.id==='modalAdminLogin') cerrarAdminLogin()">
+    <div class="news-modal-container" style="max-width: 420px; text-align: center;">
+      <button class="news-modal-close" onclick="cerrarAdminLogin()">✕</button>
+      <div style="font-size: 40px; margin-bottom: 10px;">🔐</div>
+      <h3 style="font-family:'Libre Baskerville',serif; font-size:22px; color:var(--text); margin-bottom:8px;">Acceso Administrador</h3>
+      <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">Ingrese el PIN de seguridad para acceder al panel de administración.</p>
+      
+      <form onsubmit="validarPINAdmin(event)">
+        <input type="password" id="adminPinInput" placeholder="Ingrese PIN" style="width:100%; text-align:center; letter-spacing:4px; font-size:20px; font-weight:700; padding:12px; border:1px solid var(--border); border-radius:8px; margin-bottom:14px;" required autofocus>
+        <div id="adminPinError" style="display:none; color:#dc2626; font-size:13px; margin-bottom:12px;">❌ PIN incorrecto. Intente nuevamente.</div>
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">Ingresar al Panel →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: GESTOR Y EDITOR DE CONTENIDO -->
+  <div class="news-modal-overlay" id="modalAdminPanel" onclick="if(event.target.id==='modalAdminPanel') cerrarAdminPanel()">
+    <div class="news-modal-container" style="max-width: 860px;">
+      <button class="news-modal-close" onclick="cerrarAdminPanel()">✕</button>
+      
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:24px;">
+        <div>
+          <h2 style="font-family:'Libre Baskerville',serif; font-size:24px; color:var(--text);">⚙️ Panel de Administración</h2>
+          <span style="font-size:13px; color:var(--muted);">Agregue, edite o elimine publicaciones sin editar código.</span>
+        </div>
+        <button onclick="limpiarFormularioAdmin()" class="btn-primary" style="padding:8px 16px; font-size:13px;">➕ Nueva Noticia</button>
+      </div>
+
+      <!-- FORMULARIO DE EDICIÓN / CREACIÓN -->
+      <div style="background:var(--bg-alt); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:28px;">
+        <h4 id="adminFormTitle" style="font-size:16px; font-weight:700; color:var(--blue-dark); margin-bottom:14px;">Crear Nueva Noticia</h4>
+        
+        <form id="formAdminNoticia" onsubmit="guardarNoticiaAdmin(event)">
+          <input type="hidden" id="adminNoticiaId" value="">
+          
+          <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:12px; margin-bottom:12px;">
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Título del Artículo *</label>
+              <input type="text" id="adminTitulo" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border);" placeholder="Ej: Nuevas Resoluciones ARCA..." required>
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Categoría / Badge *</label>
+              <input type="text" id="adminCategoria" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border);" placeholder="Ej: Normativa ARCA" required>
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Fecha de Publicación *</label>
+              <input type="text" id="adminFecha" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border);" placeholder="Ej: 24 de Agosto, 2026" required>
+            </div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Subtítulo / Bajada Resumida *</label>
+            <input type="text" id="adminSubtitulo" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border);" placeholder="Resumen corto que aparece en la tarjeta previa" required>
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Cuerpo / Contenido Completo (Acepta HTML) *</label>
+            <textarea id="adminCuerpo" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border); height:120px; font-family:sans-serif;" placeholder="Escriba los párrafos de la noticia. Puede usar etiquetas como <p>, <h4>, <strong>..." required></textarea>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button type="button" onclick="limpiarFormularioAdmin()" style="background:transparent; border:1px solid var(--border); padding:10px 18px; border-radius:6px; font-size:14px; cursor:pointer;">Cancelar</button>
+            <button type="submit" class="btn-primary" style="padding:10px 22px; font-size:14px;">💾 Guardar Publicación</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- LISTADO DE NOTICIAS PUBLICADAS -->
+      <h4 style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:12px;">Noticias Publicadas en el Sitio</h4>
+      <div id="adminListadoNoticias" style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto;">
+        <!-- Se genera por JS -->
+      </div>
+    </div>
+  </div>
+
   <script>
+    /* Observer para animaciones fade-up */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
+    /* Navegación Mobile */
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
+    hamburger?.addEventListener('click', () => {
       hamburger.classList.toggle('open');
       mobileMenu.classList.toggle('open');
       document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
     });
     function closeMenu() {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
+      hamburger?.classList.remove('open');
+      mobileMenu?.classList.remove('open');
       document.body.style.overflow = '';
     }
 
+    /* FAQ Desplegable */
     function toggleFaq(btn) {
       const answer = btn.nextElementSibling;
       const isOpen = btn.classList.contains('open');
@@ -1158,34 +1254,29 @@
       }
     }
 
-    // CAROUSEL
+    /* Carrusel de Hero */
     let currentSlide = 0;
     const slides = document.querySelectorAll('.hero-carousel-slide');
-
-    function goToSlide(n) {
-      slides[currentSlide].classList.remove('active');
-      currentSlide = n;
-      slides[currentSlide].classList.add('active');
+    if (slides.length > 0) {
+      setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 5000);
     }
 
-    setInterval(() => {
-      goToSlide((currentSlide + 1) % slides.length);
-    }, 5000);
-
-    // SCROLL ANIMATIONS
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    /* Formspree para formulario de contacto */
+    document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
       const success = document.getElementById('formSuccess');
       btn.textContent = 'Enviando...';
       btn.disabled = true;
 
-      const data = new FormData(this);
-
       try {
         const res = await fetch('https://formspree.io/f/xaqkgeqv', {
           method: 'POST',
-          body: data,
+          body: new FormData(this),
           headers: { 'Accept': 'application/json' }
         });
         if (res.ok) {
@@ -1199,6 +1290,429 @@
       } catch(err) {
         btn.textContent = 'Error al enviar. Intentá nuevamente.';
         btn.disabled = false;
+      }
+    });
+
+    /* ── LÓGICA DE CLASIFICACIÓN CON IA DE GEMINI Y LIQUIDADOR TRIBUTARIO ── */
+    let chartInstance = null;
+
+    function recalcularLiquidacion() {
+      const fob = parseFloat(document.getElementById('valFOB')?.value || 0);
+      const flete = parseFloat(document.getElementById('valFlete')?.value || 0);
+      const seguro = parseFloat(document.getElementById('valSeguro')?.value || 0);
+
+      const rateDIE = parseFloat(document.getElementById('rateDIE')?.value || 0) / 100;
+      const rateTE = parseFloat(document.getElementById('rateTE')?.value || 0) / 100;
+      const rateIVA = parseFloat(document.getElementById('rateIVA')?.value || 21) / 100;
+      
+      const rateIVAAdic = 0.20; // 20% IVA Adicional
+      const rateGanancias = 0.06; // 6% Ganancias
+      const rateIIBB = 0.025; // 2.5% IIBB
+
+      const cif = fob + flete + seguro;
+      const montoAduana = (cif * rateDIE) + (cif * rateTE);
+
+      const baseIVA = cif + montoAduana;
+      const montoIVA = baseIVA * rateIVA;
+      const montoIVAAdic = baseIVA * rateIVAAdic;
+      const montoGanancias = baseIVA * rateGanancias;
+      const montoIIBB = baseIVA * rateIIBB;
+      const montoInteriores = montoIVA + montoIVAAdic + montoGanancias + montoIIBB;
+
+      const landedTotal = cif + montoAduana + montoInteriores;
+
+      const fmt = (val) => 'USD ' + val.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      if (document.getElementById('dispCIF')) document.getElementById('dispCIF').textContent = fmt(cif);
+      if (document.getElementById('dispAduana')) document.getElementById('dispAduana').textContent = fmt(montoAduana);
+      if (document.getElementById('dispInteriores')) document.getElementById('dispInteriores').textContent = fmt(montoInteriores);
+      if (document.getElementById('dispLanded')) document.getElementById('dispLanded').textContent = fmt(landedTotal);
+
+      /* Graficar con Chart.js */
+      const ctx = document.getElementById('chartTributos')?.getContext('2d');
+      if (ctx) {
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['CIF Base', 'Derechos & Tasa', 'Impuestos Interiores'],
+            datasets: [{
+              data: [cif, montoAduana, montoInteriores],
+              backgroundColor: ['#3b82f6', '#C9A84C', '#10b981'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'right', labels: { color: '#ffffff', font: { size: 10 } } }
+            }
+          }
+        });
+      }
+    }
+
+    async function ejecutarClasificacion(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnClasificar');
+      const resCard = document.getElementById('resClasificacion');
+      const statusBadge = document.getElementById('statusBadge');
+
+      const nombre = document.getElementById('prodNombre')?.value || '';
+      const material = document.getElementById('prodMaterial')?.value || '';
+      const uso = document.getElementById('prodUso')?.value || '';
+      const estado = document.getElementById('prodEstado')?.value || '';
+      const origen = document.getElementById('prodOrigen')?.value || '';
+
+      btn.disabled = true;
+      btn.textContent = '⏳ Analizando NCM...';
+
+      const promptText = `
+        Actúa como un Despachante de Aduana Senior en Argentina experto en NCM y SIM (ARCA-DGA).
+        Clasifica esta mercadería:
+        - Producto: ${nombre}
+        - Material: ${material}
+        - Uso: ${uso}
+        - Estado: ${estado}
+        - Origen: ${origen}
+
+        Responde EXCLUSIVAMENTE un JSON válido sin Markdown ni bloques de código con esta estructura exacta:
+        {
+          "codigoSIM": "Ejemplo: 6404.11.00.100A",
+          "glosa": "Glosa resumida de la posición arancelaria",
+          "fundamento": "Explicación técnica de la Regla General Interpretativa (RGI 1 a 6) aplicada",
+          "intervenciones": ["ANMAT", "Seguridad Eléctrica"],
+          "die": 16,
+          "te": 3,
+          "iva": 21,
+          "legislacionAviso": false
+        }
+      `;
+
+      try {
+        const apiKey = ""; // Canvas inserta la clave automáticamente en runtime
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: promptText }] }]
+          })
+        });
+
+        const data = await response.json();
+        const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+        const res = JSON.parse(cleanJson);
+
+        statusBadge.innerHTML = `<span style="color:#10b981;">✓ Clasificado en tiempo real</span>`;
+        mostrarResultado(res);
+
+      } catch (err) {
+        console.warn('Fallback a reglas locales:', err);
+        statusBadge.innerHTML = `<span style="color:var(--gold);">⚠️ Contingencia Local NCM Activada</span>`;
+        const resFallback = obtenerRespuestaLocal(nombre);
+        mostrarResultado(resFallback);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🔍 Clasificar Posición SIM';
+        if (resCard) resCard.style.display = 'block';
+      }
+    }
+
+    function obtenerRespuestaLocal(nombre) {
+      const txt = nombre.toLowerCase();
+      if (txt.includes('zapatilla') || txt.includes('calzado') || txt.includes('zapato')) {
+        return {
+          codigoSIM: "6404.11.00.000Z",
+          glosa: "Calzado de deporte con suela de caucho o plástico y parte superior textil",
+          fundamento: "Aplicación de RGI 1 y 6. Partida 64.04.",
+          intervenciones: ["Chapa/Etiquetado de Calzado", "Regimen de Origen"],
+          die: 35, te: 3, iva: 21, legislacionAviso: true
+        };
+      } else if (txt.includes('vino') || txt.includes('bebida')) {
+        return {
+          codigoSIM: "2204.21.00.900L",
+          glosa: "Vino de uvas frescas en recipientes de capacidad inferior a 2 litros",
+          fundamento: "RGI 1. Capítulo 22.",
+          intervenciones: ["INV (Instituto Nacional de Vitivinicultura)"],
+          die: 20, te: 3, iva: 21, legislacionAviso: false
+        };
+      } else {
+        return {
+          codigoSIM: "8471.30.12.100A",
+          glosa: "Máquinas automáticas para tratamiento o procesamiento de datos",
+          fundamento: "RGI 1 y 6. Capítulo 84.",
+          intervenciones: ["Seguridad Eléctrica", "ENACOM"],
+          die: 12, te: 3, iva: 10.5, legislacionAviso: false
+        };
+      }
+    }
+
+    function mostrarResultado(data) {
+      document.getElementById('resCodigoSIM').textContent = data.codigoSIM || '--';
+      document.getElementById('resGlosa').textContent = data.glosa || '--';
+      document.getElementById('resFundamento').textContent = data.fundamento || '--';
+
+      const intervBox = document.getElementById('resIntervenciones');
+      if (data.intervenciones && data.intervenciones.length > 0) {
+        intervBox.innerHTML = data.intervenciones.map(i => `<span style="background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:4px; font-size:11px; margin-right:4px;">${i}</span>`).join(' ');
+      } else {
+        intervBox.innerHTML = '<span style="font-size:12px; color:rgba(255,255,255,0.5);">Sin intervenciones obligatorias detectadas</span>';
+      }
+
+      if (document.getElementById('rateDIE')) document.getElementById('rateDIE').value = data.die || 0;
+      if (document.getElementById('rateTE')) document.getElementById('rateTE').value = data.te || 0;
+      if (document.getElementById('rateIVA')) document.getElementById('rateIVA').value = data.iva || 21;
+
+      const aviso = document.getElementById('avisoNormativo');
+      if (data.legislacionAviso) {
+        aviso.style.display = 'block';
+      } else {
+        aviso.style.display = 'none';
+      }
+
+      recalcularLiquidacion();
+    }
+
+    function trasladarALiquidador() {
+      document.getElementById('valFOB')?.focus();
+      document.getElementById('valFOB')?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* ── BASE DE DATOS LOCAL Y PANEL ADMINISTRADOR DE NOTICIAS ── */
+    const NOTICIAS_DEFAULT = {
+      1: {
+        id: 1,
+        titulo: "Nuevas Resoluciones de la ARCA-DGA para la Operativa Aduanera",
+        categoria: "Normativa & Regulaciones",
+        fecha: "20 de Agosto, 2026",
+        subtitulo: "Actualizaciones en los procedimientos de oficialización, canales de selectividad y fiscalización en despachos de importación y exportación.",
+        cuerpo: `<p>La Agencia de Recaudación y Control Aduanero (ARCA - ex AFIP DGA) ha emitido nuevas pautas operativas destinadas a dinamizar los canales de selectividad e intensificar la digitalización de la documentación complementaria.</p><p>Entre los aspectos más destacados se encuentran la optimización de los tiempos de resolución para canal verde y la simplificación en la transmisión electrónica de certificaciones emitidas por organismos de control intervinientes.</p><h4>¿Cómo impacta en la operativa de su empresa?</h4><p>Para los importadores y exportadores, estas medidas exigen un control exhaustivo y previo de las posiciones arancelarias SIM a 11 dígitos, así como la correcta digitalización de los certificados de origen y licencias antes de oficializar las destinaciones.</p><p>En <strong>Estudio MACOR</strong> asistimos de manera directa a nuestros clientes en la adecuación documental y jurídica para evitar bloqueos operativos y garantizar el despacho fluido de sus cargas.</p>`
+      },
+      2: {
+        id: 2,
+        titulo: "Optimización de Costos en Transporte Multimodal y Contenedores 2026",
+        categoria: "Logística Internacional",
+        fecha: "12 de Agosto, 2026",
+        subtitulo: "Estrategias para reducir el impacto de fletes internacionales, evitar sobrecostos por demurrage y seleccionar el contenedor adecuado.",
+        cuerpo: `<p>El escenario logístico global requiere una selección técnica del tipo de contenedor (Dry, High Cube, Reefer, Flat Rack, Open Top) según la naturaleza y volumen específico de la mercadería.</p><p>Integrar en un solo interlocutor la gestión del flete internacional con el despacho aduanero permite reducir sustancialmente las demoras en puerto y prevenir costos extraordinarios de almacenamiento.</p><h4>Recomendaciones operativas clave</h4><p>Es fundamental planificar la consolidación de la carga en origen, chequear previamente la disponibilidad de turnos en terminales portuarias y coordinar con el despachante la verificación aduanera tan pronto arriba el transporte.</p>`
+      },
+      3: {
+        id: 3,
+        titulo: "Guía de Reintegros a la Exportación para PyMEs Industriales",
+        categoria: "Exportación & Incentivos",
+        fecha: "05 de Agosto, 2026",
+        subtitulo: "Procedimientos esenciales para la tramitación, fiscalización y cobro efectivo de incentivos impositivos a las exportaciones.",
+        cuerpo: `<p>El régimen de reintegros a la exportación constituye un beneficio fiscal clave para devolver los tributos interiores acumulados en el proceso productivo de bienes destinados al mercado externo.</p><p>Para lograr la liquidación y cobro de estos fondos sin demoras administrativas, el permiso de embarque debe quedar correctamente cumplido, sin pendientes ni inconsistencias sistémicas ante la DGA.</p><h4>Acompañamiento integral de Estudio MACOR</h4><p>Nuestro equipo realiza el seguimiento continuo de cada permiso de embarque oficializado hasta la efectiva acreditación de los reintegros en la cuenta del exportador, brindando además patrocinio ante eventuales diferimientos de la aduana.</p>`
+      }
+    };
+
+    function obtenerNoticiasDB() {
+      const db = localStorage.getItem('macor_noticias_db');
+      if (!db) {
+        localStorage.setItem('macor_noticias_db', JSON.stringify(NOTICIAS_DEFAULT));
+        return NOTICIAS_DEFAULT;
+      }
+      return JSON.parse(db);
+    }
+
+    function guardarNoticiasDB(data) {
+      localStorage.setItem('macor_noticias_db', JSON.stringify(data));
+      renderizarNoticiasHome();
+    }
+
+    function renderizarNoticiasHome() {
+      const container = document.getElementById('newsGridContainer');
+      if (!container) return;
+
+      const noticias = obtenerNoticiasDB();
+      const ids = Object.keys(noticias).sort((a, b) => b - a);
+
+      if (ids.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--muted);">No hay noticias publicadas actualmente.</div>';
+        return;
+      }
+
+      container.innerHTML = ids.map(id => {
+        const item = noticias[id];
+        return `
+          <div class="news-card" onclick="abrirNoticia(${item.id})">
+            <div>
+              <span class="news-badge">${item.categoria}</span>
+              <h3>${item.titulo}</h3>
+              <p>${item.subtitulo}</p>
+            </div>
+            <div class="news-meta">
+              <span>📅 ${item.fecha}</span>
+              <span class="news-read-link">Leer nota completa →</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function abrirNoticia(id) {
+      const db = obtenerNoticiasDB();
+      const data = db[id];
+      if (!data) return;
+
+      document.getElementById('modalBadge').textContent = data.categoria;
+      document.getElementById('modalFecha').textContent = data.fecha;
+      document.getElementById('modalTitulo').textContent = data.titulo;
+      document.getElementById('modalSubtitulo').textContent = data.subtitulo;
+      document.getElementById('modalCuerpo').innerHTML = data.cuerpo;
+
+      const modal = document.getElementById('modalNoticia');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarNoticia() {
+      const modal = document.getElementById('modalNoticia');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function cerrarNoticiaEnFondo(event) {
+      if (event.target.id === 'modalNoticia') {
+        cerrarNoticia();
+      }
+    }
+
+    /* LÓGICA DE ADMINISTRACIÓN Y AUTENTICACIÓN */
+    const PIN_ADMIN = "1049";
+
+    function abrirAdminLogin(e) {
+      if(e) e.preventDefault();
+      document.getElementById('adminPinInput').value = '';
+      document.getElementById('adminPinError').style.display = 'none';
+      document.getElementById('modalAdminLogin').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarAdminLogin() {
+      document.getElementById('modalAdminLogin').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function validarPINAdmin(e) {
+      e.preventDefault();
+      const pin = document.getElementById('adminPinInput').value;
+      if (pin === PIN_ADMIN) {
+        cerrarAdminLogin();
+        abrirPanelAdmin();
+      } else {
+        document.getElementById('adminPinError').style.display = 'block';
+      }
+    }
+
+    function abrirPanelAdmin() {
+      renderizarListadoAdmin();
+      document.getElementById('modalAdminPanel').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarAdminPanel() {
+      document.getElementById('modalAdminPanel').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function renderizarListadoAdmin() {
+      const listado = document.getElementById('adminListadoNoticias');
+      const db = obtenerNoticiasDB();
+      const ids = Object.keys(db).sort((a, b) => b - a);
+
+      if (ids.length === 0) {
+        listado.innerHTML = '<div style="font-size:13px; color:var(--subtle); text-align:center; padding:12px;">No hay publicaciones registradas.</div>';
+        return;
+      }
+
+      listado.innerHTML = ids.map(id => {
+        const item = db[id];
+        return `
+          <div style="background:white; border:1px solid var(--border); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong style="font-size:14px; color:var(--text);">${item.titulo}</strong>
+              <div style="font-size:12px; color:var(--muted); margin-top:2px;">${item.categoria} · ${item.fecha}</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button onclick="editarNoticiaAdmin(${item.id})" style="background:var(--blue-light); color:var(--blue); border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;">✏️ Editar</button>
+              <button onclick="eliminarNoticiaAdmin(${item.id})" style="background:#fee2e2; color:#dc2626; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;">🗑️ Eliminar</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function limpiarFormularioAdmin() {
+      document.getElementById('adminNoticiaId').value = '';
+      document.getElementById('adminTitulo').value = '';
+      document.getElementById('adminCategoria').value = '';
+      
+      const hoy = new Date().toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('adminFecha').value = hoy;
+      
+      document.getElementById('adminSubtitulo').value = '';
+      document.getElementById('adminCuerpo').value = '';
+      document.getElementById('adminFormTitle').textContent = 'Crear Nueva Noticia';
+    }
+
+    function editarNoticiaAdmin(id) {
+      const db = obtenerNoticiasDB();
+      const item = db[id];
+      if (!item) return;
+
+      document.getElementById('adminNoticiaId').value = item.id;
+      document.getElementById('adminTitulo').value = item.titulo;
+      document.getElementById('adminCategoria').value = item.categoria;
+      document.getElementById('adminFecha').value = item.fecha;
+      document.getElementById('adminSubtitulo').value = item.subtitulo;
+      document.getElementById('adminCuerpo').value = item.cuerpo;
+
+      document.getElementById('adminFormTitle').textContent = 'Editar Noticia #' + item.id;
+    }
+
+    function guardarNoticiaAdmin(e) {
+      e.preventDefault();
+      const db = obtenerNoticiasDB();
+      const idExistente = document.getElementById('adminNoticiaId').value;
+      const nuevoId = idExistente ? parseInt(idExistente) : Date.now();
+
+      db[nuevoId] = {
+        id: nuevoId,
+        titulo: document.getElementById('adminTitulo').value,
+        categoria: document.getElementById('adminCategoria').value,
+        fecha: document.getElementById('adminFecha').value,
+        subtitulo: document.getElementById('adminSubtitulo').value,
+        cuerpo: document.getElementById('adminCuerpo').value
+      };
+
+      guardarNoticiasDB(db);
+      limpiarFormularioAdmin();
+      renderizarListadoAdmin();
+    }
+
+    function eliminarNoticiaAdmin(id) {
+      if (!confirm('¿Está seguro de que desea eliminar esta noticia?')) return;
+      const db = obtenerNoticiasDB();
+      delete db[id];
+      guardarNoticiasDB(db);
+      renderizarListadoAdmin();
+    }
+
+    window.onload = function() {
+      recalcularLiquidacion();
+      renderizarNoticiasHome();
+    };
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        cerrarNoticia();
+        cerrarAdminLogin();
+        cerrarAdminPanel();
       }
     });
   </script>
