@@ -203,7 +203,7 @@
     .ie-card.dark .ie-list li { color: rgba(255,255,255,0.8); }
     .ie-list li::before { content: '→'; font-weight: 600; flex-shrink: 0; margin-top: 1px; color: var(--gold); }
 
-    /* NOSOTROS - REDISEÑADO CON TARJETAS ELEGANTES */
+    /* NOSOTROS - TARJETAS ELEGANTES */
     #nosotros { background: white; }
     .why-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-end; margin-bottom: 50px; }
     .why-intro p { font-size: 18px; font-weight: 400; color: var(--muted); line-height: 1.75; }
@@ -293,7 +293,7 @@
     .social-pill-handle { font-size: 14px; color: var(--muted); }
     .social-pill-arrow { color: var(--subtle); flex-shrink: 0; transition: color 0.2s; }
 
-    /* ESTILOS DE SECCIÓN DE NOTICIAS Y MODAL */
+    /* SECCIÓN DE NOTICIAS Y MODAL */
     #noticias { background: var(--bg-alt); }
     .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; }
     .news-card {
@@ -359,7 +359,7 @@
     .contact-form button { background: white; color: var(--blue); border: none; padding: 16px; border-radius: 8px; font-size: 17px; font-weight: 600; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; }
     .contact-form button:hover { background: var(--blue-light); transform: translateY(-1px); }
 
-    /* FOOTER ORIGINAL */
+    /* FOOTER */
     footer { background: #080f1c; padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
     .footer-logo { display: flex; align-items: center; gap: 10px; }
     .footer-links { display: flex; gap: 24px; }
@@ -743,7 +743,7 @@
 
     <!-- GRILLA DINÁMICA DE NOTICIAS -->
     <div class="news-grid fade-up" id="newsGridContainer">
-      <!-- Se renderiza dinámicamente desde el Admin / LocalStorage -->
+      <div style="grid-column: 1/-1; text-align:center; padding:30px; color:var(--muted);">Cargando noticias de comercio exterior...</div>
     </div>
   </section>
 
@@ -1157,7 +1157,7 @@
     </div>
   </section>
 
-  <!-- FOOTER ORIGINAL CON ENLACE AL PANEL ADMIN -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
       <img src="LogoMacor2.svg" alt="Estudio MACOR" style="width:180px;height:auto;display:block;filter:invert(1);opacity:0.85;">
@@ -1168,7 +1168,6 @@
       <a href="#nosotros">Nosotros</a>
       <a href="#faq">FAQ</a>
       <a href="#contacto">Contacto</a>
-      <a href="#" onclick="abrirAdminLogin(event)" style="color:var(--gold); font-weight:600;">⚙️ Panel Admin</a>
     </div>
     <div class="footer-copy">© 2026 Estudio MACOR · Todos los derechos reservados</div>
   </footer>
@@ -1187,82 +1186,6 @@
       <div class="news-modal-footer">
         <span style="font-size:13px; color:var(--muted);">Estudio MACOR · Asesoramiento Especializado</span>
         <a href="#contacto" onclick="cerrarNoticia()" class="btn-primary" style="padding:10px 20px; font-size:14px;">Consultar sobre esta nota →</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL 1: INGRESO CON PIN DE ADMINISTRADOR -->
-  <div class="news-modal-overlay" id="modalAdminLogin" onclick="if(event.target.id==='modalAdminLogin') cerrarAdminLogin()">
-    <div class="news-modal-container" style="max-width: 420px; text-align: center;">
-      <button class="news-modal-close" onclick="cerrarAdminLogin()">✕</button>
-      <div style="font-size: 40px; margin-bottom: 10px;">🔐</div>
-      <h3 style="font-family:'Libre Baskerville',serif; font-size:22px; color:var(--text); margin-bottom:8px;">Acceso Administrador</h3>
-      <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">Ingrese el PIN de seguridad para acceder al panel de administración.</p>
-      
-      <form onsubmit="validarPINAdmin(event)">
-        <input type="password" id="adminPinInput" placeholder="Ingrese PIN" style="width:100%; text-align:center; letter-spacing:4px; font-size:20px; font-weight:700; padding:12px; border:1px solid var(--border); border-radius:8px; margin-bottom:14px;" required autofocus>
-        <div id="adminPinError" style="display:none; color:#dc2626; font-size:13px; margin-bottom:12px;">❌ PIN incorrecto. Intente nuevamente.</div>
-        <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">Ingresar al Panel →</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL 2: GESTOR Y EDITOR DE CONTENIDO -->
-  <div class="news-modal-overlay" id="modalAdminPanel" onclick="if(event.target.id==='modalAdminPanel') cerrarAdminPanel()">
-    <div class="news-modal-container" style="max-width: 860px;">
-      <button class="news-modal-close" onclick="cerrarAdminPanel()">✕</button>
-      
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:24px;">
-        <div>
-          <h2 style="font-family:'Libre Baskerville',serif; font-size:24px; color:var(--text);">⚙️ Panel de Administración</h2>
-          <span style="font-size:13px; color:var(--muted);">Agregue, edite o elimine publicaciones sin editar código.</span>
-        </div>
-        <button onclick="limpiarFormularioAdmin()" class="btn-primary" style="padding:8px 16px; font-size:13px;">➕ Nueva Noticia</button>
-      </div>
-
-      <!-- FORMULARIO DE EDICIÓN / CREACIÓN -->
-      <div style="background:var(--bg-alt); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:28px;">
-        <h4 id="adminFormTitle" style="font-size:16px; font-weight:700; color:var(--blue-dark); margin-bottom:14px;">Crear Nueva Noticia</h4>
-        
-        <form id="formAdminNoticia" onsubmit="guardarNoticiaAdmin(event)">
-          <input type="hidden" id="adminNoticiaId" value="">
-          
-          <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:12px; margin-bottom:12px;">
-            <div>
-              <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Título del Artículo *</label>
-              <input type="text" id="adminTitulo" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border);" placeholder="Ej: Nuevas Resoluciones ARCA..." required>
-            </div>
-            <div>
-              <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Categoría / Badge *</label>
-              <input type="text" id="adminCategoria" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border);" placeholder="Ej: Normativa ARCA" required>
-            </div>
-            <div>
-              <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Fecha de Publicación *</label>
-              <input type="text" id="adminFecha" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border);" placeholder="Ej: 24 de Agosto, 2026" required>
-            </div>
-          </div>
-
-          <div style="margin-bottom:12px;">
-            <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Subtítulo / Bajada Resumida *</label>
-            <input type="text" id="adminSubtitulo" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border);" placeholder="Resumen corto que aparece en la tarjeta previa" required>
-          </div>
-
-          <div style="margin-bottom:14px;">
-            <label style="display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px;">Cuerpo / Contenido Completo (Acepta HTML) *</label>
-            <textarea id="adminCuerpo" class="form-control" style="background:white; color:var(--text); border:1px solid var(--border); height:120px; font-family:sans-serif;" placeholder="Escriba los párrafos de la noticia. Puede usar etiquetas como <p>, <h4>, <strong>..." required></textarea>
-          </div>
-
-          <div style="display:flex; justify-content:flex-end; gap:10px;">
-            <button type="button" onclick="limpiarFormularioAdmin()" style="background:transparent; border:1px solid var(--border); padding:10px 18px; border-radius:6px; font-size:14px; cursor:pointer;">Cancelar</button>
-            <button type="submit" class="btn-primary" style="padding:10px 22px; font-size:14px;">💾 Guardar Publicación</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- LISTADO DE NOTICIAS PUBLICADAS -->
-      <h4 style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:12px;">Noticias Publicadas en el Sitio</h4>
-      <div id="adminListadoNoticias" style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto;">
-        <!-- Se genera por JS -->
       </div>
     </div>
   </div>
@@ -1401,7 +1324,7 @@
       }
     }
 
-    /* ── ALGORITMO DE HASHING DETERMINÍSTICO Y MOTOR ARANCELARIO NCM/SIM ── */
+    /* ── STREAMING_CHUNK:Configuring tariff database and deterministic classifier... ── */
     function hashCode(str) {
       let hash = 0;
       for (let i = 0; i < str.length; i++) {
@@ -1446,7 +1369,7 @@
       {
         keywords: ['lampara', 'foco', 'led', 'velador', 'luminaria', 'arana', 'plafon', 'spot'],
         codigoSIM: '9405.21.00.100B',
-        glosa: 'Aparatos eléctricos de alumbrado para diseñar paredes o techos, diseñados para emitir luz LED',
+        glosa: 'Aparatos eléctricos de alumbrado para paredes o techos, diseñados para emitir luz LED',
         fundamento: 'RGI 1, 3b y 6. Partida 94.05. Clasificación según tecnología de iluminación (LED) y uso.',
         intervenciones: ['Seguridad Eléctrica (Res. 169/2018)', 'Eficiencia Energética (DNT)'],
         die: 20, te: 3, iva: 21, aviso: true
@@ -1508,7 +1431,7 @@
         codigoSIM: '8703.80.00.100E',
         glosa: 'Automóviles propulsados únicamente con motor eléctrico',
         fundamento: 'RGI 1 y 6. Subpartida 8703.80. Clasificación por sistema de propulsión de tracción eléctrica.',
-        intervenciones: ['LCM (Licencia Configuración Modelo)', 'Regimen de Importación de Vehículos Limpios'],
+        intervenciones: ['LCM (Licencia Configuración Modelo)', 'Régimen de Importación de Vehículos Limpios'],
         die: 5, te: 3, iva: 21, aviso: true
       },
       {
@@ -1779,7 +1702,6 @@
       }
     }
 
-    /* MOTOR DE CLASIFICACIÓN TÁCTICO POR CAPÍTULOS SI NO HAY MATCH DIRECTO */
     function obtenerRespuestaDeterministica(fullKey, nombre, material, uso, estado, origen) {
       const q = normalizarTexto(fullKey);
       const suf = getDeterministicSIMSuffix(fullKey);
@@ -1853,12 +1775,43 @@
       document.getElementById('valFOB')?.scrollIntoView({ behavior: 'smooth' });
     }
 
-    /* ── BASE DE DATOS LOCAL Y PANEL ADMINISTRADOR DE NOTICIAS ── */
- /* ── CONEXIÓN DINÁMICA CON GOOGLE SHEETS & RADAR COMEX ── */
+    /* ── STREAMING_CHUNK:Parsing Google Sheets and rendering news dynamically... ── */
     const SPREADSHEET_ID = '1nKvI2EoEm_qRX1hQ8W0Kl6Hsc7kfkCWomzPTjkGlcu0';
     const GOOGLE_SHEET_JSON_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
 
     let noticiasActuales = {};
+
+    /* FUNCIÓN PARA FORMATEAR FECHAS DE GOOGLE SHEETS CORRECTAMENTE */
+    function formatearFechaSheet(cell) {
+      if (!cell) return '';
+      // 1. Si Google Sheets ya proveyó el valor formateado (f), usarlo directamente
+      if (cell.f && typeof cell.f === 'string' && cell.f.trim() !== '') {
+        return cell.f;
+      }
+
+      const val = cell.v;
+      if (!val) return '';
+
+      // 2. Si viene como Date(año, mes_cero_indexado, dia)
+      if (typeof val === 'string' && val.includes('Date(')) {
+        const matches = val.match(/Date\((\d+),\s*(\d+),\s*(\d+)/);
+        if (matches) {
+          const y = parseInt(matches[1]);
+          const m = parseInt(matches[2]); // Google Sheets entrega mes 0-indexed (0=Enero)
+          const d = parseInt(matches[3]);
+          const fechaObj = new Date(y, m, d);
+          return fechaObj.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+      }
+
+      // 3. Si viene como string ISO o convertible por Date()
+      const dObj = new Date(val);
+      if (!isNaN(dObj.getTime()) && String(val).length > 4) {
+        return dObj.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+
+      return String(val);
+    }
 
     async function obtenerNoticias() {
       try {
@@ -1866,7 +1819,6 @@
         if (!res.ok) throw new Error('No se pudo conectar con Google Sheets');
         
         const rawText = await res.text();
-        // Limpiar el wrapper de la API de Google Visualization
         const json = JSON.parse(rawText.substring(47).slice(0, -2));
         const rows = json.table.rows;
 
@@ -1874,11 +1826,12 @@
         rows.forEach((row, index) => {
           if (!row.c || !row.c[1]) return; // Omitir filas vacías
           const id = row.c[0]?.v ? parseInt(row.c[0].v) : (index + 1);
+          
           noticias[id] = {
             id: id,
             titulo: row.c[1]?.v || '',
             categoria: row.c[2]?.v || 'Novedades',
-            fecha: row.c[3]?.v || '',
+            fecha: formatearFechaSheet(row.c[3]),
             subtitulo: row.c[4]?.v || '',
             cuerpo: row.c[5]?.v || ''
           };
@@ -1889,11 +1842,9 @@
           return noticias;
         }
       } catch (err) {
-        console.warn('Cargando respaldo local por error en Google Sheets:', err);
+        console.warn('Error al cargar Google Sheets:', err);
       }
 
-      // Fallback a LocalStorage si no hay conexión
-      noticiasActuales = obtenerNoticiasDB();
       return noticiasActuales;
     }
 
@@ -1901,13 +1852,11 @@
       const container = document.getElementById('newsGridContainer');
       if (!container) return;
 
-      container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:30px; color:var(--muted);">Cargando radar de noticias...</div>';
-
       const noticias = await obtenerNoticias();
       const ids = Object.keys(noticias).sort((a, b) => Number(b) - Number(a));
 
       if (ids.length === 0) {
-        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--muted);">No hay noticias publicadas actualmente.</div>';
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--muted);">No hay noticias disponibles en este momento.</div>';
         return;
       }
 
@@ -1921,7 +1870,7 @@
               <p>${item.subtitulo}</p>
             </div>
             <div class="news-meta">
-              <span>📅 ${item.fecha}</span>
+              <span>📅 ${item.fecha || 'Reciente'}</span>
               <span class="news-read-link">Leer nota completa →</span>
             </div>
           </div>
@@ -1930,7 +1879,7 @@
     }
 
     function abrirNoticia(id) {
-      const data = noticiasActuales[id] || obtenerNoticiasDB()[id];
+      const data = noticiasActuales[id];
       if (!data) return;
 
       document.getElementById('modalBadge').textContent = data.categoria;
@@ -1944,124 +1893,16 @@
       document.body.style.overflow = 'hidden';
     }
 
-    /* LÓGICA DE ADMINISTRACIÓN Y AUTENTICACIÓN */
-    const PIN_ADMIN = "1049";
-
-    function abrirAdminLogin(e) {
-      if(e) e.preventDefault();
-      document.getElementById('adminPinInput').value = '';
-      document.getElementById('adminPinError').style.display = 'none';
-      document.getElementById('modalAdminLogin').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function cerrarAdminLogin() {
-      document.getElementById('modalAdminLogin').classList.remove('active');
+    function cerrarNoticia() {
+      const modal = document.getElementById('modalNoticia');
+      modal.classList.remove('active');
       document.body.style.overflow = '';
     }
 
-    function validarPINAdmin(e) {
-      e.preventDefault();
-      const pin = document.getElementById('adminPinInput').value;
-      if (pin === PIN_ADMIN) {
-        cerrarAdminLogin();
-        abrirPanelAdmin();
-      } else {
-        document.getElementById('adminPinError').style.display = 'block';
+    function cerrarNoticiaEnFondo(event) {
+      if (event.target.id === 'modalNoticia') {
+        cerrarNoticia();
       }
-    }
-
-    function abrirPanelAdmin() {
-      renderizarListadoAdmin();
-      document.getElementById('modalAdminPanel').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function cerrarAdminPanel() {
-      document.getElementById('modalAdminPanel').classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function renderizarListadoAdmin() {
-      const listado = document.getElementById('adminListadoNoticias');
-      const db = obtenerNoticiasDB();
-      const ids = Object.keys(db).sort((a, b) => b - a);
-
-      if (ids.length === 0) {
-        listado.innerHTML = '<div style="font-size:13px; color:var(--subtle); text-align:center; padding:12px;">No hay publicaciones registradas.</div>';
-        return;
-      }
-
-      listado.innerHTML = ids.map(id => {
-        const item = db[id];
-        return `
-          <div style="background:white; border:1px solid var(--border); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <strong style="font-size:14px; color:var(--text);">${item.titulo}</strong>
-              <div style="font-size:12px; color:var(--muted); margin-top:2px;">${item.categoria} · ${item.fecha}</div>
-            </div>
-            <div style="display:flex; gap:8px;">
-              <button onclick="editarNoticiaAdmin(${item.id})" style="background:var(--blue-light); color:var(--blue); border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;">✏️ Editar</button>
-              <button onclick="eliminarNoticiaAdmin(${item.id})" style="background:#fee2e2; color:#dc2626; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;">🗑️ Eliminar</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function limpiarFormularioAdmin() {
-      document.getElementById('adminNoticiaId').value = '';
-      document.getElementById('adminTitulo').value = '';
-      document.getElementById('adminCategoria').value = '';
-      
-      const hoy = new Date().toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
-      document.getElementById('adminFecha').value = hoy;
-      
-      document.getElementById('adminSubtitulo').value = '';
-      document.getElementById('adminCuerpo').value = '';
-      document.getElementById('adminFormTitle').textContent = 'Crear Nueva Noticia';
-    }
-
-    function editarNoticiaAdmin(id) {
-      const db = obtenerNoticiasDB();
-      const item = db[id];
-      if (!item) return;
-
-      document.getElementById('adminNoticiaId').value = item.id;
-      document.getElementById('adminTitulo').value = item.titulo;
-      document.getElementById('adminCategoria').value = item.categoria;
-      document.getElementById('adminFecha').value = item.fecha;
-      document.getElementById('adminSubtitulo').value = item.subtitulo;
-      document.getElementById('adminCuerpo').value = item.cuerpo;
-
-      document.getElementById('adminFormTitle').textContent = 'Editar Noticia #' + item.id;
-    }
-
-    function guardarNoticiaAdmin(e) {
-      e.preventDefault();
-      const db = obtenerNoticiasDB();
-      const idExistente = document.getElementById('adminNoticiaId').value;
-      const nuevoId = idExistente ? parseInt(idExistente) : Date.now();
-
-      db[nuevoId] = {
-        id: nuevoId,
-        titulo: document.getElementById('adminTitulo').value,
-        categoria: document.getElementById('adminCategoria').value,
-        fecha: document.getElementById('adminFecha').value,
-        subtitulo: document.getElementById('adminSubtitulo').value,
-        cuerpo: document.getElementById('adminCuerpo').value
-      };
-
-      guardarNoticiasDB(db);
-      limpiarFormularioAdmin();
-      renderizarListadoAdmin();
-    }
-
-    function eliminarNoticiaAdmin(id) {
-      const db = obtenerNoticiasDB();
-      delete db[id];
-      guardarNoticiasDB(db);
-      renderizarListadoAdmin();
     }
 
     window.onload = function() {
@@ -2072,8 +1913,6 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         cerrarNoticia();
-        cerrarAdminLogin();
-        cerrarAdminPanel();
       }
     });
   </script>
