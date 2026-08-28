@@ -1926,33 +1926,67 @@
     function normalizarTexto(txt) {
       return (txt || '').toLowerCase()
         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s]/g, " ")
         .trim();
     }
 
     const BASE_NCM_OFICIAL = [
+      // 1. HARDWARE, COMPUTACIÓN, PLACAS Y COMPONENTES ELECTRÓNICOS (Capítulos 84 y 85)
       {
-        keywords: ['silla', 'sillon', 'sofa', 'banco', 'asiento'],
-        codigoSIM: '9401.61.00.100A',
-        glosa: 'Asientos con armazón de madera, tapizados',
-        fundamento: 'RGI 1 y 6. Partida 94.01. Clasificación por materia constitutiva del armazón (madera) y acabado.',
-        intervenciones: ['Certificado de Madera Sustentable / DJCP', 'Verificación Física DGA'],
-        die: 18, te: 3, iva: 21, aviso: false
+        keywords: ['placa de video', 'tarjeta de video', 'placa grafica', 'tarjeta grafica', 'gpu', 'geforce', 'radeon', 'placa aceleradora grafica'],
+        codigoSIM: '8473.30.49.100K',
+        glosa: 'Placas de procesamiento gráfico (tarjetas de video / GPU) para máquinas automáticas de procesamiento de datos',
+        fundamento: 'RGI 1 y 6. Partida 84.73 (subpartida 8473.30). Partes y accesorios identificables para máquinas de la partida 84.71.',
+        intervenciones: ['Seguridad Eléctrica (Res. 169/2018 - Exenta si opera bajo tensión inferior a 50V o régimen informático)', 'Verificación Documental DGA'],
+        die: 0, te: 3, iva: 10.5, aviso: false
       },
       {
-        keywords: ['mueble', 'escritorio', 'mesa', 'estante', 'placard', 'armario', 'mostrador', 'comoda'],
-        codigoSIM: '9403.30.00.100M',
-        glosa: 'Muebles de madera de los tipos utilizados en oficinas y hogares',
-        fundamento: 'RGI 1 y 6. Subpartida 9403.30. Criterio de mobiliario de madera para uso residencial o comercial.',
-        intervenciones: ['Acreditación de Origen / Lealtad Comercial'],
-        die: 18, te: 3, iva: 21, aviso: false
+        keywords: ['placa madre', 'motherboard', 'tarjeta madre', 'placa base', 'mainboard'],
+        codigoSIM: '8473.30.41.100F',
+        glosa: 'Placas de circuito impreso con componentes electrónicos montados (motherboards)',
+        fundamento: 'RGI 1 y 6. Partida 84.73. Circuitos montados para máquinas de procesamiento de datos.',
+        intervenciones: ['Verificación Técnica DGA'],
+        die: 0, te: 3, iva: 10.5, aviso: false
       },
       {
-        keywords: ['lampara', 'foco', 'led', 'velador', 'luminaria', 'arana', 'plafon', 'spot'],
-        codigoSIM: '9405.21.00.100B',
-        glosa: 'Aparatos eléctricos de alumbrado para paredes o techos, con diodos emisores de luz (LED)',
-        fundamento: 'RGI 1, 3b y 6. Partida 94.05. Clasificación según tecnología de iluminación (LED) y uso.',
-        intervenciones: ['Seguridad Eléctrica (Res. 169/2018)', 'Eficiencia Energética (DNT)'],
-        die: 20, te: 3, iva: 21, aviso: true
+        keywords: ['disco solido', 'ssd', 'disco rigido', 'hdd', 'memoria ram', 'ram', 'pendrive', 'memoria usb', 'disco duro'],
+        codigoSIM: '8523.51.10.100M',
+        glosa: 'Dispositivos de almacenamiento no volátil a base de semiconductores (memorias flash, discos de estado sólido SSD)',
+        fundamento: 'RGI 1 y 6. Partida 85.23. Dispositivos de almacenamiento sólido de datos.',
+        intervenciones: ['Verificación Documental DGA'],
+        die: 0, te: 3, iva: 10.5, aviso: false
+      },
+      {
+        keywords: ['procesador', 'cpu', 'microprocesador', 'chip', 'intel core', 'amd ryzen'],
+        codigoSIM: '8542.31.90.100T',
+        glosa: 'Circuitos integrados electrónicos: procesadores y controladores',
+        fundamento: 'RGI 1 y 6. Partida 85.42. Microprocesadores y circuitos integrados monolíticos digitales.',
+        intervenciones: ['Verificación Técnica DGA'],
+        die: 0, te: 3, iva: 10.5, aviso: false
+      },
+      {
+        keywords: ['fuente de alimentacion', 'fuente pc', 'power supply', 'transformador electrico'],
+        codigoSIM: '8504.40.21.100P',
+        glosa: 'Fuentes de alimentación de potencia continua estabilizada para equipos informáticos',
+        fundamento: 'RGI 1 y 6. Partida 85.04. Convertidores estáticos.',
+        intervenciones: ['Seguridad Eléctrica Obligatoria (Res. 169/2018)'],
+        die: 14, te: 3, iva: 21, aviso: true
+      },
+      {
+        keywords: ['computadora', 'notebook', 'laptop', 'pc de escritorio', 'servidor', 'tablet', 'all in one'],
+        codigoSIM: '8471.30.12.100P',
+        glosa: 'Máquinas automáticas para tratamiento o procesamiento de datos, portátiles de peso inferior a 10 kg',
+        fundamento: 'RGI 1 y 6. Partida 84.71. Máquinas digitales de procesamiento automatizado de datos.',
+        intervenciones: ['Seguridad Eléctrica (Res. 169/2018)', 'ENACOM (Módulo Wi-Fi / Bluetooth)'],
+        die: 0, te: 3, iva: 10.5, aviso: false
+      },
+      {
+        keywords: ['impresora', 'impresora 3d', 'scanner', 'escaner', 'plotter'],
+        codigoSIM: '8443.32.10.100D',
+        glosa: 'Impresoras que puedan conectarse a una máquina de tratamiento de datos o a una red',
+        fundamento: 'RGI 1 y 6. Partida 84.43. Máquinas impresoras auxiliares para informática.',
+        intervenciones: ['Seguridad Eléctrica (Res. 169/2018)'],
+        die: 0, te: 3, iva: 21, aviso: false
       },
       {
         keywords: ['celular', 'telefono', 'smartphone', 'iphone', 'android', 'movil'],
@@ -1963,34 +1997,54 @@
         die: 16, te: 3, iva: 21, aviso: false
       },
       {
-        keywords: ['computadora', 'notebook', 'laptop', 'pc', 'servidor', 'tablet', 'procesador'],
-        codigoSIM: '8471.30.12.100P',
-        glosa: 'Máquinas automáticas para tratamiento de datos, portátiles de peso inferior a 10 kg',
-        fundamento: 'RGI 1 y 6. Partida 84.71. Máquinas digitales de procesamiento automatizado de datos.',
-        intervenciones: ['Seguridad Eléctrica (Res. 169/2018)', 'ENACOM (Módulo Wi-Fi / Bluetooth)'],
-        die: 0, te: 3, iva: 10.5, aviso: false
-      },
-      {
-        keywords: ['televisor', 'tv', 'monitor', 'pantalla', 'smart tv', 'oled'],
+        keywords: ['televisor', 'tv', 'monitor', 'pantalla', 'smart tv', 'oled', 'display'],
         codigoSIM: '8528.72.00.100J',
-        glosa: 'Aparatos receptores de televisión en colores con pantalla incorporada',
-        fundamento: 'RGI 1 y 6. Subpartida 8528.72. Aparatos receptores de televisión.',
-        intervenciones: ['Seguridad Eléctrica', 'ENACOM'],
+        glosa: 'Aparatos receptores de televisión y monitores con pantalla incorporada',
+        fundamento: 'RGI 1 y 6. Subpartida 8528.72. Aparatos receptores y visualizadores de video.',
+        intervenciones: ['Seguridad Eléctrica', 'ENACOM (Módulo Inalámbrico)'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['parlante', 'auricular', 'auriculares', 'microfono', 'altavoz', 'soundbar'],
+        keywords: ['parlante', 'auricular', 'auriculares', 'microfono', 'altavoz', 'soundbar', 'headset'],
         codigoSIM: '8518.30.00.100K',
-        glosa: 'Auriculares y micrófonos combinados o no, y altavoces/parlantes',
+        glosa: 'Auriculares, micrófonos combinados o no, y altavoces/parlantes',
         fundamento: 'RGI 1 y 6. Partida 85.18. Aparatos electroacústicos.',
         intervenciones: ['ENACOM (Bluetooth)', 'Seguridad Eléctrica'],
         die: 18, te: 3, iva: 21, aviso: false
       },
+
+      // 2. MUEBLES E ILUMINACIÓN (Capítulo 94)
+      {
+        keywords: ['silla', 'sillon', 'sofa', 'banco de madera', 'asiento'],
+        codigoSIM: '9401.61.00.100A',
+        glosa: 'Asientos con armazón de madera, tapizados',
+        fundamento: 'RGI 1 y 6. Partida 94.01. Clasificación por materia constitutiva del armazón (madera) y acabado.',
+        intervenciones: ['Certificado de Madera Sustentable / DJCP', 'Verificación Física DGA'],
+        die: 18, te: 3, iva: 21, aviso: false
+      },
+      {
+        keywords: ['mueble de madera', 'escritorio', 'mesa', 'estante', 'placard', 'armario', 'mostrador', 'comoda'],
+        codigoSIM: '9403.30.00.100M',
+        glosa: 'Muebles de madera de los tipos utilizados en oficinas y hogares',
+        fundamento: 'RGI 1 y 6. Subpartida 9403.30. Mobiliario de madera para uso residencial o comercial.',
+        intervenciones: ['Acreditación de Origen / Lealtad Comercial'],
+        die: 18, te: 3, iva: 21, aviso: false
+      },
+      {
+        keywords: ['lampara', 'foco led', 'luminaria led', 'velador', 'arana de luces', 'plafon'],
+        codigoSIM: '9405.21.00.100B',
+        glosa: 'Aparatos eléctricos de alumbrado diseñados para emitir luz LED',
+        fundamento: 'RGI 1, 3b y 6. Partida 94.05. Clasificación según tecnología de iluminación (LED) y uso.',
+        intervenciones: ['Seguridad Eléctrica (Res. 169/2018)', 'Eficiencia Energética (DNT)'],
+        die: 20, te: 3, iva: 21, aviso: true
+      },
+
+      // 3. VEHÍCULOS, TRANSPORTE Y REPUESTOS (Capítulo 87)
       {
         keywords: ['auto', 'coche', 'automovil', 'vehiculo', 'camioneta'],
         codigoSIM: '8703.23.10.100A',
         glosa: 'Automóviles de turismo con motor de émbolo alternativo de cilindrada >1500cm3 y <=3000cm3',
-        fundamento: 'RGI 1 y 6. Capítulo 87. Clasificación según cilindrada y motorización.',
+        fundamento: 'RGI 1 y 6. Capítulo 87. Clasificación según cilindrada y tipo de propulsión.',
         intervenciones: ['Licencia de Configuración de Modelo (LCM)', 'CHAS Autopartes'],
         die: 35, te: 3, iva: 21, aviso: true
       },
@@ -1999,39 +2053,75 @@
         codigoSIM: '8703.80.00.100E',
         glosa: 'Automóviles propulsados únicamente con motor eléctrico',
         fundamento: 'RGI 1 y 6. Subpartida 8703.80. Clasificación por sistema de propulsión eléctrica.',
-        intervenciones: ['LCM (Licencia Configuración Modelo)', 'Régimen de Vehículos Limpios'],
+        intervenciones: ['LCM (Licencia Configuración Modelo)', 'Régimen de Importación de Vehículos Limpios'],
         die: 5, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['zapatilla', 'calzado deportivo', 'tenis', 'sneaker'],
+        keywords: ['moto', 'motocicleta', 'scooter', 'ciclomotor'],
+        codigoSIM: '8711.20.00.100R',
+        glosa: 'Motocicletas con motor de émbolo alternativo de cilindrada >50cm3 y <=250cm3',
+        fundamento: 'RGI 1 y 6. Partida 87.11. Criterio por cilindrada del motor.',
+        intervenciones: ['LCM (Licencia Configuración Modelo)', 'CHAS'],
+        die: 35, te: 3, iva: 21, aviso: true
+      },
+      {
+        keywords: ['bicicleta', 'monopatin', 'trike', 'bici'],
+        codigoSIM: '8712.00.10.100K',
+        glosa: 'Bicicletas de carreras o de paseo, sin motor',
+        fundamento: 'RGI 1 y 6. Partida 87.12. Velocípedos de propulsión humana.',
+        intervenciones: ['CHAS / Seguridad de Cuadros y Frenos (INTI)'],
+        die: 35, te: 3, iva: 21, aviso: true
+      },
+
+      // 4. CALZADO, TEXTIL Y VESTIMENTA (Capítulos 61, 62 y 64)
+      {
+        keywords: ['zapatilla', 'calzado deportivo', 'tenis', 'sneaker', 'calzado running'],
         codigoSIM: '6404.11.00.100X',
-        glosa: 'Calzado de deporte con suela de caucho o plástico y capellada textil',
-        fundamento: 'RGI 1, 3b y 6. Partida 64.04. Criterio por materias de suela y parte superior.',
+        glosa: 'Calzado de deporte con suela de caucho o plástico y capellada de materias textiles',
+        fundamento: 'RGI 1, 3b y 6. Partida 64.04. Criterio por materias constitutivas de suela y corte.',
         intervenciones: ['DJCP (Composición de Calzado)', 'Etiquetado de Origen y Talle'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['zapato', 'calzado de cuero', 'bota', 'sandalia'],
+        keywords: ['zapato', 'calzado de cuero', 'bota', 'sandalia de cuero', 'mocasines'],
         codigoSIM: '6403.99.00.100F',
         glosa: 'Calzado con suela de caucho/plástico y capellada de cuero natural',
         fundamento: 'RGI 1 y 6. Partida 64.03. Clasificación por capellada de cuero natural.',
-        intervenciones: ['DJCP (Composición de Calzado)', 'Controles Sanitarios'],
+        intervenciones: ['DJCP (Composición de Calzado)', 'Controles Sanitarios de Cueros'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['remera', 't-shirt', 'camisa', 'pantalon', 'jean', 'ropa', 'prenda'],
+        keywords: ['remera', 't shirt', 'camiseta', 'chomba'],
         codigoSIM: '6109.10.00.100A',
-        glosa: 'T-shirts (camisetas) y prendas de punto, de algodón',
-        fundamento: 'RGI 1 y 6. Capítulos 61/62. Clasificación por confección textil y composición.',
-        intervenciones: ['Reglamento de Etiquetado Textil (Res. 850/1996)', 'DJCP Textil'],
+        glosa: 'T-shirts (camisetas) y camisetas de tirantes, de punto, de algodón',
+        fundamento: 'RGI 1 y 6. Capítulo 61. Clasificación según tejido de punto y fibra de algodón.',
+        intervenciones: ['Reglamento Técnico de Etiquetado Textil (Res. 850/1996)', 'DJCP Textil'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['vino', 'malbec', 'vino tinto', 'vino blanco', 'espumante'],
+        keywords: ['pantalon', 'jean', 'jeans', 'camisa', 'campera', 'vestido', 'saco', 'indumentaria', 'prenda de vestir'],
+        codigoSIM: '6203.42.00.100L',
+        glosa: 'Pantalones y prendas de vestir de tejido plano de algodón',
+        fundamento: 'RGI 1 y 6. Capítulo 62. Prendas de vestir no tejidas de punto.',
+        intervenciones: ['Reglamento de Etiquetado Textil', 'DJCP Textil'],
+        die: 35, te: 3, iva: 21, aviso: true
+      },
+
+      // 5. ALIMENTOS Y BEBIDAS (Capítulos 04, 21 y 22)
+      {
+        keywords: ['vino', 'malbec', 'vino tinto', 'vino blanco', 'espumante', 'cabernet'],
         codigoSIM: '2204.21.00.100H',
-        glosa: 'Vino de uvas frescas en recipientes <= 2 litros',
+        glosa: 'Vino de uvas frescas en recipientes con capacidad inferior o igual a 2 litros',
         fundamento: 'RGI 1 y 6. Partida 22.04. Criterio por volumen de envase y graduación alcohólica.',
         intervenciones: ['INV (Instituto Nacional de Vitivinicultura)', 'INAL'],
+        die: 20, te: 3, iva: 21, aviso: false
+      },
+      {
+        keywords: ['cerveza', 'cerveza artesanal', 'malta cervecera'],
+        codigoSIM: '2203.00.00.100P',
+        glosa: 'Cerveza de malta en envases para consumo',
+        fundamento: 'RGI 1 y 6. Partida 22.03. Bebida fermentada.',
+        intervenciones: ['ANMAT - INAL'],
         die: 20, te: 3, iva: 21, aviso: false
       },
       {
@@ -2042,8 +2132,10 @@
         intervenciones: ['SENASA (Certificación Zoosanitaria)', 'ANMAT - INAL'],
         die: 16, te: 3, iva: 21, aviso: false
       },
+
+      // 6. MEDICAMENTOS Y SALUD (Capítulo 30)
       {
-        keywords: ['remedio', 'medicamento', 'farmaco', 'vacuna', 'pastilla'],
+        keywords: ['remedio', 'medicamento', 'farmaco', 'vacuna', 'pastilla', 'comprimido', 'jarabe'],
         codigoSIM: '3004.90.99.100H',
         glosa: 'Medicamentos dosificados preparados para usos terapéuticos o profilácticos',
         fundamento: 'RGI 1 y 6. Partida 30.04. Acondicionados para la venta al por menor en dosis.',
@@ -2071,34 +2163,43 @@
 
         const fullKey = `${nombre} ${material} ${uso}`.trim();
         const qNorm = normalizarTexto(fullKey);
+        const qTokens = qNorm.split(/\s+/).filter(t => t.length > 2);
 
         let mejorMatch = null;
-        let maxPuntos = 0;
+        let maxScore = 0;
 
         for (const item of BASE_NCM_OFICIAL) {
-          let puntos = 0;
+          let score = 0;
           for (const kw of item.keywords) {
             const kwNorm = normalizarTexto(kw);
-            if (qNorm.includes(kwNorm) || kwNorm.includes(qNorm)) {
-              puntos += kwNorm.length * 2;
+            // Coincidencia exacta de frase completa
+            if (qNorm.includes(kwNorm)) {
+              score += kwNorm.length * 5;
             } else {
-              const words = qNorm.split(/\s+/);
-              for (const w of words) {
-                if (w.length > 3 && (kwNorm.includes(w) || w.includes(kwNorm))) {
-                  puntos += 3;
+              // Coincidencia por tokens/palabras exactas
+              const kwTokens = kwNorm.split(/\s+/).filter(t => t.length > 2);
+              let tokenHits = 0;
+              for (const kt of kwTokens) {
+                if (qTokens.includes(kt)) {
+                  tokenHits++;
                 }
+              }
+              if (tokenHits > 0 && tokenHits === kwTokens.length) {
+                score += tokenHits * 10;
+              } else if (tokenHits > 0) {
+                score += tokenHits * 3;
               }
             }
           }
-          if (puntos > maxPuntos) {
-            maxPuntos = puntos;
+          if (score > maxScore) {
+            maxScore = score;
             mejorMatch = item;
           }
         }
 
         let resultadoFinal = null;
 
-        if (mejorMatch && maxPuntos >= 3) {
+        if (mejorMatch && maxScore >= 6) {
           resultadoFinal = {
             codigoSIM: mejorMatch.codigoSIM,
             glosa: mejorMatch.glosa,
@@ -2137,6 +2238,7 @@
 
     function obtenerRespuestaDeterministica(fullKey, nombre, material, uso, estado, origen) {
       const q = normalizarTexto(fullKey);
+      const tokens = q.split(/\s+/);
       const suf = getDeterministicSIMSuffix(fullKey);
 
       let chapter = "8479.89.99";
@@ -2144,19 +2246,23 @@
       let dieRate = 14;
       let interv = ["Verificación Documental y Física DGA"];
 
-      if (q.includes('madera') || q.includes('mueble') || q.includes('silla') || q.includes('mesa')) {
+      const hasWord = (w) => tokens.includes(w);
+
+      if (hasWord('video') || hasWord('grafica') || hasWord('gpu') || hasWord('procesador') || hasWord('motherboard') || hasWord('ram')) {
+        chapter = "8473.30.49"; glosaGen = "Partes y accesorios para máquinas automáticas para tratamiento de datos"; dieRate = 0;
+      } else if (hasWord('madera') || hasWord('mueble') || hasWord('silla') || hasWord('mesa') || hasWord('placard') || hasWord('escritorio')) {
         chapter = "9403.60.00"; glosaGen = "Los demás muebles de madera"; dieRate = 18;
-      } else if (q.includes('plastico') || q.includes('polimero') || q.includes('pvc')) {
+      } else if (hasWord('plastico') || hasWord('polimero') || hasWord('pvc') || hasWord('acrilico')) {
         chapter = "3926.90.90"; glosaGen = "Las demás manufacturas de plástico"; dieRate = 18;
-      } else if (q.includes('metal') || q.includes('acero') || q.includes('hierro') || q.includes('aluminio')) {
+      } else if (hasWord('metal') || hasWord('acero') || hasWord('hierro') || hasWord('aluminio')) {
         chapter = "7326.90.90"; glosaGen = "Las demás manufacturas de hierro o acero"; dieRate = 16;
-      } else if (q.includes('vidrio') || q.includes('cristal')) {
+      } else if (hasWord('vidrio') || hasWord('cristal')) {
         chapter = "7020.00.90"; glosaGen = "Las demás manufacturas de vidrio"; dieRate = 16;
-      } else if (q.includes('electric') || q.includes('electroni') || q.includes('led')) {
+      } else if (hasWord('electric') || hasWord('electroni') || hasWord('led') || hasWord('circuito')) {
         chapter = "8543.70.99"; glosaGen = "Aparatos eléctricos con función propia"; dieRate = 18; interv.push("Seguridad Eléctrica");
-      } else if (q.includes('ropa') || q.includes('textil') || q.includes('tela') || q.includes('algodon')) {
+      } else if (hasWord('ropa') || hasWord('textil') || hasWord('tela') || hasWord('algodon') || hasWord('prenda')) {
         chapter = "6217.10.00"; glosaGen = "Los demás accesorios de vestir confeccionados"; dieRate = 35; interv.push("Etiquetado Textil");
-      } else if (q.includes('alimento') || q.includes('comida') || q.includes('fruta')) {
+      } else if (hasWord('alimento') || hasWord('comida') || hasWord('fruta') || hasWord('snack')) {
         chapter = "2106.90.90"; glosaGen = "Preparaciones alimenticias no expresadas en otra parte"; dieRate = 16; interv.push("ANMAT / SENASA");
       }
 
