@@ -11,7 +11,7 @@
   <meta property="og:description" content="Su oficina de comercio exterior tercerizada. Despacho aduanero, asesoramiento jurídico, transporte internacional y desarrollo de mercados.">
   <meta property="og:type" content="website">
   
-  <!-- FAVICONS ORIGINALES -->
+  <!-- FAVICONS -->
   <link rel="icon" type="image/png" sizes="32x32" href="faviconMACOR2.png">
   <link rel="icon" type="image/png" sizes="16x16" href="faviconMACOR2.png">
   <link rel="shortcut icon" href="faviconMACOR2.png">
@@ -26,11 +26,12 @@
     gtag('config', 'G-XXXXXXXXXX');
   </script>
 
-  <!-- Chart.js para visualización tributaria -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Google Fonts ORIGINALES -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
@@ -54,51 +55,97 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
 
-    /* CONTACT BAR */
+    /* CONTACT BAR TOP */
     .contact-bar {
       background: var(--blue-dark);
-      padding: 9px 60px;
+      padding: 9px 40px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      z-index: 210;
     }
     .contact-bar-inner {
-      display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap;
-      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      max-width: 1200px; margin: 0 auto; flex-wrap: nowrap;
     }
     .contact-bar-item {
-      font-size: 13px; color: rgba(255,255,255,0.7);
-      text-decoration: none; display: flex; align-items: center; gap: 6px;
-      transition: color 0.2s;
+      font-size: 13px; color: rgba(255,255,255,0.8);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: color 0.2s; white-space: nowrap;
     }
     .contact-bar-item:hover { color: var(--gold); }
 
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 200;
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
-      padding: 10px 60px; height: 80px;
+      padding: 10px 50px; height: 80px;
       display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo { display: flex; align-items: center; text-decoration: none; }
     .nav-logo img { height: 52px; width: auto; object-fit: contain; display: block; }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
     .nav-links a { font-size: 15px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; letter-spacing: 0.2px; }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--blue); }
+    
+    .nav-right-actions { display: flex; align-items: center; gap: 14px; }
     .nav-cta {
       background: var(--blue); color: white; border: none;
-      padding: 11px 24px; border-radius: 7px; font-size: 16px; font-weight: 600;
+      padding: 10px 22px; border-radius: 7px; font-size: 15px; font-weight: 600;
       font-family: 'Source Sans 3', sans-serif; cursor: pointer; text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.15s;
     }
-    .nav-cta:hover { background: var(--blue-mid); }
+    .nav-cta:hover { background: var(--blue-mid); transform: translateY(-1px); }
+
+    /* SELECTOR DE IDIOMA */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 3px;
+    }
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      background: transparent;
+      padding: 5px 10px;
+      border-radius: 16px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .lang-btn.active {
+      background: white;
+      color: var(--blue-dark);
+      box-shadow: 0 2px 8px rgba(13,36,86,0.12);
+    }
+    .lang-btn:hover:not(.active) {
+      color: var(--text);
+    }
+    .flag-icon {
+      width: 18px;
+      height: 13px;
+      border-radius: 2px;
+      box-shadow: 0 0 1px rgba(0,0,0,0.3);
+      display: inline-block;
+      flex-shrink: 0;
+    }
 
     /* HERO */
     .hero {
       min-height: calc(100vh - 70px);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center; text-align: center;
-      padding: 80px 60px;
+      padding: 80px 40px;
       position: relative; overflow: hidden;
     }
     .hero-carousel { position: absolute; inset: 0; z-index: 0; }
@@ -110,16 +157,16 @@
     .hero-carousel-slide.active { opacity: 1; }
     .hero-carousel-slide::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(5,15,40,0.85) 0%, rgba(5,15,40,0.75) 100%);
+      background: linear-gradient(to bottom, rgba(5,15,40,0.88) 0%, rgba(5,15,40,0.78) 100%);
     }
     .hero > .fade-up { position: relative; z-index: 1; }
     .hero h1 {
       font-family: 'Libre Baskerville', serif;
-      font-size: 58px; font-weight: 700; line-height: 1.1;
-      letter-spacing: -1.5px; color: white; margin-bottom: 22px; max-width: 700px;
+      font-size: 56px; font-weight: 700; line-height: 1.15;
+      letter-spacing: -1.2px; color: white; margin-bottom: 22px; max-width: 760px;
     }
     .hero h1 em { font-style: normal; color: var(--gold); font-weight: 700; }
-    .hero p { font-size: 18px; font-weight: 400; color: white; line-height: 1.75; margin-bottom: 36px; max-width: 560px; text-align: center; margin-left: auto; margin-right: auto; }
+    .hero p { font-size: 18px; font-weight: 400; color: white; line-height: 1.75; margin-bottom: 36px; max-width: 600px; text-align: center; margin-left: auto; margin-right: auto; }
     .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
     
     .btn-primary {
@@ -131,7 +178,7 @@
     }
     .btn-primary:hover { background: var(--blue-mid); transform: translateY(-1px); }
     .btn-secondary {
-      background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.7);
+      background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.75);
       padding: 15px 30px; border-radius: 8px; font-size: 17px; font-weight: 600;
       font-family: 'Source Sans 3', sans-serif; cursor: pointer; text-decoration: none;
       display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s;
@@ -139,20 +186,20 @@
     .btn-secondary:hover { background: rgba(255,255,255,0.15); }
 
     /* SECTIONS */
-    section { padding: 90px 60px; }
+    section { padding: 90px 50px; }
     .section-label { font-size: 13px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold-mid); margin-bottom: 12px; }
-    .section-title { font-family: 'Libre Baskerville', serif; font-size: 44px; font-weight: 700; line-height: 1.15; letter-spacing: -0.5px; color: var(--text); max-width: 560px; margin-bottom: 50px; }
+    .section-title { font-family: 'Libre Baskerville', serif; font-size: 42px; font-weight: 700; line-height: 1.18; letter-spacing: -0.5px; color: var(--text); max-width: 580px; margin-bottom: 48px; }
 
     /* SERVICIOS */
     #servicios { background: white; }
-    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
     .service-card {
-      border: 1px solid var(--border); border-radius: 14px; padding: 32px 26px;
-      background: white; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--border); border-radius: 16px; padding: 34px 28px;
+      background: white; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
     .service-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(201,168,76,0.15); }
     .service-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--gold-light); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 22px; }
-    .service-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+    .service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
     .service-card p { font-size: 16px; font-weight: 400; color: var(--muted); line-height: 1.7; }
 
     /* HERRAMIENTAS ADUANERAS (CLASIFICADOR & LIQUIDADOR) */
@@ -178,32 +225,32 @@
     }
     .btn-gold-action:hover { background: var(--gold-mid); color: white; }
 
-    .res-card { background: rgba(0,0,0,0.25); border: 1px dashed var(--gold); border-radius: 12px; padding: 20px; margin-top: 20px; }
+    .res-card { background: rgba(0,0,0,0.28); border: 1px dashed var(--gold); border-radius: 12px; padding: 20px; margin-top: 20px; }
     .res-code { font-family: monospace; font-size: 22px; font-weight: 700; color: var(--gold); letter-spacing: 1px; }
 
     /* OPERACIONES */
-    #operaciones { background: var(--bg-alt); padding: 90px 60px; }
-    .ie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; }
+    #operaciones { background: var(--bg-alt); }
+    .ie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 30px; }
     .ie-card { border-radius: 16px; padding: 40px 36px; transition: transform 0.2s; }
     .ie-card:hover { transform: translateY(-2px); }
     .ie-card.light { background: white; border: 1px solid var(--border); }
     .ie-card.dark { background: var(--blue); border: none; }
-    .ie-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; }
+    .ie-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; }
     .ie-card.light .ie-badge { background: var(--gold-light); color: var(--gold-mid); }
     .ie-card.dark .ie-badge { background: rgba(255,255,255,0.15); color: var(--gold); }
-    .ie-card h3 { font-family: 'Libre Baskerville', serif; font-size: 30px; font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+    .ie-card h3 { font-family: 'Libre Baskerville', serif; font-size: 28px; font-weight: 700; line-height: 1.25; margin-bottom: 14px; }
     .ie-card.light h3 { color: var(--text); }
     .ie-card.dark h3 { color: white; }
     .ie-card p { font-size: 16px; font-weight: 400; line-height: 1.75; margin-bottom: 24px; }
     .ie-card.light p { color: var(--muted); }
-    .ie-card.dark p { color: rgba(255,255,255,0.7); }
+    .ie-card.dark p { color: rgba(255,255,255,0.75); }
     .ie-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
     .ie-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 16px; font-weight: 400; line-height: 1.55; }
     .ie-card.light .ie-list li { color: #555; }
-    .ie-card.dark .ie-list li { color: rgba(255,255,255,0.8); }
+    .ie-card.dark .ie-list li { color: rgba(255,255,255,0.85); }
     .ie-list li::before { content: '→'; font-weight: 600; flex-shrink: 0; margin-top: 1px; color: var(--gold); }
 
-    /* NOSOTROS - TARJETAS ELEGANTES */
+    /* NOSOTROS - REDISEÑADO CON TARJETAS ELEGANTES */
     #nosotros { background: white; }
     .why-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-end; margin-bottom: 50px; }
     .why-intro p { font-size: 18px; font-weight: 400; color: var(--muted); line-height: 1.75; }
@@ -281,7 +328,7 @@
     .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* SOCIAL PILLS ORIGINALES */
+    /* SOCIAL PILLS */
     .social-pill { display: flex; align-items: center; gap: 16px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 22px; text-decoration: none; min-width: 320px; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
     .social-pill:hover { border-color: var(--gold); transform: translateX(4px); box-shadow: 0 8px 24px rgba(27,75,142,0.09); }
     .social-pill-icon { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -312,7 +359,7 @@
     .news-meta { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 14px; font-size: 13px; color: var(--subtle); }
     .news-read-link { font-weight: 600; color: var(--blue); display: flex; align-items: center; gap: 4px; }
 
-    /* MODAL OVERLAY GENERAL */
+    /* MODAL LECTOR DE NOTICIAS */
     .news-modal-overlay {
       position: fixed; inset: 0; z-index: 500;
       background: rgba(13, 36, 86, 0.82); backdrop-filter: blur(6px);
@@ -340,15 +387,15 @@
     .news-modal-footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
 
     /* CONTACTO */
-    #contacto { background: var(--blue-dark); padding: 90px 60px; }
+    #contacto { background: var(--blue-dark); padding: 90px 50px; }
     .contact-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
     .contact-left h2 { font-family: 'Libre Baskerville', serif; font-size: 44px; font-weight: 700; color: white; line-height: 1.2; letter-spacing: -0.3px; margin-bottom: 16px; }
-    .contact-left p { font-size: 17px; font-weight: 400; color: rgba(255,255,255,0.6); line-height: 1.75; margin-bottom: 36px; }
+    .contact-left p { font-size: 17px; font-weight: 400; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 36px; }
     .contact-items { display: flex; flex-direction: column; gap: 16px; }
     .contact-item { display: flex; align-items: center; gap: 14px; }
     .contact-item-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .contact-item-text strong { display: block; font-size: 15px; font-weight: 600; color: white; margin-bottom: 2px; }
-    .contact-item-text span { font-size: 15px; color: rgba(255,255,255,0.55); }
+    .contact-item-text span { font-size: 15px; color: rgba(255,255,255,0.65); }
     .contact-form { display: flex; flex-direction: column; gap: 14px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .contact-form input, .contact-form textarea, .contact-form select { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 14px 16px; font-size: 16px; color: white; font-family: 'Source Sans 3', sans-serif; outline: none; transition: border-color 0.2s, background 0.2s; appearance: none; }
@@ -360,53 +407,54 @@
     .contact-form button:hover { background: var(--blue-light); transform: translateY(-1px); }
 
     /* FOOTER */
-    footer { background: #080f1c; padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    footer { background: #080f1c; padding: 40px 50px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
     .footer-logo { display: flex; align-items: center; gap: 10px; }
     .footer-links { display: flex; gap: 24px; }
     .footer-links a { font-size: 15px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: rgba(255,255,255,0.75); }
     .footer-copy { font-size: 14px; color: rgba(255,255,255,0.3); }
 
-    /* HAMBURGER Y RESPONSIVE */
-    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 1001; position: relative; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    /* HAMBURGER & MOBILE DRAWER */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 1001; }
+    .hamburger span { display: block; width: 26px; height: 2.5px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
     .mobile-menu {
-      display: none; position: fixed; inset: 0; z-index: 999;
-      background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
-      flex-direction: column; justify-content: center; align-items: center; gap: 20px; padding: 40px 24px;
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: white; flex-direction: column; justify-content: center; align-items: center;
+      gap: 20px; padding: 30px;
     }
     .mobile-menu.open { display: flex; }
-    .mobile-menu-close {
-      position: absolute; top: 18px; right: 20px;
+    .mobile-menu-close-btn {
+      position: absolute; top: 20px; right: 20px;
       width: 44px; height: 44px; border-radius: 50%;
       background: var(--bg-alt); border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: 700; color: var(--text);
-      cursor: pointer; transition: all 0.2s ease;
+      font-size: 22px; color: var(--text); cursor: pointer;
     }
-    .mobile-menu-close:hover { background: var(--blue); color: white; transform: rotate(90deg); }
-    .mobile-menu a { font-family: 'Libre Baskerville', serif; font-size: 21px; font-weight: 700; color: var(--text); text-decoration: none; text-align: center; transition: color 0.2s; }
+    .mobile-menu a { font-family: 'Libre Baskerville', serif; font-size: 22px; font-weight: 700; color: var(--text); text-decoration: none; text-align: center; }
     .mobile-menu a:hover { color: var(--blue); }
-    .mobile-menu .mobile-cta {
-      font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 600;
-      background: var(--gold); color: var(--blue-dark);
-      padding: 12px 28px; border-radius: 8px; margin-top: 10px;
-    }
 
-    @media (max-width: 900px) {
+    /* MEDIA QUERIES RESPONSIVOS */
+    @media (max-width: 960px) {
       .contact-bar { padding: 8px 16px; }
-      .contact-bar-inner { gap: 8px 20px; justify-content: center; text-align: center; flex-direction: row; }
-      
+      .contact-bar-inner {
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 12px !important;
+        overflow-x: auto;
+      }
+      .contact-bar-item { font-size: 11.5px; white-space: nowrap; }
+
       nav { padding: 10px 20px; height: 70px; }
       nav .nav-links, nav .nav-cta { display: none; }
       .hamburger { display: flex; }
       
       .hero { padding: 60px 20px; min-height: auto; }
-      .hero h1 { font-size: 38px; letter-spacing: -0.5px; }
+      .hero h1 { font-size: 36px; letter-spacing: -0.5px; }
       .hero p { font-size: 16px; margin-bottom: 28px; }
 
       .tools-container, .services-grid, .ie-grid, .cont-grid, .trans-grid, .contact-inner { grid-template-columns: 1fr; gap: 24px; }
@@ -419,19 +467,6 @@
     }
 
     @media (max-width: 640px) {
-      .contact-bar { padding: 8px 12px; }
-      .contact-bar-inner {
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 6px 14px !important;
-        flex-wrap: wrap !important;
-      }
-      .contact-bar-item {
-        font-size: 11.5px !important;
-        white-space: nowrap;
-      }
-
       .hero { padding: 48px 16px; }
       .hero h1 { font-size: 30px; line-height: 1.2; margin-bottom: 16px; }
       .hero p { font-size: 15px; line-height: 1.6; }
@@ -441,19 +476,11 @@
       .section-title { font-size: 28px; margin-bottom: 32px; }
       .section-label { font-size: 12px; }
 
-      .form-control, input, select, textarea {
-        font-size: 16px !important;
-        padding: 12px 14px;
-      }
-
-      div[style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
+      .form-control, input, select, textarea { font-size: 16px !important; padding: 12px 14px; }
+      div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 12px !important; }
 
       .tool-box { padding: 20px 16px; }
       .tool-box-title { font-size: 20px; }
-
       .why-grid-v2 { grid-template-columns: 1fr; }
       .why-intro { grid-template-columns: 1fr; gap: 16px; }
       .why-card-v2 { padding: 24px 18px; }
@@ -465,7 +492,6 @@
       .news-modal-content { font-size: 15px; }
 
       .social-pill { min-width: 100%; padding: 14px 18px; }
-
       #mapa > div { grid-template-columns: 1fr !important; }
       #mapa > div > div:first-child { padding: 40px 20px; }
     }
@@ -480,7 +506,7 @@
         <span>✉️</span> info@estudiomacor.com.ar
       </a>
       <span class="contact-bar-item">
-        <span>📍</span> Buenos Aires 1049, Rosario
+        <span>📍</span> <span data-i18n="top_address">Buenos Aires 1049, Rosario</span>
       </span>
     </div>
   </div>
@@ -488,35 +514,80 @@
   <!-- NAV -->
   <nav>
     <a href="#" class="nav-logo">
-      <img src="LogoMacor2.svg" alt="Estudio MACOR" style="height:52px;width:auto;display:block;">
+      <img src="LogoMacor2.svg" alt="Estudio MACOR" onerror="this.src='https://placehold.co/180x52/1A3F8F/ffffff?text=Estudio+MACOR'">
     </a>
     <ul class="nav-links">
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#herramientas">Calculadora & NCM</a></li>
-      <li><a href="#noticias">Noticias</a></li>
-      <li><a href="#operaciones">Operaciones</a></li>
-      <li><a href="#mercados">Desarrollo de Mercados</a></li>
-      <li><a href="#quienes">Quiénes somos</a></li>
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#servicios" data-i18n="nav_servicios">Servicios</a></li>
+      <li><a href="#herramientas" data-i18n="nav_herramientas">Calculadora & NCM</a></li>
+      <li><a href="#noticias" data-i18n="nav_noticias">Noticias</a></li>
+      <li><a href="#operaciones" data-i18n="nav_operaciones">Operaciones</a></li>
+      <li><a href="#mercados" data-i18n="nav_mercados">Desarrollo de Mercados</a></li>
+      <li><a href="#quienes" data-i18n="nav_quienes">Quiénes somos</a></li>
+      <li><a href="#nosotros" data-i18n="nav_nosotros">Nosotros</a></li>
+      <li><a href="#contacto" data-i18n="nav_contacto">Contacto</a></li>
     </ul>
-    <a href="#contacto" class="nav-cta">Consultar ahora</a>
-    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
-    </button>
+
+    <div class="nav-right-actions">
+      <!-- SELECTOR DE IDIOMA CON BANDERAS SVG -->
+      <div class="lang-switcher">
+        <button class="lang-btn active" id="btnLangEs" onclick="cambiarIdioma('es')" title="Español">
+          <svg class="flag-icon" viewBox="0 0 768 480">
+            <rect fill="#74acdf" width="768" height="480"/>
+            <rect fill="#ffffff" y="160" width="768" height="160"/>
+            <circle fill="#f6b40e" cx="384" cy="240" r="38"/>
+          </svg>
+          <span>ES</span>
+        </button>
+        <button class="lang-btn" id="btnLangPt" onclick="cambiarIdioma('pt')" title="Português">
+          <svg class="flag-icon" viewBox="0 0 720 504">
+            <rect fill="#009c3b" width="720" height="504"/>
+            <polygon fill="#ffdf00" points="360,36 684,252 360,468 36,252"/>
+            <circle fill="#002776" cx="360" cy="252" r="115"/>
+          </svg>
+          <span>PT</span>
+        </button>
+      </div>
+
+      <a href="#contacto" class="nav-cta" data-i18n="btn_consultar_ahora">Consultar ahora</a>
+      
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
-  <!-- MOBILE MENU -->
+  <!-- MOBILE MENU OVERLAY -->
   <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu-close" onclick="closeMenu()" aria-label="Cerrar menú">✕</button>
-    <a href="#servicios" onclick="closeMenu()">Servicios</a>
-    <a href="#herramientas" onclick="closeMenu()">Calculadora & NCM</a>
-    <a href="#noticias" onclick="closeMenu()">Noticias</a>
-    <a href="#operaciones" onclick="closeMenu()">Operaciones</a>
-    <a href="#mercados" onclick="closeMenu()">Desarrollo de Mercados</a>
-    <a href="#quienes" onclick="closeMenu()">Quiénes somos</a>
-    <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
-    <a href="#contacto" class="mobile-cta" onclick="closeMenu()">Consultar ahora</a>
+    <button class="mobile-menu-close-btn" onclick="closeMenu()" aria-label="Cerrar menú">✕</button>
+    
+    <!-- Idioma en Mobile -->
+    <div class="lang-switcher" style="margin-bottom: 12px;">
+      <button class="lang-btn active" id="btnLangEsMob" onclick="cambiarIdioma('es')">
+        <svg class="flag-icon" viewBox="0 0 768 480">
+          <rect fill="#74acdf" width="768" height="480"/>
+          <rect fill="#ffffff" y="160" width="768" height="160"/>
+          <circle fill="#f6b40e" cx="384" cy="240" r="38"/>
+        </svg>
+        <span>Español</span>
+      </button>
+      <button class="lang-btn" id="btnLangPtMob" onclick="cambiarIdioma('pt')">
+        <svg class="flag-icon" viewBox="0 0 720 504">
+          <rect fill="#009c3b" width="720" height="504"/>
+          <polygon fill="#ffdf00" points="360,36 684,252 360,468 36,252"/>
+          <circle fill="#002776" cx="360" cy="252" r="115"/>
+        </svg>
+        <span>Português</span>
+      </button>
+    </div>
+
+    <a href="#servicios" onclick="closeMenu()" data-i18n="nav_servicios">Servicios</a>
+    <a href="#herramientas" onclick="closeMenu()" data-i18n="nav_herramientas">Calculadora & NCM</a>
+    <a href="#noticias" onclick="closeMenu()" data-i18n="nav_noticias">Noticias</a>
+    <a href="#operaciones" onclick="closeMenu()" data-i18n="nav_operaciones">Operaciones</a>
+    <a href="#mercados" onclick="closeMenu()" data-i18n="nav_mercados">Desarrollo de Mercados</a>
+    <a href="#quienes" onclick="closeMenu()" data-i18n="nav_quienes">Quiénes somos</a>
+    <a href="#nosotros" onclick="closeMenu()" data-i18n="nav_nosotros">Nosotros</a>
+    <a href="#contacto" class="btn-primary" onclick="closeMenu()" style="color:white; margin-top:10px;" data-i18n="btn_consultar_ahora">Consultar ahora</a>
   </div>
 
   <!-- HERO -->
@@ -527,155 +598,155 @@
       <div class="hero-carousel-slide" style="background-image:url('carrusel3.webp')"></div>
     </div>
     <div class="fade-up">
-      <h1>Su oficina de comercio exterior, <em>tercerizada</em></h1>
-      <p>Usted se dedica a producir y vender. Nosotros nos encargamos de todo el proceso operativo, logístico, jurídico y documental de sus importaciones y exportaciones, con la seguridad de contar con especialistas en despacho aduanero al frente de cada operación.</p>
+      <h1 data-i18n="hero_h1">Su oficina de comercio exterior, <em>tercerizada</em></h1>
+      <p data-i18n="hero_p">Usted se dedica a producir y vender. Nosotros nos encargamos de todo el proceso operativo, logístico, jurídico y documental de sus importaciones y exportaciones, con la seguridad de contar con especialistas en despacho aduanero al frente de cada operación.</p>
       <div class="hero-btns">
-        <a href="#contacto" class="btn-primary">Solicitar asesoramiento →</a>
-        <a href="#herramientas" class="btn-secondary">Calculadora & Clasificador</a>
+        <a href="#contacto" class="btn-primary" data-i18n="hero_btn_asesoramiento">Solicitar asesoramiento →</a>
+        <a href="#herramientas" class="btn-secondary" data-i18n="hero_btn_calc">Calculadora & Clasificador</a>
       </div>
     </div>
   </section>
 
   <!-- SERVICIOS -->
   <section id="servicios">
-    <div class="section-label fade-up">Nuestros servicios</div>
-    <div class="section-title fade-up">Un equipo, todas las áreas de su comercio exterior</div>
+    <div class="section-label fade-up" data-i18n="servicios_label">Nuestros servicios</div>
+    <div class="section-title fade-up" data-i18n="servicios_title">Un equipo, todas las áreas de su comercio exterior</div>
     <div class="services-grid">
       <div class="service-card fade-up">
         <div class="service-icon">📋</div>
-        <h3>Despacho Aduanero</h3>
-        <p>Gestionamos la declaración aduanera y toda presentación ante organismos de contralor, cámaras y entidades intervinientes, tanto en importación como en exportación.</p>
+        <h3 data-i18n="serv_1_title">Despacho Aduanero</h3>
+        <p data-i18n="serv_1_desc">Gestionamos la declaración aduanera y toda presentación ante organismos de contralor, cámaras y entidades intervinientes, tanto en importación como en exportación.</p>
       </div>
       <div class="service-card fade-up" style="transition-delay:0.1s">
         <div class="service-icon">⚖️</div>
-        <h3>Asesoramiento Jurídico Aduanero</h3>
-        <p>Asistimos en operaciones sometidas a regímenes especiales, presentaciones ante organismos estatales y todo requerimiento legal vinculado al comercio exterior.</p>
+        <h3 data-i18n="serv_2_title">Asesoramiento Jurídico Aduanero</h3>
+        <p data-i18n="serv_2_desc">Asistimos en operaciones sometidas a regímenes especiales, presentaciones ante organismos estatales y todo requerimiento legal vinculado al comercio exterior.</p>
       </div>
       <div class="service-card fade-up" style="transition-delay:0.2s">
         <div class="service-icon">🚚</div>
-        <h3>Transporte Internacional</h3>
-        <p>Coordinamos el traslado de su mercadería, nacional e internacional, sin importar el tamaño o tipo de carga. Al integrar despacho y transporte, controlamos toda la operación y evitamos demoras.</p>
+        <h3 data-i18n="serv_3_title">Transporte Internacional</h3>
+        <p data-i18n="serv_3_desc">Coordinamos el traslado de su mercadería, nacional e internacional, sin importar el tamaño o tipo de carga. Al integrar despacho y transporte, controlamos toda la operación y evitamos demoras.</p>
       </div>
       <div class="service-card fade-up" style="transition-delay:0.3s">
         <div class="service-icon">🤝</div>
-        <h3>Desarrollo de Mercados</h3>
-        <p>Ayudamos a identificar compradores potenciales en el exterior para su producción, sumando a la gestión aduanera y logística una puerta de entrada a nuevos mercados.</p>
+        <h3 data-i18n="serv_4_title">Desarrollo de Mercados</h3>
+        <p data-i18n="serv_4_desc">Ayudamos a identificar compradores potenciales en el exterior para su producción, sumando a la gestión aduanera y logística una puerta de entrada a nuevos mercados.</p>
       </div>
     </div>
   </section>
 
   <!-- HERRAMIENTAS: CLASIFICADOR NCM & LIQUIDADOR TRIBUTARIO -->
   <section id="herramientas">
-    <div class="section-label fade-up" style="color:var(--gold);">Módulo Operativo MACOR</div>
-    <div class="section-title fade-up" style="color:white; max-width:700px;">Clasificación NCM/SIM & Liquidador Tributario</div>
-    <p class="fade-up" style="color:rgba(255,255,255,0.8); max-width:650px; margin-bottom:16px;">
+    <div class="section-label fade-up" style="color:var(--gold);" data-i18n="herramientas_label">Módulo Operativo MACOR</div>
+    <div class="section-title fade-up" style="color:white; max-width:700px;" data-i18n="herramientas_title">Clasificación NCM/SIM & Liquidador Tributario</div>
+    <p class="fade-up" style="color:rgba(255,255,255,0.8); max-width:650px; margin-bottom:16px;" data-i18n="herramientas_sub">
       Determine la posición arancelaria NCM/SIM de su producto mediante nuestro motor especializado y liquide los impuestos aduaneros para la nacionalización en Argentina.
     </p>
 
     <!-- AVISO DE CARÁCTER ESTIMATIVO -->
     <div class="fade-up" style="background: rgba(201,168,76,0.12); border: 1px solid var(--gold); border-radius: 10px; padding: 14px 18px; margin-bottom: 28px; max-width: 900px; color: var(--gold-light); font-size: 13.5px; display: flex; align-items: center; gap: 12px; line-height: 1.5;">
       <span style="font-size: 22px; flex-shrink: 0;">⚠️</span>
-      <span><strong>Aviso Legal & Operativo:</strong> Todos los resultados, clasificaciones arancelarias y valores de liquidación provistos por esta herramienta son de carácter <strong>estrictamente estimativo e informativo</strong>. Para la oficialización de despachos de importación/exportación ante la ARCA-DGA, es indispensable la evaluación directa y confirmación de un <strong>Despachante de Aduana</strong>.</span>
+      <span data-i18n="herramientas_aviso"><strong>Aviso Legal & Operativo:</strong> Todos los resultados, clasificaciones arancelarias y valores de liquidación provistos por esta herramienta son de carácter <strong>estrictamente estimativo e informativo</strong>. Para la oficialización de despachos de importación/exportación ante la ARCA-DGA, es indispensable la evaluación directa y confirmación de un <strong>Despachante de Aduana</strong>.</span>
     </div>
 
     <div class="tools-container">
       
-      <!-- LADO IZQUIERDO: CLASIFICADOR NCM/SIM -->
+      <!-- CLASIFICADOR NCM/SIM -->
       <div class="tool-box fade-up">
-        <div class="tool-box-title">
+        <div class="tool-box-title" data-i18n="clasif_box_title">
           <span>🔍</span> Clasificador NCM / SIM
         </div>
         
         <form id="formClasificador" onsubmit="ejecutarClasificacion(event)">
           <div class="form-group">
-            <label>Descripción detallada del producto *</label>
+            <label data-i18n="lbl_prod_nombre">Descripción detallada del producto *</label>
             <input type="text" id="prodNombre" class="form-control" placeholder="Ej: Zapatillas deportivas con capellada textil y suela de caucho" required>
           </div>
           <div class="form-group">
-            <label>Composición / Materiales principales</label>
+            <label data-i18n="lbl_prod_mat">Composición / Materiales principales</label>
             <input type="text" id="prodMaterial" class="form-control" placeholder="Ej: 100% Poliéster / Caucho sintético">
           </div>
           <div class="form-group">
-            <label>Uso / Aplicación</label>
+            <label data-i18n="lbl_prod_uso">Uso / Aplicación</label>
             <input type="text" id="prodUso" class="form-control" placeholder="Ej: Calzado para entrenamiento deportivo">
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
             <div class="form-group">
-              <label>Estado</label>
+              <label data-i18n="lbl_prod_estado">Estado</label>
               <select id="prodEstado" class="form-control">
-                <option value="Nuevo">Nuevo</option>
-                <option value="Usado">Usado</option>
+                <option value="Nuevo" data-i18n="opt_nuevo">Nuevo</option>
+                <option value="Usado" data-i18n="opt_usado">Usado</option>
               </select>
             </div>
             <div class="form-group">
-              <label>Origen</label>
+              <label data-i18n="lbl_prod_origen">Origen</label>
               <input type="text" id="prodOrigen" class="form-control" placeholder="Ej: China">
             </div>
           </div>
-          <button type="submit" id="btnClasificar" class="btn-gold-action">
+          <button type="submit" id="btnClasificar" class="btn-gold-action" data-i18n="btn_clasificar">
             🔍 Clasificar Posición SIM
           </button>
         </form>
 
         <div id="resClasificacion" class="res-card" style="display:none;">
           <div id="statusBadge" style="font-size:12px; margin-bottom:8px;"></div>
-          <div style="font-size:12px; text-transform:uppercase; color:var(--gold-light);">Posición SIM Sugerida:</div>
+          <div style="font-size:12px; text-transform:uppercase; color:var(--gold-light);" data-i18n="lbl_pos_sim">Posición SIM Sugerida:</div>
           <div id="resCodigoSIM" class="res-code">--</div>
           <div id="resGlosa" style="font-size:14px; color:white; font-style:italic; margin-top:4px;">--</div>
           
           <div style="margin-top:14px; font-size:13px; color:rgba(255,255,255,0.85); line-height:1.5;">
-            <strong>Fundamento Arancelario (RGI):</strong>
+            <strong data-i18n="lbl_fundamento">Fundamento Arancelario (RGI):</strong>
             <div id="resFundamento" style="color:rgba(255,255,255,0.7); margin-top:2px;">--</div>
           </div>
 
           <div style="margin-top:10px; font-size:13px; color:rgba(255,255,255,0.85);">
-            <strong>Intervenciones previas estimadas:</strong>
+            <strong data-i18n="lbl_interv">Intervenciones previas estimadas:</strong>
             <div id="resIntervenciones" style="margin-top:4px;">--</div>
           </div>
 
           <!-- AVISO LEGAL DE VERIFICACIÓN NORMATIVA -->
-          <div id="avisoNormativo" style="display:none; background:rgba(201,168,76,0.15); border:1px solid var(--gold); border-radius:6px; padding:10px; margin-top:12px; font-size:12px; color:var(--gold-light);">
+          <div id="avisoNormativo" style="display:none; background:rgba(201,168,76,0.15); border:1px solid var(--gold); border-radius:6px; padding:10px; margin-top:12px; font-size:12px; color:var(--gold-light);" data-i18n="aviso_normativo_txt">
             ⚠️ <strong>Aviso de Verificación Normativa:</strong> Se recomienda la revisión directa de un Despachante de Aduana ante la ARCA-DGA para confirmar el cumplimiento de intervenciones específicas.
           </div>
 
-          <button onclick="trasladarALiquidador()" style="background:var(--blue); color:white; border:none; padding:8px 14px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; margin-top:14px;">
+          <button onclick="trasladarALiquidador()" style="background:var(--blue); color:white; border:none; padding:8px 14px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; margin-top:14px;" data-i18n="btn_trasladar">
             ↙ Trasladar al Liquidador Tributario
           </button>
         </div>
       </div>
 
-      <!-- LADO DERECHO: LIQUIDADOR DE TRIBUTOS ADUANEROS -->
+      <!-- LIQUIDADOR DE TRIBUTOS -->
       <div class="tool-box fade-up" style="transition-delay:0.15s">
-        <div class="tool-box-title">
+        <div class="tool-box-title" data-i18n="liq_box_title">
           <span>🧮</span> Liquidador Tributario de Importación
         </div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
           <div class="form-group">
-            <label>Valor FOB (USD)</label>
+            <label data-i18n="lbl_fob">Valor FOB (USD)</label>
             <input type="number" id="valFOB" value="10000" class="form-control" oninput="recalcularLiquidacion()">
           </div>
           <div class="form-group">
-            <label>Flete Int. (USD)</label>
+            <label data-i18n="lbl_flete">Flete Int. (USD)</label>
             <input type="number" id="valFlete" value="1200" class="form-control" oninput="recalcularLiquidacion()">
           </div>
           <div class="form-group">
-            <label>Seguro Int. (USD)</label>
+            <label data-i18n="lbl_seguro">Seguro Int. (USD)</label>
             <input type="number" id="valSeguro" value="100" class="form-control" oninput="recalcularLiquidacion()">
           </div>
         </div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:6px;">
           <div class="form-group">
-            <label>D.I.E. (%)</label>
+            <label data-i18n="lbl_die">D.I.E. (%)</label>
             <input type="number" id="rateDIE" value="16" step="0.5" class="form-control" oninput="recalcularLiquidacion()">
           </div>
           <div class="form-group">
-            <label>Tasa Estad. (%)</label>
+            <label data-i18n="lbl_te">Tasa Estad. (%)</label>
             <input type="number" id="rateTE" value="3" step="0.5" class="form-control" oninput="recalcularLiquidacion()">
           </div>
           <div class="form-group">
-            <label>Alícuota IVA (%)</label>
+            <label data-i18n="lbl_iva">Alícuota IVA (%)</label>
             <select id="rateIVA" class="form-control" onchange="recalcularLiquidacion()">
               <option value="21">21.0%</option>
               <option value="10.5">10.5%</option>
@@ -686,22 +757,22 @@
         <!-- RESUMEN DE LIQUIDACION -->
         <div style="background:rgba(0,0,0,0.3); border-radius:10px; padding:16px; margin-top:16px;">
           <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px; color:rgba(255,255,255,0.8);">
-            <span>Valor Aduanero CIF:</span>
+            <span data-i18n="res_cif">Valor Aduanero CIF:</span>
             <strong id="dispCIF" style="color:white;">USD 11.300,00</strong>
           </div>
           <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px; color:rgba(255,255,255,0.8);">
-            <span>Derechos y Tasa Estadística:</span>
+            <span data-i18n="res_aduana">Derechos y Tasa Estadística:</span>
             <strong id="dispAduana" style="color:var(--gold);">USD 2.147,00</strong>
           </div>
           <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px; color:rgba(255,255,255,0.8);">
-            <span>Impuestos Interiores (IVA/Percepciones):</span>
+            <span data-i18n="res_interiores">Impuestos Interiores (IVA/Percepciones):</span>
             <strong id="dispInteriores" style="color:#10b981;">USD 6.666,26</strong>
           </div>
           <div style="display:flex; justify-content:space-between; font-size:16px; margin-top:10px; border-top:1px solid rgba(255,255,255,0.1); padding-top:8px;">
-            <span>Costo Nacionalizado Estimado:</span>
+            <span data-i18n="res_landed">Costo Nacionalizado Estimado:</span>
             <strong id="dispLanded" style="color:var(--gold-light); font-size:18px;">USD 20.113,26</strong>
           </div>
-          <div style="margin-top: 10px; font-size: 11px; color: rgba(255,255,255,0.55); text-align: center; font-style: italic;">
+          <div style="margin-top: 10px; font-size: 11px; color: rgba(255,255,255,0.55); text-align: center; font-style: italic;" data-i18n="res_disclaimer">
             * Cálculo de referencia no vinculante. Consulte con un Despachante de Aduana para un presupuesto formal.
           </div>
         </div>
@@ -715,34 +786,34 @@
   </section>
 
   <!-- OPERACIONES -->
-  <section id="operaciones" style="background:var(--bg-alt)">
-    <div class="section-label fade-up">Cómo trabajamos</div>
-    <div class="section-title fade-up">Gestión integral de importación y exportación</div>
+  <section id="operaciones">
+    <div class="section-label fade-up" data-i18n="operaciones_label">Cómo trabajamos</div>
+    <div class="section-title fade-up" data-i18n="operaciones_title">Gestión integral de importación y exportación</div>
     <div class="ie-grid">
       <div class="ie-card light fade-up">
-        <div class="ie-badge">📥 Importación</div>
-        <h3>Gestionamos tu importación de principio a fin</h3>
-        <p>Nos encargamos de la oficialización del despacho, el seguimiento personalizado y la coordinación de la verificación hasta la entrega en el lugar designado por el titular de la mercadería.</p>
+        <div class="ie-badge" data-i18n="imp_badge">📥 Importación</div>
+        <h3 data-i18n="imp_title">Gestionamos tu importación de principio a fin</h3>
+        <p data-i18n="imp_desc">Nos encargamos de la oficialización del despacho, el seguimiento personalizado y la coordinación de la verificación hasta la entrega en el lugar designado por el titular de la mercadería.</p>
         <ul class="ie-list">
-          <li>Liquidación del despacho con todos los requisitos legales vigentes</li>
-          <li>Pago de gravámenes con fondos previstos por el importador</li>
-          <li>Seguimiento desde la oficialización hasta la verificación</li>
-          <li>Entrega coordinada en horarios y lugares asignados</li>
-          <li>Gestión de permisos previos: SIVEP, SIMI y otros regímenes</li>
-          <li>Clasificación arancelaria y liquidación de tributos</li>
+          <li data-i18n="imp_li1">Liquidación del despacho con todos los requisitos legales vigentes</li>
+          <li data-i18n="imp_li2">Pago de gravámenes con fondos previstos por el importador</li>
+          <li data-i18n="imp_li3">Seguimiento desde la oficialización hasta la verificación</li>
+          <li data-i18n="imp_li4">Entrega coordinada en horarios y lugares asignados</li>
+          <li data-i18n="imp_li5">Gestión de permisos previos: SIVEP, SIMI y otros regímenes</li>
+          <li data-i18n="imp_li6">Clasificación arancelaria y liquidación de tributos</li>
         </ul>
       </div>
       <div class="ie-card dark fade-up" style="transition-delay:0.15s">
-        <div class="ie-badge">📤 Exportación</div>
-        <h3>Exportá con respaldo profesional</h3>
-        <p>Tramitamos el permiso de embarque ante la ARCA-DGA y acompañamos la operación hasta su culminación total, incluyendo la gestión del cobro de reintegros.</p>
+        <div class="ie-badge" data-i18n="exp_badge">📤 Exportación</div>
+        <h3 data-i18n="exp_title">Exportá con respaldo profesional</h3>
+        <p data-i18n="exp_desc">Tramitamos el permiso de embarque ante la ARCA-DGA y acompañamos la operación hasta su culminación total, incluyendo la gestión del cobro de reintegros.</p>
         <ul class="ie-list">
-          <li>Solicitud y tramitación del permiso de embarque</li>
-          <li>Atención con personal propio en lugar de carga asignado</li>
-          <li>Seguimiento hasta la culminación y precintado del transporte</li>
-          <li>Gestión del cobro de reintegros</li>
-          <li>Asesoramiento en clasificación y posiciones arancelarias</li>
-          <li>Coordinación con organismos de control: SENASA, INAL, otros</li>
+          <li data-i18n="exp_li1">Solicitud y tramitación del permiso de embarque</li>
+          <li data-i18n="exp_li2">Atención con personal propio en lugar de carga asignado</li>
+          <li data-i18n="exp_li3">Seguimiento hasta la culminación y precintado del transporte</li>
+          <li data-i18n="exp_li4">Gestión del cobro de reintegros</li>
+          <li data-i18n="exp_li5">Asesoramiento en clasificación y posiciones arancelarias</li>
+          <li data-i18n="exp_li6">Coordinación con organismos de control: SENASA, INAL, otros</li>
         </ul>
       </div>
     </div>
@@ -750,34 +821,36 @@
 
   <!-- DESARROLLO DE MERCADOS -->
   <section id="mercados" style="background:white">
-    <div class="section-label fade-up">Un paso más allá</div>
-    <div class="section-title fade-up">También le conseguimos el comprador</div>
+    <div class="section-label fade-up" data-i18n="mercados_label">Un paso más allá</div>
+    <div class="section-title fade-up" data-i18n="mercados_title">También le conseguimos el comprador</div>
     <div class="ie-grid" style="grid-template-columns: 1fr;">
       <div class="ie-card dark fade-up">
-        <div class="ie-badge">🤝 Desarrollo de Mercados</div>
-        <h3>Usted produce. Nosotros abrimos el mercado y cerramos la operación.</h3>
-        <p>Además de gestionar el despacho, el transporte y toda la documentación de su exportación, trabajamos en la identificación de compradores potenciales en el exterior para su producción. Así, su empresa no solo exporta con respaldo profesional: también gana una puerta de entrada activa a nuevos mercados, sin tener que salir a buscarla por su cuenta.</p>
+        <div class="ie-badge" data-i18n="mercados_badge">🤝 Desarrollo de Mercados</div>
+        <h3 data-i18n="mercados_h3">Usted produce. Nosotros abrimos el mercado y cerramos la operación.</h3>
+        <p data-i18n="mercados_desc">Además de gestionar el despacho, el transporte y toda la documentación de su exportación, trabajamos en la identificación de compradores potenciales en el exterior para su producción. Así, su empresa no solo exporta con respaldo profesional: también gana una puerta de entrada activa a nuevos mercados, sin tener que salir a buscarla por su cuenta.</p>
         <ul class="ie-list">
-          <li>Búsqueda e identificación de compradores potenciales acordes a su producto</li>
-          <li>Acompañamiento en el primer contacto comercial</li>
-          <li>Gestión conjunta de la operación de exportación una vez cerrado el acuerdo</li>
-          <li>Un solo interlocutor para todo el proceso: comercial, aduanero, jurídico y logístico</li>
+          <li data-i18n="merc_li1">Búsqueda e identificación de compradores potenciales acordes a su producto</li>
+          <li data-i18n="merc_li2">Acompañamiento en el primer contacto comercial</li>
+          <li data-i18n="merc_li3">Gestión conjunta de la operación de exportación una vez cerrado el acuerdo</li>
+          <li data-i18n="merc_li4">Un solo interlocutor para todo el proceso: comercial, aduanero, jurídico y logístico</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SECCIÓN DE NOTICIAS Y NOVEDADES DEL SECTOR -->
+  <!-- SECCIÓN DE NOTICIAS CON GOOGLE SHEETS -->
   <section id="noticias">
-    <div class="section-label fade-up">Novedades & Normativa</div>
-    <div class="section-title fade-up">Actualidad del Comercio Exterior en Argentina</div>
-    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:640px;margin-bottom:36px;">
+    <div class="section-label fade-up" data-i18n="noticias_label">Novedades & Normativa</div>
+    <div class="section-title fade-up" data-i18n="noticias_title">Actualidad del Comercio Exterior en Argentina</div>
+    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:640px;margin-bottom:36px;" data-i18n="noticias_sub">
       Manténgase informado sobre resoluciones aduaneras, cambios normativos de la ARCA-DGA, tendencias en transporte internacional e incentivos para exportadores.
     </p>
 
     <!-- GRILLA DINÁMICA DE NOTICIAS -->
     <div class="news-grid fade-up" id="newsGridContainer">
-      <div style="grid-column: 1/-1; text-align:center; padding:30px; color:var(--muted);">Cargando noticias de comercio exterior...</div>
+      <div style="grid-column: 1/-1; text-align:center; padding:30px; color:var(--muted);" data-i18n="noticias_loading">
+        Cargando noticias de comercio exterior...
+      </div>
     </div>
   </section>
 
@@ -787,30 +860,30 @@
   <section id="quienes" style="background:var(--bg-alt)">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
       <div class="fade-up">
-        <div class="section-label">Quiénes somos</div>
-        <div class="section-title">Su asistente sólido y confiable en comercio exterior</div>
-        <p style="font-size:17px;color:var(--muted);line-height:1.8;margin-bottom:20px;">
+        <div class="section-label" data-i18n="quienes_label">Quiénes somos</div>
+        <div class="section-title" data-i18n="quienes_title">Su asistente sólido y confiable en comercio exterior</div>
+        <p style="font-size:17px;color:var(--muted);line-height:1.8;margin-bottom:20px;" data-i18n="quienes_p1">
           Estudio MACOR es un estudio integral de comercio exterior nacido en Rosario. Nuestro compromiso es transformarnos en un asistente sólido y confiable en el manejo de las operaciones de comercio internacional de nuestros clientes, con actualización constante en legislación aduanera, valoración y clasificación.
         </p>
-        <p style="font-size:17px;color:var(--muted);line-height:1.8;margin-bottom:20px;">
+        <p style="font-size:17px;color:var(--muted);line-height:1.8;margin-bottom:20px;" data-i18n="quienes_p2">
           Trabajamos para mejorar los servicios, costos y requerimientos específicos de cada operación, abarcando todo el proceso operativo, logístico y documental de la importación y la exportación. Con 26 años de trayectoria, acumulamos más de 6.000 operaciones exitosas junto a empresas de todos los tamaños y sectores.
         </p>
-        <p style="font-size:17px;color:var(--muted);line-height:1.8;">
+        <p style="font-size:17px;color:var(--muted);line-height:1.8;" data-i18n="quienes_p3">
           Somos una organización funcional y flexible, adaptable a los requerimientos de la operativa internacional, que responde con seguridad, rapidez y experiencia — para que usted se concentre en producir mientras nosotros nos encargamos del resto.
         </p>
       </div>
       <div class="fade-up" style="transition-delay:0.15s;display:flex;flex-direction:column;gap:20px;">
         <div style="background:var(--blue);border-radius:16px;padding:32px 30px;color:white;">
           <div style="font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:var(--gold);line-height:1;">+6.000</div>
-          <div style="font-size:17px;color:rgba(255,255,255,0.75);margin-top:6px;">Operaciones exitosas</div>
+          <div style="font-size:17px;color:rgba(255,255,255,0.75);margin-top:6px;" data-i18n="stat_ops">Operaciones exitosas</div>
         </div>
         <div style="background:white;border:1px solid var(--border);border-radius:16px;padding:28px 30px;">
           <div style="font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:var(--blue);line-height:1;">100%</div>
-          <div style="font-size:17px;color:var(--muted);margin-top:6px;">Cobertura internacional — todos los países</div>
+          <div style="font-size:17px;color:var(--muted);margin-top:6px;" data-i18n="stat_cov">Cobertura internacional — todos los países</div>
         </div>
         <div style="background:var(--gold-light);border:1px solid var(--gold);border-radius:16px;padding:28px 30px;">
-          <div style="font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:var(--gold-mid);line-height:1;">26 años</div>
-          <div style="font-size:17px;color:var(--muted);margin-top:6px;">De trayectoria en comercio exterior</div>
+          <div style="font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:var(--gold-mid);line-height:1;" data-i18n="stat_tray_num">26 años</div>
+          <div style="font-size:17px;color:var(--muted);margin-top:6px;" data-i18n="stat_tray">De trayectoria en comercio exterior</div>
         </div>
       </div>
     </div>
@@ -820,54 +893,54 @@
 
   <!-- CONTENEDORES -->
   <section id="contenedores">
-    <div class="section-label fade-up">Operaciones</div>
-    <div class="section-title fade-up">Tipos de contenedores</div>
-    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:620px;margin-bottom:48px;line-height:1.75;">Ponemos a tu disposición una amplia variedad de contenedores adaptados a cada tipo de carga, garantizando seguridad y eficiencia en tus operaciones.</p>
+    <div class="section-label fade-up" data-i18n="cont_label">Operaciones</div>
+    <div class="section-title fade-up" data-i18n="cont_title">Tipos de contenedores</div>
+    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:620px;margin-bottom:48px;line-height:1.75;" data-i18n="cont_sub">Ponemos a tu disposición una amplia variedad de contenedores adaptados a cada tipo de carga, garantizando seguridad y eficiencia en tus operaciones.</p>
     <div class="cont-grid fade-up">
       <div class="cont-card">
         <div class="cont-icon">📦</div>
-        <h4>Dry (Seco)</h4>
-        <p>Carga general, pallets, cajas, productos no perecederos. Disponible en 20' y 40'. Totalmente cerrado y hermético.</p>
+        <h4 data-i18n="cont_dry_t">Dry (Seco)</h4>
+        <p data-i18n="cont_dry_d">Carga general, pallets, cajas, productos no perecederos. Disponible en 20' y 40'. Totalmente cerrado y hermético.</p>
       </div>
       <div class="cont-card">
         <div class="cont-icon">❄️</div>
-        <h4>Reefer (Refrigerado)</h4>
-        <p>Alimentos, farmacéuticos y mercadería perecedera. Control de temperatura y monitoreo constante.</p>
+        <h4 data-i18n="cont_reefer_t">Reefer (Refrigerado)</h4>
+        <p data-i18n="cont_reefer_d">Alimentos, farmacéuticos y mercadería perecedera. Control de temperatura y monitoreo constante.</p>
       </div>
       <div class="cont-card">
         <div class="cont-icon">🏗️</div>
-        <h4>Open Top</h4>
-        <p>Cargas sobredimensionadas en altura. Sin techo rígido, permite carga superior y operaciones con grúa.</p>
+        <h4 data-i18n="cont_opentop_t">Open Top</h4>
+        <p data-i18n="cont_opentop_d">Cargas sobredimensionadas en altura. Sin techo rígido, permite carga superior y operaciones con grúa.</p>
       </div>
       <div class="cont-card">
         <div class="cont-icon">⚙️</div>
-        <h4>Flat Rack</h4>
-        <p>Maquinaria pesada, vehículos y cargas de gran tamaño. Sin paredes ni techo, alta resistencia estructural.</p>
+        <h4 data-i18n="cont_flatrack_t">Flat Rack</h4>
+        <p data-i18n="cont_flatrack_d">Maquinaria pesada, vehículos y cargas de gran tamaño. Sin paredes ni techo, alta resistencia estructural.</p>
       </div>
       <div class="cont-card">
         <div class="cont-icon">🔓</div>
-        <h4>Open Side</h4>
-        <p>Mercadería que requiere acceso lateral amplio. Apertura lateral completa, versátil para distintos tipos de carga.</p>
+        <h4 data-i18n="cont_openside_t">Open Side</h4>
+        <p data-i18n="cont_openside_d">Mercadería que requiere acceso lateral amplio. Apertura lateral completa, versátil para distintos tipos de carga.</p>
       </div>
       <div class="cont-card">
         <div class="cont-icon">🛢️</div>
-        <h4>Tank (ISO Tank)</h4>
-        <p>Líquidos a granel: químicos, aceites, alimentos líquidos. Cumple normas internacionales de seguridad.</p>
+        <h4 data-i18n="cont_tank_t">Tank (ISO Tank)</h4>
+        <p data-i18n="cont_tank_d">Líquidos a granel: químicos, aceites, alimentos líquidos. Cumple normas internacionales de seguridad.</p>
       </div>
       <div class="cont-card">
         <div class="cont-icon">📐</div>
-        <h4>High Cube</h4>
-        <p>Mercadería voluminosa. Mayor altura que el contenedor estándar, optimización del volumen de carga.</p>
+        <h4 data-i18n="cont_highcube_t">High Cube</h4>
+        <p data-i18n="cont_highcube_d">Mercadería voluminosa. Mayor altura que el contenedor estándar, optimización del volumen de carga.</p>
       </div>
       <div class="cont-card">
         <div class="cont-icon">🌬️</div>
-        <h4>Ventilado</h4>
-        <p>Productos que requieren circulación de aire: café, granos, semillas. Previene humedad y condensación.</p>
+        <h4 data-i18n="cont_ventilado_t">Ventilado</h4>
+        <p data-i18n="cont_ventilado_d">Productos que requieren circulación de aire: café, granos, semillas. Previene humedad y condensación.</p>
       </div>
       <div class="cont-card">
         <div class="cont-icon">🏋️</div>
-        <h4>Platform</h4>
-        <p>Cargas de dimensiones o pesos extremos. Solo base, máxima capacidad, para proyectos especiales.</p>
+        <h4 data-i18n="cont_platform_t">Platform</h4>
+        <p data-i18n="cont_platform_d">Cargas de dimensiones o pesos extremos. Solo base, máxima capacidad, para proyectos especiales.</p>
       </div>
     </div>
   </section>
@@ -876,43 +949,43 @@
 
   <!-- MEDIOS DE TRANSPORTE -->
   <section id="transporte" style="background:var(--bg-alt)">
-    <div class="section-label fade-up">Operaciones</div>
-    <div class="section-title fade-up">Medios de transporte internacional</div>
-    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:620px;margin-bottom:48px;line-height:1.75;">Elegir el medio de transporte adecuado es clave para optimizar costos, tiempos y seguridad en tus operaciones.</p>
+    <div class="section-label fade-up" data-i18n="trans_label">Operaciones</div>
+    <div class="section-title fade-up" data-i18n="trans_title">Medios de transporte internacional</div>
+    <p class="fade-up" style="font-size:17px;color:var(--muted);max-width:620px;margin-bottom:48px;line-height:1.75;" data-i18n="trans_sub">Elegir el medio de transporte adecuado es clave para optimizar costos, tiempos y seguridad en tus operaciones.</p>
     <div class="trans-grid fade-up">
       <div class="trans-card">
         <div class="trans-icon trans-icon--blue">🚢</div>
         <div>
-          <h4>Marítimo</h4>
-          <p>Grandes volúmenes de carga, mercadería pesada o no urgente. Costo más económico por volumen, ideal para larga distancia.</p>
+          <h4 data-i18n="trans_mar_t">Marítimo</h4>
+          <p data-i18n="trans_mar_d">Grandes volúmenes de carga, mercadería pesada o no urgente. Costo más económico por volumen, ideal para larga distancia.</p>
         </div>
       </div>
       <div class="trans-card">
         <div class="trans-icon trans-icon--gold">✈️</div>
         <div>
-          <h4>Aéreo</h4>
-          <p>Mercadería urgente, de alto valor o perecedera. Máxima rapidez en tránsito y alta seguridad.</p>
+          <h4 data-i18n="trans_air_t">Aéreo</h4>
+          <p data-i18n="trans_air_d">Mercadería urgente, de alto valor o perecedera. Máxima rapidez en tránsito y alta seguridad.</p>
         </div>
       </div>
       <div class="trans-card">
         <div class="trans-icon trans-icon--blue">🚛</div>
         <div>
-          <h4>Terrestre</h4>
-          <p>Operaciones regionales dentro del MERCOSUR. Servicio puerta a puerta, flexible y rápido en distancias cortas.</p>
+          <h4 data-i18n="trans_land_t">Terrestre</h4>
+          <p data-i18n="trans_land_d">Operaciones regionales dentro del MERCOSUR. Servicio puerta a puerta, flexible y rápido en distancias cortas.</p>
         </div>
       </div>
       <div class="trans-card">
         <div class="trans-icon trans-icon--gold">🚂</div>
         <div>
-          <h4>Ferroviario</h4>
-          <p>Grandes volúmenes en trayectos terrestres largos. Alta capacidad de carga y menor impacto ambiental.</p>
+          <h4 data-i18n="trans_train_t">Ferroviario</h4>
+          <p data-i18n="trans_train_d">Grandes volúmenes en trayectos terrestres largos. Alta capacidad de carga y menor impacto ambiental.</p>
         </div>
       </div>
       <div class="trans-card trans-card--wide">
         <div class="trans-icon trans-icon--blue">🔄</div>
         <div>
-          <h4>Multimodal</h4>
-          <p>Operaciones que combinan dos o más medios de transporte. Optimización de costos y tiempos, integración de toda la cadena bajo un solo operador.</p>
+          <h4 data-i18n="trans_multi_t">Multimodal</h4>
+          <p data-i18n="trans_multi_d">Operaciones que combinan dos o más medios de transporte. Optimización de costos y tiempos, integración de toda la cadena bajo un solo operador.</p>
         </div>
       </div>
     </div>
@@ -922,61 +995,61 @@
 
   <!-- FAQ -->
   <section id="faq">
-    <div class="section-label fade-up">Preguntas frecuentes</div>
-    <div class="section-title fade-up">Lo que más nos consultan</div>
+    <div class="section-label fade-up" data-i18n="faq_label">Preguntas frecuentes</div>
+    <div class="section-title fade-up" data-i18n="faq_title">Lo que más nos consultan</div>
     <div class="faq-list fade-up">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Qué documentación necesito para importar?
+          <span data-i18n="faq_q1">¿Qué documentación necesito para importar?</span>
           <span class="faq-arrow">▾</span>
         </button>
         <div class="faq-a">
-          <p>Para una importación estándar necesitás: factura comercial del proveedor, lista de empaque (packing list), conocimiento de embarque o guía aérea (BL o AWB), certificado de origen si aplica, y los permisos previos según el tipo de mercadería (SIMI, SIVEP, etc.). Te asesoramos en cada caso particular.</p>
+          <p data-i18n="faq_a1">Para una importación estándar necesitás: factura comercial del proveedor, lista de empaque (packing list), conocimiento de embarque o guía aérea (BL o AWB), certificado de origen si aplica, y los permisos previos según el tipo de mercadería (SIMI, SIVEP, etc.). Te asesoramos en cada caso particular.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Cuánto tarda un despacho de importación?
+          <span data-i18n="faq_q2">¿Cuánto tarda un despacho de importación?</span>
           <span class="faq-arrow">▾</span>
         </button>
         <div class="faq-a">
-          <p>El tiempo varía según el canal de selectividad asignado por la ARCA-DGA (verde, naranja o rojo), el tipo de mercadería y los permisos previos requeridos. Un despacho en canal verde puede resolverse en 24-48 horas hábiles. Te informamos el estado en tiempo real durante todo el proceso.</p>
+          <p data-i18n="faq_a2">El tiempo varía según el canal de selectividad asignado por la ARCA-DGA (verde, naranja o rojo), el tipo de mercadería y los permisos previos requeridos. Un despacho en canal verde puede resolverse en 24-48 horas hábiles. Te informamos el estado en tiempo real durante todo el proceso.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Trabajan con todos los tipos de mercadería?
+          <span data-i18n="faq_q3">¿Trabajan con todos los tipos de mercadería?</span>
           <span class="faq-arrow">▾</span>
         </button>
         <div class="faq-a">
-          <p>Sí, tenemos experiencia en una amplia variedad de productos: maquinaria industrial, insumos, alimentos, productos químicos, textiles, tecnología y más. Contamos con conocimiento específico de los organismos intervinientes para cada tipo de mercadería.</p>
+          <p data-i18n="faq_a3">Sí, tenemos experiencia en una amplia variedad de productos: maquinaria industrial, insumos, alimentos, productos químicos, textiles, tecnología y más. Contamos con conocimiento específico de los organismos intervinientes para cada tipo de mercadería.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Qué es el permiso de embarque y cuándo se necesita?
+          <span data-i18n="faq_q4">¿Qué es el permiso de embarque y cuándo se necesita?</span>
           <span class="faq-arrow">▾</span>
         </button>
         <div class="faq-a">
-          <p>El permiso de embarque es el documento habilitante para exportar mercadería desde Argentina. Se tramita ante la ARCA-DGA antes de cargar la mercadería en el medio de transporte. Es obligatorio para toda exportación formal y lo gestionamos de manera completa.</p>
+          <p data-i18n="faq_a4">El permiso de embarque es el documento habilitante para exportar mercadería desde Argentina. Se tramita ante la ARCA-DGA antes de cargar la mercadería en el medio de transporte. Es obligatorio para toda exportación formal y lo gestionamos de manera completa.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Cómo se calculan los aranceles y tributos de importación?
+          <span data-i18n="faq_q5">¿Cómo se calculan los aranceles y tributos de importación?</span>
           <span class="faq-arrow">▾</span>
         </button>
         <div class="faq-a">
-          <p>Los tributos dependen de la posición arancelaria (NCM) de la mercadería y su valor en aduana. Incluyen Derecho de Importación, IVA, IVA adicional, Impuesto a las Ganancias y estadística, entre otros. Te brindamos una estimación detallada antes de cada operación.</p>
+          <p data-i18n="faq_a5">Los tributos dependen de la posición arancelaria (NCM) de la mercadería y su valor en aduana. Incluyen Derecho de Importación, IVA, IVA adicional, Impuesto a las Ganancias y estadística, entre otros. Te brindamos una estimación detallada antes de cada operación.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Trabajan con empresas de todo el país o solo de Rosario?
+          <span data-i18n="faq_q6">¿Trabajan con empresas de todo el país o solo de Rosario?</span>
           <span class="faq-arrow">▾</span>
         </button>
         <div class="faq-a">
-          <p>Trabajamos con clientes de todo el país. Si bien tenemos nuestra base en Rosario, gestionamos operaciones en los principales puertos y aeropuertos de Argentina. La comunicación es siempre fluida y personalizada sin importar dónde estés.</p>
+          <p data-i18n="faq_a6">Trabajamos con clientes de todo el país. Si bien tenemos nuestra base en Rosario, gestionamos operaciones en los principales puertos y aeropuertos de Argentina. La comunicación es siempre fluida y personalizada sin importar dónde estés.</p>
         </div>
       </div>
     </div>
@@ -987,14 +1060,14 @@
   <!-- MAPA -->
   <section id="mapa" style="background:var(--bg-alt);padding:0;">
     <div style="display:grid;grid-template-columns:1fr 1fr;">
-      <div style="padding:70px 60px;display:flex;flex-direction:column;justify-content:center;gap:20px;">
-        <div class="section-label fade-up">Dónde estamos</div>
-        <div class="section-title fade-up" style="margin-bottom:0;">Nuestra oficina</div>
-        <p class="fade-up" style="font-size:17px;color:var(--muted);line-height:1.75;">Nuestra oficina está ubicada en Rosario, Santa Fe. Podés visitarnos o contactarnos para coordinar una reunión.</p>
+      <div style="padding:70px 50px;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div class="section-label fade-up" data-i18n="mapa_label">Dónde estamos</div>
+        <div class="section-title fade-up" style="margin-bottom:0;" data-i18n="mapa_title">Nuestra oficina</div>
+        <p class="fade-up" style="font-size:17px;color:var(--muted);line-height:1.75;" data-i18n="mapa_sub">Nuestra oficina está ubicada en Rosario, Santa Fe. Podés visitarnos o contactarnos para coordinar una reunión.</p>
         <div class="fade-up" style="display:flex;flex-direction:column;gap:14px;margin-top:8px;">
           <div style="display:flex;align-items:center;gap:12px;font-size:16px;">
             <span style="font-size:20px;">📍</span>
-            <span style="color:var(--text);font-weight:500;">Buenos Aires 1049, Rosario, Santa Fe</span>
+            <span style="color:var(--text);font-weight:500;" data-i18n="top_address">Buenos Aires 1049, Rosario, Santa Fe</span>
           </div>
           <div style="display:flex;align-items:center;gap:12px;font-size:16px;">
             <span style="font-size:20px;">✉️</span>
@@ -1018,10 +1091,10 @@
   <section id="nosotros">
     <div class="why-intro">
       <div>
-        <div class="section-label fade-up">¿Por qué elegirnos?</div>
-        <div class="section-title fade-up" style="margin-bottom:0">Respaldo, experiencia y compromiso en cada operación</div>
+        <div class="section-label fade-up" data-i18n="por_que_label">¿Por qué elegirnos?</div>
+        <div class="section-title fade-up" style="margin-bottom:0" data-i18n="por_que_title">Respaldo, experiencia y compromiso en cada operación</div>
       </div>
-      <p class="fade-up" style="align-self:flex-end">
+      <p class="fade-up" style="align-self:flex-end" data-i18n="por_que_intro">
         Somos un equipo de profesionales con sólida formación en comercio exterior y derecho aduanero. Entendemos que cada operación es única y que el tiempo es un factor crítico. Por eso trabajamos con agilidad, precisión y comunicación constante con nuestros clientes.
       </p>
     </div>
@@ -1033,9 +1106,9 @@
             <span class="why-num-v2">01</span>
             <div class="why-icon-v2">⚖️</div>
           </div>
-          <h4>Seguridad jurídica y tributaria</h4>
+          <h4 data-i18n="why_1_t">Seguridad jurídica y tributaria</h4>
         </div>
-        <p>Operamos con pleno cumplimiento del Código Aduanero y la normativa ARCA-DGA vigente, garantizando que cada operación esté cubierta legalmente.</p>
+        <p data-i18n="why_1_d">Operamos con pleno cumplimiento del Código Aduanero y la normativa ARCA-DGA vigente, garantizando que cada operación esté cubierta legalmente.</p>
       </div>
 
       <div class="why-card-v2 fade-up" style="transition-delay:0.1s">
@@ -1044,9 +1117,9 @@
             <span class="why-num-v2">02</span>
             <div class="why-icon-v2">👤</div>
           </div>
-          <h4>Seguimiento personalizado</h4>
+          <h4 data-i18n="why_2_t">Seguimiento personalizado</h4>
         </div>
-        <p>Cada operación tiene un profesional responsable asignado que mantiene al cliente informado en tiempo real durante todo el proceso.</p>
+        <p data-i18n="why_2_d">Cada operación tiene un profesional responsable asignado que mantiene al cliente informado en tiempo real durante todo el proceso.</p>
       </div>
 
       <div class="why-card-v2 fade-up" style="transition-delay:0.2s">
@@ -1055,9 +1128,9 @@
             <span class="why-num-v2">03</span>
             <div class="why-icon-v2">📈</div>
           </div>
-          <h4>Optimización tributaria</h4>
+          <h4 data-i18n="why_3_t">Optimización tributaria</h4>
         </div>
-        <p>Identificamos los regímenes, posiciones arancelarias y reintegros más convenientes para maximizar la eficiencia de cada operación.</p>
+        <p data-i18n="why_3_d">Identificamos los regímenes, posiciones arancelarias y reintegros más convenientes para maximizar la eficiencia de cada operación.</p>
       </div>
 
       <div class="why-card-v2 fade-up" style="transition-delay:0.3s">
@@ -1066,9 +1139,9 @@
             <span class="why-num-v2">04</span>
             <div class="why-icon-v2">⚡</div>
           </div>
-          <h4>Respuesta ágil</h4>
+          <h4 data-i18n="why_4_t">Respuesta ágil</h4>
         </div>
-        <p>En comercio exterior los plazos son determinantes. Actuamos con rapidez y precisión para evitar demoras y costos innecesarios.</p>
+        <p data-i18n="why_4_d">En comercio exterior los plazos son determinantes. Actuamos con rapidez y precisión para evitar demoras y costos innecesarios.</p>
       </div>
     </div>
   </section>
@@ -1076,16 +1149,16 @@
   <hr>
 
   <!-- REDES SOCIALES -->
-  <section id="novedades" style="background:var(--bg-alt); padding:70px 60px;">
+  <section id="novedades" style="background:var(--bg-alt); padding:70px 50px;">
     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:32px;">
       <div class="fade-up">
-        <div class="section-title" style="margin-bottom:10px;">Seguinos en nuestras redes</div>
-        <p style="font-size:17px;color:var(--muted);max-width:420px;line-height:1.7;">Contenido del sector, actualizaciones normativas y novedades de Estudio MACOR.</p>
+        <div class="section-title" style="margin-bottom:10px;" data-i18n="redes_title">Seguinos en nuestras redes</div>
+        <p style="font-size:17px;color:var(--muted);max-width:420px;line-height:1.7;" data-i18n="redes_sub">Contenido del sector, actualizaciones normativas y novedades de Estudio MACOR.</p>
       </div>
       <div class="fade-up" style="display:flex; flex-direction:column; gap:16px;">
 
         <!-- INSTAGRAM -->
-        <a href="https://www.instagram.com/estudiomacor/" target="_blank" class="social-pill">
+        <a href="https://www.instagram.com/estudiomacor/" target="_blank" rel="noopener noreferrer" class="social-pill">
           <div class="social-pill-icon social-pill-icon--ig">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/>
@@ -1103,7 +1176,7 @@
         </a>
 
         <!-- FACEBOOK -->
-        <a href="https://www.facebook.com/profile.php?id=61590224139823" target="_blank" class="social-pill">
+        <a href="https://www.facebook.com/profile.php?id=61590224139823" target="_blank" rel="noopener noreferrer" class="social-pill">
           <div class="social-pill-icon social-pill-icon--fb">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M18 2H15C13.67 2 12.4 2.53 11.46 3.46C10.53 4.4 10 5.67 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73 14.11 6.48 14.29 6.29C14.48 6.11 14.73 6 15 6H18V2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1119,7 +1192,7 @@
         </a>
 
         <!-- LINKEDIN -->
-        <a href="https://www.linkedin.com/company/estudio-macor/" target="_blank" class="social-pill">
+        <a href="https://www.linkedin.com/company/estudio-macor/" target="_blank" rel="noopener noreferrer" class="social-pill">
           <div class="social-pill-icon social-pill-icon--li">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1141,11 +1214,11 @@
   </section>
 
   <!-- CONTACTO -->
-  <section id="contacto" style="background:var(--blue-dark); padding:90px 60px">
+  <section id="contacto">
     <div class="contact-inner">
       <div class="contact-left fade-up">
-        <h2>¿Tenés una consulta sobre tu operación?</h2>
-        <p>Completá el formulario y nos ponemos en contacto a la brevedad. Nuestro equipo está disponible para asesorarte sin compromiso.</p>
+        <h2 data-i18n="contacto_title">¿Tenés una consulta sobre tu operación?</h2>
+        <p data-i18n="contacto_sub">Completá el formulario y nos ponemos en contacto a la brevedad. Nuestro equipo está disponible para asesorarte sin compromiso.</p>
         <div class="contact-items">
           <div class="contact-item">
             <div class="contact-item-icon">✉️</div>
@@ -1153,11 +1226,11 @@
           </div>
           <div class="contact-item">
             <div class="contact-item-icon">📍</div>
-            <div class="contact-item-text"><strong>Ubicación</strong><span>Buenos Aires 1049, Rosario, Santa Fe</span></div>
+            <div class="contact-item-text"><strong data-i18n="contact_lbl_loc">Ubicación</strong><span data-i18n="top_address">Buenos Aires 1049, Rosario, Santa Fe</span></div>
           </div>
           <div class="contact-item">
             <div class="contact-item-icon">🕐</div>
-            <div class="contact-item-text"><strong>Horario de atención</strong><span>Lunes a viernes de 9 a 18 hs</span></div>
+            <div class="contact-item-text"><strong data-i18n="contact_lbl_hours">Horario de atención</strong><span data-i18n="contact_val_hours">Lunes a viernes de 9 a 18 hs</span></div>
           </div>
         </div>
       </div>
@@ -1172,7 +1245,7 @@
           <input type="text" name="provincia" placeholder="Provincia / País">
         </div>
         <div class="select-wrap">
-          <select name="tipo_consulta">
+          <select name="tipo_consulta" class="form-control" style="background:rgba(255,255,255,0.07); color:white;">
             <option value="" disabled selected>Tipo de consulta</option>
             <option>Importación</option>
             <option>Permiso de embarque</option>
@@ -1183,8 +1256,8 @@
           </select>
         </div>
         <textarea name="mensaje" placeholder="Describí tu consulta o necesidad con el mayor detalle posible..."></textarea>
-        <button type="submit" id="submitBtn">Enviar consulta →</button>
-        <div id="formSuccess" style="display:none;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:16px;text-align:center;color:white;font-size:16px;font-weight:500;">
+        <button type="submit" id="submitBtn" data-i18n="form_btn">Enviar consulta →</button>
+        <div id="formSuccess" style="display:none;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:16px;text-align:center;color:white;font-size:16px;font-weight:500;" data-i18n="form_success">
           ✅ ¡Consulta enviada! Nos ponemos en contacto a la brevedad.
         </div>
       </form>
@@ -1194,16 +1267,16 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
-      <img src="LogoMacor2.svg" alt="Estudio MACOR" style="width:180px;height:auto;display:block;filter:invert(1);opacity:0.85;">
+      <img src="LogoMacor2.svg" alt="Estudio MACOR" style="width:180px;height:auto;display:block;filter:invert(1);opacity:0.85;" onerror="this.src='https://placehold.co/180x52/080f1c/ffffff?text=Estudio+MACOR'">
     </div>
     <div class="footer-links">
-      <a href="#quienes">Quiénes somos</a>
-      <a href="#noticias">Noticias</a>
-      <a href="#nosotros">Nosotros</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#quienes" data-i18n="nav_quienes">Quiénes somos</a>
+      <a href="#noticias" data-i18n="nav_noticias">Noticias</a>
+      <a href="#nosotros" data-i18n="nav_nosotros">Nosotros</a>
+      <a href="#faq" data-i18n="footer_faq">FAQ</a>
+      <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
     </div>
-    <div class="footer-copy">© 2026 Estudio MACOR · Todos los derechos reservados</div>
+    <div class="footer-copy" data-i18n="footer_copy">© 2026 Estudio MACOR · Todos los derechos reservados</div>
   </footer>
 
   <!-- MODAL DE LECTURA DE NOTICIAS -->
@@ -1218,13 +1291,487 @@
         <div class="news-modal-content" id="modalCuerpo">--</div>
       </div>
       <div class="news-modal-footer">
-        <span style="font-size:13px; color:var(--muted);">Estudio MACOR · Asesoramiento Especializado</span>
-        <a href="#contacto" onclick="cerrarNoticia()" class="btn-primary" style="padding:10px 20px; font-size:14px;">Consultar sobre esta nota →</a>
+        <span style="font-size:13px; color:var(--muted);" data-i18n="modal_footer_note">Estudio MACOR · Asesoramiento Especializado</span>
+        <a href="#contacto" onclick="cerrarNoticia()" class="btn-primary" style="padding:10px 20px; font-size:14px;" data-i18n="modal_btn_consultar">Consultar sobre esta nota →</a>
       </div>
     </div>
   </div>
 
   <script>
+    /* ── MOTOR DE TRADUCCIÓN BILINGÜE COMPLETO (ESPAÑOL / PORTUGUÊS) ── */
+    const DICCIONARIO_I18N = {
+      es: {
+        top_address: "Buenos Aires 1049, Rosario",
+        nav_servicios: "Servicios",
+        nav_herramientas: "Calculadora & NCM",
+        nav_noticias: "Noticias",
+        nav_operaciones: "Operaciones",
+        nav_mercados: "Desarrollo de Mercados",
+        nav_quienes: "Quiénes somos",
+        nav_nosotros: "Nosotros",
+        nav_contacto: "Contacto",
+        btn_consultar_ahora: "Consultar ahora",
+        
+        hero_h1: "Su oficina de comercio exterior, <em>tercerizada</em>",
+        hero_p: "Usted se dedica a producir y vender. Nosotros nos encargamos de todo el proceso operativo, logístico, jurídico y documental de sus importaciones y exportaciones, con la seguridad de contar con especialistas en despacho aduanero al frente de cada operación.",
+        hero_btn_asesoramiento: "Solicitar asesoramiento →",
+        hero_btn_calc: "Calculadora & Clasificador",
+        
+        servicios_label: "Nuestros servicios",
+        servicios_title: "Un equipo, todas las áreas de su comercio exterior",
+        serv_1_title: "Despacho Aduanero",
+        serv_1_desc: "Gestionamos la declaración aduanera y toda presentación ante organismos de contralor, cámaras y entidades intervinientes, tanto en importación como en exportación.",
+        serv_2_title: "Asesoramiento Jurídico Aduanero",
+        serv_2_desc: "Asistimos en operaciones sometidas a regímenes especiales, presentaciones ante organismos estatales y todo requerimiento legal vinculado al comercio exterior.",
+        serv_3_title: "Transporte Internacional",
+        serv_3_desc: "Coordinamos el traslado de su mercadería, nacional e internacional, sin importar el tamaño o tipo de carga. Al integrar despacho y transporte, controlamos toda la operación y evitamos demoras.",
+        serv_4_title: "Desarrollo de Mercados",
+        serv_4_desc: "Ayudamos a identificar compradores potenciales en el exterior para su producción, sumando a la gestión aduanera y logística una puerta de entrada a nuevos mercados.",
+
+        herramientas_label: "Módulo Operativo MACOR",
+        herramientas_title: "Clasificación NCM/SIM & Liquidador Tributario",
+        herramientas_sub: "Determine la posición arancelaria NCM/SIM de su producto mediante nuestro motor especializado y liquide los impuestos aduaneros para la nacionalización en Argentina.",
+        herramientas_aviso: "<strong>Aviso Legal & Operativo:</strong> Todos los resultados, clasificaciones arancelarias y valores de liquidación provistos por esta herramienta son de carácter <strong>estrictamente estimativo e informativo</strong>. Para la oficialización de despachos de importación/exportación ante la ARCA-DGA, es indispensable la evaluación directa y confirmación de un <strong>Despachante de Aduana</strong>.",
+        clasif_box_title: "<span>🔍</span> Clasificador NCM / SIM",
+        lbl_prod_nombre: "Descripción detallada del producto *",
+        ph_prod_nombre: "Ej: Zapatillas deportivas con capellada textil y suela de caucho",
+        lbl_prod_mat: "Composición / Materiales principales",
+        ph_prod_mat: "Ej: 100% Poliéster / Caucho sintético",
+        lbl_prod_uso: "Uso / Aplicación",
+        ph_prod_uso: "Ej: Calzado para entrenamiento deportivo",
+        lbl_prod_estado: "Estado",
+        opt_nuevo: "Nuevo",
+        opt_usado: "Usado",
+        lbl_prod_origen: "Origen",
+        ph_prod_origen: "Ej: China",
+        btn_clasificar: "🔍 Clasificar Posición SIM",
+        btn_trasladar: "↙ Trasladar al Liquidador Tributario",
+        lbl_pos_sim: "Posición SIM Sugerida:",
+        lbl_fundamento: "Fundamento Arancelario (RGI):",
+        lbl_interv: "Intervenciones previas estimadas:",
+        aviso_normativo_txt: "⚠️ <strong>Aviso de Verificación Normativa:</strong> Se recomienda la revisión directa de un Despachante de Aduana ante la ARCA-DGA para confirmar el cumplimiento de intervenciones específicas.",
+
+        liq_box_title: "<span>🧮</span> Liquidador Tributario de Importación",
+        lbl_fob: "Valor FOB (USD)",
+        lbl_flete: "Flete Int. (USD)",
+        lbl_seguro: "Seguro Int. (USD)",
+        lbl_die: "D.I.E. (%)",
+        lbl_te: "Tasa Estad. (%)",
+        lbl_iva: "Alícuota IVA (%)",
+        res_cif: "Valor Aduanero CIF:",
+        res_aduana: "Derechos y Tasa Estadística:",
+        res_interiores: "Impuestos Interiores (IVA/Percepciones):",
+        res_landed: "Costo Nacionalizado Estimado:",
+        res_disclaimer: "* Cálculo de referencia no vinculante. Consulte con un Despachante de Aduana para un presupuesto formal.",
+
+        operaciones_label: "Cómo trabajamos",
+        operaciones_title: "Gestión integral de importación y exportación",
+        imp_badge: "📥 Importación",
+        imp_title: "Gestionamos tu importación de principio a fin",
+        imp_desc: "Nos encargamos de la oficialización del despacho, el seguimiento personalizado y la coordinación de la verificación hasta la entrega en el lugar designado por el titular de la mercadería.",
+        imp_li1: "Liquidación del despacho con todos los requisitos legales vigentes",
+        imp_li2: "Pago de gravámenes con fondos previstos por el importador",
+        imp_li3: "Seguimiento desde la oficialización hasta la verificación",
+        imp_li4: "Entrega coordinada en horarios y lugares asignados",
+        imp_li5: "Gestión de permisos previos: SIVEP, SIMI y otros regímenes",
+        imp_li6: "Clasificación arancelaria y liquidación de tributos",
+        exp_badge: "📤 Exportación",
+        exp_title: "Exportá con respaldo profesional",
+        exp_desc: "Tramitamos el permiso de embarque ante la ARCA-DGA y acompañamos la operación hasta su culminación total, incluyendo la gestión del cobro de reintegros.",
+        exp_li1: "Solicitud y tramitación del permiso de embarque",
+        exp_li2: "Atención con personal propio en lugar de carga asignado",
+        exp_li3: "Seguimiento hasta la culminación y precintado del transporte",
+        exp_li4: "Gestión del cobro de reintegros",
+        exp_li5: "Asesoramiento en clasificación y posiciones arancelarias",
+        exp_li6: "Coordinación con organismos de control: SENASA, INAL, otros",
+
+        mercados_label: "Un paso más allá",
+        mercados_title: "También le conseguimos el comprador",
+        mercados_badge: "🤝 Desarrollo de Mercados",
+        mercados_h3: "Usted produce. Nosotros abrimos el mercado y cerramos la operación.",
+        mercados_desc: "Además de gestionar el despacho, el transporte y toda la documentación de su exportación, trabajamos en la identificación de compradores potenciales en el exterior para su producción. Así, su empresa no solo exporta con respaldo profesional: también gana una puerta de entrada activa a nuevos mercados, sin tener que salir a buscarla por su cuenta.",
+        merc_li1: "Búsqueda e identificación de compradores potenciales acordes a su producto",
+        merc_li2: "Acompañamiento en el primer contacto comercial",
+        merc_li3: "Gestión conjunta de la operación de exportación una vez cerrado el acuerdo",
+        merc_li4: "Un solo interlocutor para todo el proceso: comercial, aduanero, jurídico y logístico",
+
+        noticias_label: "Novedades & Normativa",
+        noticias_title: "Actualidad del Comercio Exterior en Argentina",
+        noticias_sub: "Manténgase informado sobre resoluciones aduaneras, cambios normativos de la ARCA-DGA, tendencias en transporte internacional e incentivos para exportadores.",
+        noticias_loading: "Cargando noticias de comercio exterior...",
+
+        quienes_label: "Quiénes somos",
+        quienes_title: "Su asistente sólido y confiable en comercio exterior",
+        quienes_p1: "Estudio MACOR es un estudio integral de comercio exterior nacido en Rosario. Nuestro compromiso es transformarnos en un asistente sólido y confiable en el manejo de las operaciones de comercio internacional de nuestros clientes, con actualización constante en legislación aduanera, valoración y clasificación.",
+        quienes_p2: "Trabajamos para mejorar los servicios, costos y requerimientos específicos de cada operación, abarcando todo el proceso operativo, logístico y documental de la importación y la exportación. Con 26 años de trayectoria, acumulamos más de 6.000 operaciones exitosas junto a empresas de todos los tamaños y sectores.",
+        quienes_p3: "Somos una organización funcional y flexible, adaptable a los requerimientos de la operativa internacional, que responde con seguridad, rapidez y experiencia — para que usted se concentre en producir mientras nosotros nos encargamos del resto.",
+        stat_ops: "Operaciones exitosas",
+        stat_cov: "Cobertura internacional — todos los países",
+        stat_tray_num: "26 años",
+        stat_tray: "De trayectoria en comercio exterior",
+
+        cont_label: "Operaciones",
+        cont_title: "Tipos de contenedores",
+        cont_sub: "Ponemos a tu disposición una amplia variedad de contenedores adaptados a cada tipo de carga, garantizando seguridad y eficiencia en tus operaciones.",
+        cont_dry_t: "Dry (Seco)",
+        cont_dry_d: "Carga general, pallets, cajas, productos no perecederos. Disponible en 20' y 40'. Totalmente cerrado y hermético.",
+        cont_reefer_t: "Reefer (Refrigerado)",
+        cont_reefer_d: "Alimentos, farmacéuticos y mercadería perecedera. Control de temperatura y monitoreo constante.",
+        cont_opentop_t: "Open Top",
+        cont_opentop_d: "Cargas sobredimensionadas en altura. Sin techo rígido, permite carga superior y operaciones con grúa.",
+        cont_flatrack_t: "Flat Rack",
+        cont_flatrack_d: "Maquinaria pesada, vehículos y cargas de gran tamaño. Sin paredes ni techo, alta resistencia estructural.",
+        cont_openside_t: "Open Side",
+        cont_openside_d: "Mercadería que requiere acceso lateral amplio. Apertura lateral completa, versátil para distintos tipos de carga.",
+        cont_tank_t: "Tank (ISO Tank)",
+        cont_tank_d: "Líquidos a granel: químicos, aceites, alimentos líquidos. Cumple normas internacionales de seguridad.",
+        cont_highcube_t: "High Cube",
+        cont_highcube_d: "Mercadería voluminosa. Mayor altura que el contenedor estándar, optimización del volumen de carga.",
+        cont_ventilado_t: "Ventilado",
+        cont_ventilado_d: "Productos que requieren circulación de aire: café, granos, semillas. Previene humedad y condensación.",
+        cont_platform_t: "Platform",
+        cont_platform_d: "Cargas de dimensiones o pesos extremos. Solo base, máxima capacidad, para proyectos especiales.",
+
+        trans_label: "Operaciones",
+        trans_title: "Medios de transporte internacional",
+        trans_sub: "Elegir el medio de transporte adecuado es clave para optimizar costos, tiempos y seguridad en tus operaciones.",
+        trans_mar_t: "Marítimo",
+        trans_mar_d: "Grandes volúmenes de carga, mercadería pesada o no urgente. Costo más económico por volumen, ideal para larga distancia.",
+        trans_air_t: "Aéreo",
+        trans_air_d: "Mercadería urgente, de alto valor o perecedera. Máxima rapidez en tránsito y alta seguridad.",
+        trans_land_t: "Terrestre",
+        trans_land_d: "Operaciones regionales dentro del MERCOSUR. Servicio puerta a puerta, flexible y rápido en distancias cortas.",
+        trans_train_t: "Ferroviario",
+        trans_train_d: "Grandes volúmenes en trayectos terrestres largos. Alta capacidad de carga y menor impacto ambiental.",
+        trans_multi_t: "Multimodal",
+        trans_multi_d: "Operaciones que combinan dos o más medios de transporte. Optimización de costos y tiempos, integración de toda la cadena bajo un solo operador.",
+
+        faq_label: "Preguntas frecuentes",
+        faq_title: "Lo que más nos consultan",
+        faq_q1: "¿Qué documentación necesito para importar?",
+        faq_a1: "Para una importación estándar necesitás: factura comercial del proveedor, lista de empaque (packing list), conocimiento de embarque o guía aérea (BL o AWB), certificado de origen si aplica, y los permisos previos según el tipo de mercadería (SIMI, SIVEP, etc.). Te asesoramos en cada caso particular.",
+        faq_q2: "¿Cuánto tarda un despacho de importación?",
+        faq_a2: "El tiempo varía según el canal de selectividad asignado por la ARCA-DGA (verde, naranja o rojo), el tipo de mercadería y los permisos previos requeridos. Un despacho en canal verde puede resolverse en 24-48 horas hábiles. Te informamos el estado en tiempo real durante todo el proceso.",
+        faq_q3: "¿Trabajan con todos los tipos de mercadería?",
+        faq_a3: "Sí, tenemos experiencia en una amplia variedad de productos: maquinaria industrial, insumos, alimentos, productos químicos, textiles, tecnología y más. Contamos con conocimiento específico de los organismos intervinientes para cada tipo de mercadería.",
+        faq_q4: "¿Qué es el permiso de embarque y cuándo se necesita?",
+        faq_a4: "El permiso de embarque es el documento habilitante para exportar mercadería desde Argentina. Se tramita ante la ARCA-DGA antes de cargar la mercadería en el medio de transporte. Es obligatorio para toda exportación formal y lo gestionamos de manera completa.",
+        faq_q5: "¿Cómo se calculan los aranceles y tributos de importación?",
+        faq_a5: "Los tributos dependen de la posición arancelaria (NCM) de la mercadería y su valor en aduana. Incluyen Derecho de Importación, IVA, IVA adicional, Impuesto a las Ganancias y estadística, entre otros. Te brindamos una estimación detallada antes de cada operación.",
+        faq_q6: "¿Trabajan con empresas de todo el país o solo de Rosario?",
+        faq_a6: "Trabajamos con clientes de todo el país. Si bien tenemos nuestra base en Rosario, gestionamos operaciones en los principales puertos y aeropuertos de Argentina. La comunicación es siempre fluida y personalizada sin importar dónde estés.",
+
+        mapa_label: "Dónde estamos",
+        mapa_title: "Nuestra oficina",
+        mapa_sub: "Nuestra oficina está ubicada en Rosario, Santa Fe. Podés visitarnos o contactarnos para coordinar una reunión.",
+
+        por_que_label: "¿Por qué elegirnos?",
+        por_que_title: "Respaldo, experiencia y compromiso en cada operación",
+        por_que_intro: "Somos un equipo de profesionales con sólida formación en comercio exterior y derecho aduanero. Entendemos que cada operación es única y que el tiempo es un factor crítico. Por eso trabajamos con agilidad, precisión y comunicación constante con nuestros clientes.",
+        why_1_t: "Seguridad jurídica y tributaria",
+        why_1_d: "Operamos con pleno cumplimiento del Código Aduanero y la normativa ARCA-DGA vigente, garantizando que cada operación esté cubierta legalmente.",
+        why_2_t: "Seguimiento personalizado",
+        why_2_d: "Cada operación tiene un profesional responsable asignado que mantiene al cliente informado en tiempo real durante todo el proceso.",
+        why_3_t: "Optimización tributaria",
+        why_3_d: "Identificamos los regímenes, posiciones arancelarias y reintegros más convenientes para maximizar la eficiencia de cada operación.",
+        why_4_t: "Respuesta ágil",
+        why_4_d: "En comercio exterior los plazos son determinantes. Actuamos con rapidez y precisión para evitar demoras y costos innecesarios.",
+
+        redes_title: "Seguinos en nuestras redes",
+        redes_sub: "Contenido del sector, actualizaciones normativas y novedades de Estudio MACOR.",
+
+        contacto_title: "¿Tenés una consulta sobre tu operación?",
+        contacto_sub: "Completá el formulario y nos ponemos en contacto a la brevedad. Nuestro equipo está disponible para asesorarte sin compromiso.",
+        contact_lbl_loc: "Ubicación",
+        contact_lbl_hours: "Horario de atención",
+        contact_val_hours: "Lunes a viernes de 9 a 18 hs",
+        form_btn: "Enviar consulta →",
+        form_success: "✅ ¡Consulta enviada! Nos ponemos en contacto a la brevedad.",
+        ph_nombre: "Nombre",
+        ph_email: "E-mail",
+        ph_tel: "Teléfono",
+        ph_ciudad: "Ciudad",
+        ph_provincia: "Provincia / País",
+        ph_mensaje: "Describí tu consulta o necesidad con el mayor detalle posible...",
+        opt_select_default: "Tipo de consulta",
+        opt_sel_1: "Importación",
+        opt_sel_2: "Permiso de embarque",
+        opt_sel_3: "Asesoramiento jurídico",
+        opt_sel_4: "Transporte internacional",
+        opt_sel_5: "Desarrollo de mercados / compradores",
+        opt_sel_6: "Otro",
+        footer_faq: "FAQ",
+        footer_copy: "© 2026 Estudio MACOR · Todos los derechos reservados",
+        modal_footer_note: "Estudio MACOR · Asesoramiento Especializado",
+        modal_btn_consultar: "Consultar sobre esta nota →"
+      },
+      pt: {
+        top_address: "Buenos Aires 1049, Rosário, Argentina",
+        nav_servicios: "Serviços",
+        nav_herramientas: "Calculadora & NCM",
+        nav_noticias: "Notícias",
+        nav_operaciones: "Operações",
+        nav_mercados: "Desenvolvimento de Mercados",
+        nav_quienes: "Quem Somos",
+        nav_nosotros: "Sobre Nós",
+        nav_contacto: "Contato",
+        btn_consultar_ahora: "Consultar agora",
+
+        hero_h1: "Seu departamento de comércio exterior, <em>terceirizado</em>",
+        hero_p: "Você se dedica a produzir e vender. Nós cuidamos de todo o processo operacional, logístico, jurídico e documental de suas importações e exportações, com a segurança de especialistas em despacho aduaneiro à frente de cada operação.",
+        hero_btn_asesoramiento: "Solicitar assessoria →",
+        hero_btn_calc: "Calculadora & Classificador",
+
+        servicios_label: "Nossos serviços",
+        servicios_title: "Uma equipe, todas as áreas do seu comércio exterior",
+        serv_1_title: "Despacho Aduaneiro",
+        serv_1_desc: "Gerenciamos a declaração aduaneira e todas as apresentações perante órgãos reguladores, entidades e alfândegas, tanto na importação quanto na exportação.",
+        serv_2_title: "Assessoria Jurídica Aduaneira",
+        serv_2_desc: "Prestamos assistência em operações sob regimes especiais, processos administrativos e todos os requisitos legais vinculados ao comércio exterior.",
+        serv_3_title: "Transporte Internacional",
+        serv_3_desc: "Coordenamos o transporte de sua carga nacional e internacionalmente. Ao integrar despacho e frete, mantemos controle ponta a ponta e evitamos atrasos.",
+        serv_4_title: "Desenvolvimento de Mercados",
+        serv_4_desc: "Ajudamos a prospectar compradores no exterior para sua produção, somando à gestão aduaneira e logística uma porta de entrada ativa para novos mercados.",
+
+        herramientas_label: "Módulo Operacional MACOR",
+        herramientas_title: "Classificação NCM/SIM & Simulador de Tributos",
+        herramientas_sub: "Identifique a posição tarifária NCM/SIM do seu produto e calcule a estimativa de impostos aduaneiros para nacionalização na Argentina.",
+        herramientas_aviso: "<strong>Aviso Legal & Operacional:</strong> Todos os resultados, classificações fiscais e valores de liquidação fornecidos por esta ferramenta são de caráter <strong>estritamente estimativo e informativo</strong>. Para o registro oficial perante a ARCA-DGA, é imprescindível a confirmação de um <strong>Despachante Aduaneiro</strong>.",
+        clasif_box_title: "<span>🔍</span> Classificador NCM / SIM",
+        lbl_prod_nombre: "Descrição detalhada do produto *",
+        ph_prod_nombre: "Ex: Tênis esportivo com cabedal têxtil e solado de borracha",
+        lbl_prod_mat: "Composição / Materiais principais",
+        ph_prod_mat: "Ex: 100% Poliéster / Borracha sintética",
+        lbl_prod_uso: "Uso / Aplicação",
+        ph_prod_uso: "Ex: Calçado para treinamento esportivo",
+        lbl_prod_estado: "Estado",
+        opt_nuevo: "Novo",
+        opt_usado: "Usado",
+        lbl_prod_origen: "Origem",
+        ph_prod_origen: "Ex: China / Brasil",
+        btn_clasificar: "🔍 Classificar Posição SIM",
+        btn_trasladar: "↙ Transferir para o Simulador de Tributos",
+        lbl_pos_sim: "Posição SIM Sugerida:",
+        lbl_fundamento: "Fundamento Tarifário (RGI):",
+        lbl_interv: "Intervenções e Licenças Estimadas:",
+        aviso_normativo_txt: "⚠️ <strong>Aviso de Verificação Normativa:</strong> Recomenda-se a revisão técnica direta de um Despachante Aduaneiro perante a ARCA-DGA para confirmar as exigências específicas.",
+
+        liq_box_title: "<span>🧮</span> Simulador Tributário de Importação",
+        lbl_fob: "Valor FOB (USD)",
+        lbl_flete: "Frete Int. (USD)",
+        lbl_seguro: "Seguro Int. (USD)",
+        lbl_die: "I.I. / D.I.E. (%)",
+        lbl_te: "Taxa Estat. (%)",
+        lbl_iva: "Alíquota IVA (%)",
+        res_cif: "Valor Aduaneiro CIF:",
+        res_aduana: "Direitos Aduaneiros e Taxa:",
+        res_interiores: "Impostos Internos (IVA/Percepções):",
+        res_landed: "Custo Nacionalizado Estimado:",
+        res_disclaimer: "* Cálculo de referência não vinculativo. Consulte um Despachante Aduaneiro para um orçamento formal.",
+
+        operaciones_label: "Como trabalhamos",
+        operaciones_title: "Gestão integrada de importação e exportação",
+        imp_badge: "📥 Importação",
+        imp_title: "Gerenciamos sua importação do início ao fim",
+        imp_desc: "Cuidamos da parametrização e desembaraço aduaneiro, monitoramento em tempo real e coordenação de conferência física até a entrega no destino final.",
+        imp_li1: "Registro e conferência da declaração aduaneira com a legislação vigente",
+        imp_li2: "Recolhimento de tributos com repasse dos fundos operacionais",
+        imp_li3: "Acompanhamento integral desde o registro até o canal de parametrização",
+        imp_li4: "Entrega e liberação coordenada nos armazéns designados",
+        imp_li5: "Gestão de licenças prévias e órgãos intervenientes",
+        imp_li6: "Enquadramento tarifário NCM e simulação fiscal aduaneira",
+        exp_badge: "📤 Exportação",
+        exp_title: "Exporte com segurança profissional",
+        exp_desc: "Emitimos e tramitamos o despacho de exportação perante a alfândega argentina (ARCA-DGA) e acompanhamos a operação até o embarque e recebimento de incentivos.",
+        exp_li1: "Emissão e tramitação da autorização de embarque aduaneiro",
+        exp_li2: "Acompanhamento operacional presencial no local de estufagem",
+        exp_li3: "Monitoramento até a lacração e liberação do transporte",
+        exp_li4: "Gestão e liquidação de incentivos e restituições à exportação",
+        exp_li5: "Assessoria técnica na classificação tarifária de produtos",
+        exp_li6: "Coordenação com órgãos de controle sanitário e regulatório",
+
+        mercados_label: "Um passo além",
+        mercados_title: "Também encontramos o comprador internacional",
+        mercados_badge: "🤝 Desenvolvimento de Mercados",
+        mercados_h3: "Você produz. Nós abrimos o mercado e concretizamos a operação.",
+        mercados_desc: "Além de gerenciar o despacho aduaneiro, o frete e a documentação de exportação, atuamos na identificação e contato de compradores estratégicos no exterior para sua empresa. Sua empresa ganha uma porta de entrada ativa para o mercado internacional.",
+        merc_li1: "Identificação e prospecção de compradores potenciais compatíveis",
+        merc_li2: "Apoio e assessoria no primeiro contato comercial",
+        merc_li3: "Condução completa do processo operacional após o fechamento do acordo",
+        merc_li4: "Um único interlocutor para toda a cadeia: comercial, fiscal e logística",
+
+        noticias_label: "Notícias & Normativas",
+        noticias_title: "Atualidade do Comércio Exterior na Argentina",
+        noticias_sub: "Mantenha-se informado sobre resoluções aduaneras, alterações no regime cambial da ARCA-DGA, logística internacional e incentivos à exportação.",
+        noticias_loading: "Carregando notícias de comércio exterior...",
+
+        quienes_label: "Quem somos",
+        quienes_title: "Seu parceiro sólido e confiável em comércio exterior",
+        quienes_p1: "O Estudio MACOR é um escritório integral de comércio exterior sediado em Rosário, Argentina. Nosso compromisso é transformar-nos em um parceiro estratégico e ágil na condução das operações internacionais de nossos clientes.",
+        quienes_p2: "Trabalhamos para otimizar prazos, custos e exigências regulatórias, abrangendo todo o fluxo operacional, logístico e documental de importação e exportação. Com 26 anos de história, somamos mais de 6.000 operações bem-sucedidas.",
+        quienes_p3: "Somos uma estrutura dinâmica e flexível, preparada para responder com segurança técnica e agilidade para que sua empresa possa focar na produção comercial.",
+        stat_ops: "Operações bem-sucedidas",
+        stat_cov: "Cobertura internacional — todos os países",
+        stat_tray_num: "26 anos",
+        stat_tray: "De experiência em comércio exterior",
+
+        cont_label: "Operações",
+        cont_title: "Tipos de contêineres",
+        cont_sub: "Disponibilizamos uma ampla variedade de contêineres adequados a cada perfil de carga, garantindo segurança e máxima eficiência logística.",
+        cont_dry_t: "Dry (Carga Seca)",
+        cont_dry_d: "Cargas gerais, paletes, caixas e manufaturados não perecíveis. Disponível em 20' e 40'. Totalmente fechado e estanque.",
+        cont_reefer_t: "Reefer (Refrigerado)",
+        cont_reefer_d: "Alimentos congelados, carnes, farmacêuticos e cargas perecíveis. Controle térmico contínuo e monitoramento.",
+        cont_opentop_t: "Open Top",
+        cont_opentop_d: "Cargas com excesso de altura. Sem teto rígido, viabiliza o carregamento superior por guindaste.",
+        cont_flatrack_t: "Flat Rack",
+        cont_flatrack_d: "Máquinas industriais pesadas e veículos. Sem paredes laterais ou teto, com altíssima resistência estrutural.",
+        cont_openside_t: "Open Side",
+        cont_openside_d: "Cargas que requerem acesso lateral facilitado. Abertura lateral completa e manuseio rápido.",
+        cont_tank_t: "Tank (ISO Tanque)",
+        cont_tank_d: "Líquidos a granel, produtos químicos e alimentícios líquidos, em conformidade com normas ISO internacionais.",
+        cont_highcube_t: "High Cube",
+        cont_highcube_d: "Mercadorias volumosas. Maior altura útil em relação ao padrão, otimizando a cubagem e o frete.",
+        cont_ventilado_t: "Ventilado",
+        cont_ventilado_d: "Cargas que demandam circulação constante de ar (como grãos de café e sementes), evitando condensação.",
+        cont_platform_t: "Platform",
+        cont_platform_d: "Cargas com dimensões ou pesos excepcionais de projeto. Base reforçada sem cabeceiras.",
+
+        trans_label: "Operações",
+        trans_title: "Modais de transporte internacional",
+        trans_sub: "A escolha do modal adequado é essencial para equilibrar custos, prazos de entrega e segurança em sua cadeia de suprimentos.",
+        trans_mar_t: "Marítimo",
+        trans_mar_d: "Grandes volumes e mercadorias pesadas de longa distância. Custo unitário mais competitivo e ampla capacidade.",
+        trans_air_t: "Aéreo",
+        trans_air_d: "Cargas urgentes, perecíveis ou de alto valor agregado. Máxima velocidade de trânsito e elevados níveis de segurança.",
+        trans_land_t: "Rodoviário",
+        trans_land_d: "Operações regionais no MERCOSUL. Serviço porta a porta ágil, com flexibilidade operacional para médias distâncias.",
+        trans_train_t: "Ferroviário",
+        trans_train_d: "Grandes volumes e commodities em longos trajetos terrestres, com baixo consumo energético e menor impacto ambiental.",
+        trans_multi_t: "Multimodal",
+        trans_multi_d: "Combinação integrada de dois ou mais modais de transporte sob a coordenação de um único operador responsável.",
+
+        faq_label: "Perguntas frequentes",
+        faq_title: "Dúvidas mais comuns",
+        faq_q1: "Quais documentos são exigidos para importar?",
+        faq_a1: "Para uma importação padrão são necessários: fatura comercial (commercial invoice), packing list, conhecimento de embarque (BL ou AWB), certificado de origem (se houver preferência tarifária) e autorizações prévias de órgãos reguladores.",
+        faq_q2: "Quanto tempo demora o desembaraço aduaneiro de importação?",
+        faq_a2: "O prazo varia conforme o canal de conferência atribuído pela alfândega (verde, laranja ou vermelho) e os órgãos intervenientes. No canal verde a liberação pode ocorrer em 24 a 48 horas úteis.",
+        faq_q3: "Vocês atendem todos os tipos de mercadoria?",
+        faq_a3: "Sim, atendemos máquinas industriais, insumos químicos, alimentos, tecidos, eletroeletrônicos e peças automotivas, atuando perante todos os órgãos de fiscalização sanitária e técnica.",
+        faq_q4: "O que é a autorização de embarque e quando é necessária?",
+        faq_a4: "É o documento aduaneiro obrigatório emitido junto à ARCA-DGA que autoriza a saída legal de mercadorias da Argentina antes do carregamento no transporte internacional.",
+        faq_q5: "Como são calculados os tributos aduaneiros de importação?",
+        faq_a5: "Os impostos dependem do enquadramento tarifário (NCM) e do valor aduaneiro CIF. Incluem o Imposto de Importação (D.I.E.), Taxa Estatística, IVA, IVA Adicional e percepções fiscais de renda e provinciais.",
+        faq_q6: "O Estudio MACOR atende empresas de todo o país ou apenas de Rosário?",
+        faq_a6: "Atendemos clientes em toda a Argentina e no MERCOSUL, operando nos principais portos marítimos, fluviais, aeroportos e postos de fronteira do país.",
+
+        mapa_label: "Onde estamos",
+        mapa_title: "Nosso escritório",
+        mapa_sub: "Nosso escritório principal fica em Rosário, Santa Fé, Argentina. Venha tomar um café conosco ou agende uma reunião virtual.",
+
+        por_que_label: "Por que nos escolher?",
+        por_que_title: "Segurança técnica, experiência e agilidade operacional",
+        por_que_intro: "Somos uma equipe de especialistas com sólida formação em comércio exterior e direito aduanero. Entendemos que o tempo é um fator determinante em comércio internacional. Por isso atuamos com precisão, agilidade e comunicação contínua.",
+        why_1_t: "Segurança jurídica e tributária",
+        why_1_d: "Atuamos em estrita conformidade com o Código Aduaneiro e as normas vigentes da ARCA-DGA, resguardando cada operação juridicamente.",
+        why_2_t: "Acompanhamento personalizado",
+        why_2_d: "Cada processo conta com um especialista responsável que mantém o cliente atualizado em tempo real sobre o status da carga.",
+        why_3_t: "Otimização tributária",
+        why_3_d: "Identificamos os regimes aduaneiros especiais, enquadramentos tarifários e incentivos fiscais mais vantajosos para sua operação.",
+        why_4_t: "Resposta ágil",
+        why_4_d: "No comércio exterior, os prazos são vitais. Agimos com rapidez para prevenir custos extras de armazenagem e demoras logísticas.",
+
+        redes_title: "Siga-nos nas redes sociais",
+        redes_sub: "Conteúdo especializado, atualizações tributárias e novidades do Estudio MACOR.",
+
+        contacto_title: "Deseja consultar sobre sua operação?",
+        contacto_sub: "Preencha o formulário abaixo e entraremos em contato rapidamente para analisar suas necessidades sem compromisso.",
+        contact_lbl_loc: "Localização",
+        contact_lbl_hours: "Horário de atendimento",
+        contact_val_hours: "Segunda a sexta das 9h às 18h",
+        form_btn: "Enviar mensagem →",
+        form_success: "✅ Mensagem enviada! Entraremos em contato com brevidade.",
+        ph_nombre: "Nome",
+        ph_email: "E-mail",
+        ph_tel: "Telefone",
+        ph_ciudad: "Cidade",
+        ph_provincia: "Estado / País",
+        ph_mensaje: "Descreva sua consulta ou necessidade com o máximo de detalhes...",
+        opt_select_default: "Tipo de consulta",
+        opt_sel_1: "Importação",
+        opt_sel_2: "Despacho de exportação",
+        opt_sel_3: "Assessoria jurídica aduaneira",
+        opt_sel_4: "Transporte internacional",
+        opt_sel_5: "Desenvolvimento de mercados / compradores",
+        opt_sel_6: "Outro",
+        footer_faq: "FAQ",
+        footer_copy: "© 2026 Estudio MACOR · Todos os direitos reservados",
+        modal_footer_note: "Estudio MACOR · Assessoria Especializada em Comércio Exterior",
+        modal_btn_consultar: "Consultar sobre este artigo →"
+      }
+    };
+
+    let idiomaActual = localStorage.getItem('macor_idioma') || 'es';
+
+    function cambiarIdioma(lang) {
+      if (!DICCIONARIO_I18N[lang]) return;
+      idiomaActual = lang;
+      localStorage.setItem('macor_idioma', lang);
+
+      // Botones activos de idioma
+      const btnsEs = [document.getElementById('btnLangEs'), document.getElementById('btnLangEsMob')];
+      const btnsPt = [document.getElementById('btnLangPt'), document.getElementById('btnLangPtMob')];
+
+      btnsEs.forEach(b => b?.classList.toggle('active', lang === 'es'));
+      btnsPt.forEach(b => b?.classList.toggle('active', lang === 'pt'));
+
+      const dicc = DICCIONARIO_I18N[lang];
+
+      // Reemplazar todos los elementos con data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dicc[key]) {
+          el.innerHTML = dicc[key];
+        }
+      });
+
+      // Placeholders de inputs
+      const inputProd = document.getElementById('prodNombre');
+      if (inputProd) inputProd.placeholder = dicc.ph_prod_nombre;
+      const inputMat = document.getElementById('prodMaterial');
+      if (inputMat) inputMat.placeholder = dicc.ph_prod_mat;
+      const inputUso = document.getElementById('prodUso');
+      if (inputUso) inputUso.placeholder = dicc.ph_prod_uso;
+      const inputOrigen = document.getElementById('prodOrigen');
+      if (inputOrigen) inputOrigen.placeholder = dicc.ph_prod_origen;
+
+      const inputNombre = document.querySelector('input[name="nombre"]');
+      if (inputNombre) inputNombre.placeholder = dicc.ph_nombre;
+      const inputEmail = document.querySelector('input[name="email"]');
+      if (inputEmail) inputEmail.placeholder = dicc.ph_email;
+      const inputTel = document.querySelector('input[name="telefono"]');
+      if (inputTel) inputTel.placeholder = dicc.ph_tel;
+      const inputCiudad = document.querySelector('input[name="ciudad"]');
+      if (inputCiudad) inputCiudad.placeholder = dicc.ph_ciudad;
+      const inputProv = document.querySelector('input[name="provincia"]');
+      if (inputProv) inputProv.placeholder = dicc.ph_provincia;
+      const textareaMsg = document.querySelector('textarea[name="mensaje"]');
+      if (textareaMsg) textareaMsg.placeholder = dicc.ph_mensaje;
+
+      // Actualizar select de opciones de contacto
+      const selectTipo = document.querySelector('select[name="tipo_consulta"]');
+      if (selectTipo && selectTipo.options.length >= 7) {
+        selectTipo.options[0].textContent = dicc.opt_select_default;
+        selectTipo.options[1].textContent = dicc.opt_sel_1;
+        selectTipo.options[2].textContent = dicc.opt_sel_2;
+        selectTipo.options[3].textContent = dicc.opt_sel_3;
+        selectTipo.options[4].textContent = dicc.opt_sel_4;
+        selectTipo.options[5].textContent = dicc.opt_sel_5;
+        selectTipo.options[6].textContent = dicc.opt_sel_6;
+      }
+    }
+
     /* Observer para animaciones fade-up */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
@@ -1358,7 +1905,7 @@
       }
     }
 
-    /* ── STREAMING_CHUNK:Configuring tariff database and deterministic classifier... ── */
+    /* ── BASE ARANCELARIA DETERMINÍSTICA NCM/SIM ── */
     function hashCode(str) {
       let hash = 0;
       for (let i = 0; i < str.length; i++) {
@@ -1383,7 +1930,6 @@
     }
 
     const BASE_NCM_OFICIAL = [
-      // 1. MUEBLES E ILUMINACIÓN (Capítulo 94)
       {
         keywords: ['silla', 'sillon', 'sofa', 'banco', 'asiento'],
         codigoSIM: '9401.61.00.100A',
@@ -1403,13 +1949,11 @@
       {
         keywords: ['lampara', 'foco', 'led', 'velador', 'luminaria', 'arana', 'plafon', 'spot'],
         codigoSIM: '9405.21.00.100B',
-        glosa: 'Aparatos eléctricos de alumbrado para paredes o techos, diseñados para emitir luz LED',
+        glosa: 'Aparatos eléctricos de alumbrado para paredes o techos, con diodos emisores de luz (LED)',
         fundamento: 'RGI 1, 3b y 6. Partida 94.05. Clasificación según tecnología de iluminación (LED) y uso.',
         intervenciones: ['Seguridad Eléctrica (Res. 169/2018)', 'Eficiencia Energética (DNT)'],
         die: 20, te: 3, iva: 21, aviso: true
       },
-
-      // 2. TECNOLOGÍA, COMPUTACIÓN Y TELECOMUNICACIONES (Capítulos 84 y 85)
       {
         keywords: ['celular', 'telefono', 'smartphone', 'iphone', 'android', 'movil'],
         codigoSIM: '8517.13.00.100Z',
@@ -1421,234 +1965,90 @@
       {
         keywords: ['computadora', 'notebook', 'laptop', 'pc', 'servidor', 'tablet', 'procesador'],
         codigoSIM: '8471.30.12.100P',
-        glosa: 'Máquinas automáticas para tratamiento o procesamiento de datos, digitales y portátiles (<10kg)',
+        glosa: 'Máquinas automáticas para tratamiento de datos, portátiles de peso inferior a 10 kg',
         fundamento: 'RGI 1 y 6. Partida 84.71. Máquinas digitales de procesamiento automatizado de datos.',
-        intervenciones: ['Seguridad Eléctrica (Res. 169/2018)', 'ENACOM (Módulo Inalámbrico/Wi-Fi)'],
+        intervenciones: ['Seguridad Eléctrica (Res. 169/2018)', 'ENACOM (Módulo Wi-Fi / Bluetooth)'],
         die: 0, te: 3, iva: 10.5, aviso: false
       },
       {
-        keywords: ['televisor', 'tv', 'monitor', 'pantalla', 'led tv', 'oled', 'smart tv'],
+        keywords: ['televisor', 'tv', 'monitor', 'pantalla', 'smart tv', 'oled'],
         codigoSIM: '8528.72.00.100J',
-        glosa: 'Aparatos receptores de televisión con pantalla incorporada, en colores',
-        fundamento: 'RGI 1 y 6. Subpartida 8528.72. Aparatos de recepción de señales de televisión.',
-        intervenciones: ['Seguridad Eléctrica', 'ENACOM (Módulos Bluetooth/Wi-Fi)'],
+        glosa: 'Aparatos receptores de televisión en colores con pantalla incorporada',
+        fundamento: 'RGI 1 y 6. Subpartida 8528.72. Aparatos receptores de televisión.',
+        intervenciones: ['Seguridad Eléctrica', 'ENACOM'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['parlante', 'auricular', 'auriculares', 'microfono', 'altavoz', 'audio'],
+        keywords: ['parlante', 'auricular', 'auriculares', 'microfono', 'altavoz', 'soundbar'],
         codigoSIM: '8518.30.00.100K',
         glosa: 'Auriculares y micrófonos combinados o no, y altavoces/parlantes',
-        fundamento: 'RGI 1 y 6. Partida 85.18. Aparatos de amplificación o reproducción electroacústica.',
+        fundamento: 'RGI 1 y 6. Partida 85.18. Aparatos electroacústicos.',
         intervenciones: ['ENACOM (Bluetooth)', 'Seguridad Eléctrica'],
         die: 18, te: 3, iva: 21, aviso: false
       },
       {
-        keywords: ['router', 'switch', 'modem', 'antena', 'repetidor'],
-        codigoSIM: '8517.62.55.100W',
-        glosa: 'Aparatos para la recepción, conversión y transmisión o regeneración de voz, imagen u otros datos',
-        fundamento: 'RGI 1 y 6. Subpartida 8517.62. Equipos de telecomunicaciones y redes informáticas.',
-        intervenciones: ['ENACOM (Homologación de Equipos de Transmisión)'],
-        die: 0, te: 3, iva: 10.5, aviso: false
-      },
-
-      // 3. VEHÍCULOS, AUTOMOTRIZ Y TRANSPORTE (Capítulo 87)
-      {
         keywords: ['auto', 'coche', 'automovil', 'vehiculo', 'camioneta'],
         codigoSIM: '8703.23.10.100A',
-        glosa: 'Automóviles de turismo con motor de émbolo alternativo de cilindrada >1500cm3 pero <=3000cm3',
-        fundamento: 'RGI 1 y 6. Capítulo 87. Clasificación según cilindrada y tipo de motorización.',
-        intervenciones: ['LNA - Licencia de Configuración de Modelo (LCM)', 'CHAS (Homologación de Autopartes)'],
+        glosa: 'Automóviles de turismo con motor de émbolo alternativo de cilindrada >1500cm3 y <=3000cm3',
+        fundamento: 'RGI 1 y 6. Capítulo 87. Clasificación según cilindrada y motorización.',
+        intervenciones: ['Licencia de Configuración de Modelo (LCM)', 'CHAS Autopartes'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
         keywords: ['auto electrico', 'vehiculo electrico', 'ev', 'coche electrico'],
         codigoSIM: '8703.80.00.100E',
         glosa: 'Automóviles propulsados únicamente con motor eléctrico',
-        fundamento: 'RGI 1 y 6. Subpartida 8703.80. Clasificación por sistema de propulsión de tracción eléctrica.',
-        intervenciones: ['LCM (Licencia Configuración Modelo)', 'Régimen de Importación de Vehículos Limpios'],
+        fundamento: 'RGI 1 y 6. Subpartida 8703.80. Clasificación por sistema de propulsión eléctrica.',
+        intervenciones: ['LCM (Licencia Configuración Modelo)', 'Régimen de Vehículos Limpios'],
         die: 5, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['moto', 'motocicleta', 'scooter', 'ciclomotor'],
-        codigoSIM: '8711.20.00.100R',
-        glosa: 'Motocicletas con motor de émbolo alternativo de cilindrada >50cm3 pero <=250cm3',
-        fundamento: 'RGI 1 y 6. Partida 87.11. Criterio por cilindrada del motor de la motocicleta.',
-        intervenciones: ['LCM (Licencia de Configuración de Modelo)', 'CHAS / Cascos Homologados'],
-        die: 35, te: 3, iva: 21, aviso: true
-      },
-      {
-        keywords: ['bicicleta', 'monopatin', 'trike', 'bici'],
-        codigoSIM: '8712.00.10.100K',
-        glosa: 'Bicicletas de carreras o deportivas, sin motor',
-        fundamento: 'RGI 1 y 6. Partida 87.12. Velocípedos sin motor de tracción humana.',
-        intervenciones: ['CHAS / Seguridad en Cuadros y Frenos (Res. 220/2003)', 'INTI'],
-        die: 35, te: 3, iva: 21, aviso: true
-      },
-      {
-        keywords: ['repuesto', 'autoparte', 'freno', 'amortiguador', 'embrague', 'filtro de aceite'],
-        codigoSIM: '8708.30.00.100Q',
-        glosa: 'Guarniciones de frenos montadas y partes de frenos para vehículos automóviles',
-        fundamento: 'RGI 1 y 6. Partida 87.08. Partes y accesorios de vehículos automóviles.',
-        intervenciones: ['CHAS (Certificado de Homologación de Autopartes de Seguridad)'],
-        die: 18, te: 3, iva: 21, aviso: false
-      },
-
-      // 4. CALZADO, TEXTIL Y ROPA (Capítulos 61, 62 y 64)
-      {
         keywords: ['zapatilla', 'calzado deportivo', 'tenis', 'sneaker'],
         codigoSIM: '6404.11.00.100X',
-        glosa: 'Calzado de deporte con suela de caucho o plástico y parte superior (capellada) de materias textiles',
-        fundamento: 'RGI 1, 3b y 6. Partida 64.04. Clasificación según materia constitutiva de capellada y suela.',
-        intervenciones: ['DJCP (Declaración Jurada de Composición de Calzado)', 'Etiquetado de Origen y Talle'],
+        glosa: 'Calzado de deporte con suela de caucho o plástico y capellada textil',
+        fundamento: 'RGI 1, 3b y 6. Partida 64.04. Criterio por materias de suela y parte superior.',
+        intervenciones: ['DJCP (Composición de Calzado)', 'Etiquetado de Origen y Talle'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
         keywords: ['zapato', 'calzado de cuero', 'bota', 'sandalia'],
         codigoSIM: '6403.99.00.100F',
-        glosa: 'Calzado con suela de caucho, plástico o cuero natural y parte superior de cuero natural',
+        glosa: 'Calzado con suela de caucho/plástico y capellada de cuero natural',
         fundamento: 'RGI 1 y 6. Partida 64.03. Clasificación por capellada de cuero natural.',
-        intervenciones: ['DJCP (Composición de Calzado)', 'Controles Sanitarios de Cueros'],
+        intervenciones: ['DJCP (Composición de Calzado)', 'Controles Sanitarios'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['remera', 't-shirt', 'camisa de punto', 'chomba'],
+        keywords: ['remera', 't-shirt', 'camisa', 'pantalon', 'jean', 'ropa', 'prenda'],
         codigoSIM: '6109.10.00.100A',
-        glosa: 'T-shirts (camisetas) y camisetas de tirantes, de punto, de algodón',
-        fundamento: 'RGI 1 y 6. Capítulo 61. Clasificación según tejido de punto y fibra de algodón.',
-        intervenciones: ['Reglamento Técnico de Etiquetado Textil (Res. 850/1996)', 'DJCP Textil'],
+        glosa: 'T-shirts (camisetas) y prendas de punto, de algodón',
+        fundamento: 'RGI 1 y 6. Capítulos 61/62. Clasificación por confección textil y composición.',
+        intervenciones: ['Reglamento de Etiquetado Textil (Res. 850/1996)', 'DJCP Textil'],
         die: 35, te: 3, iva: 21, aviso: true
       },
       {
-        keywords: ['pantalon', 'jean', 'jeans', 'camisa', 'vestido', 'campera', 'saco', 'ropa', 'prenda'],
-        codigoSIM: '6203.42.00.100L',
-        glosa: 'Pantalones y pantalones cortos, de algodón, para hombres o niños (excepto punto)',
-        fundamento: 'RGI 1 y 6. Capítulo 62. Prendas de vestir no tejidas de punto.',
-        intervenciones: ['Reglamento de Etiquetado Textil', 'DJCP (Declaración de Composición)'],
-        die: 35, te: 3, iva: 21, aviso: true
+        keywords: ['vino', 'malbec', 'vino tinto', 'vino blanco', 'espumante'],
+        codigoSIM: '2204.21.00.100H',
+        glosa: 'Vino de uvas frescas en recipientes <= 2 litros',
+        fundamento: 'RGI 1 y 6. Partida 22.04. Criterio por volumen de envase y graduación alcohólica.',
+        intervenciones: ['INV (Instituto Nacional de Vitivinicultura)', 'INAL'],
+        die: 20, te: 3, iva: 21, aviso: false
       },
-
-      // 5. ALIMENTOS Y BEBIDAS (Capítulos 04, 08, 19 y 22)
       {
         keywords: ['miel', 'miel de abeja', 'miel natural'],
         codigoSIM: '0409.00.00.100K',
-        glosa: 'Miel natural de abejas, en envases para consumo o a granel',
+        glosa: 'Miel natural de abejas',
         fundamento: 'RGI 1 y 6. Partida 04.09. Producto de origen apícola sin aditivos.',
-        intervenciones: ['SENASA (Certificación Zoosanitaria)', 'ANMAT - INAL (RNPV/RNPA)'],
+        intervenciones: ['SENASA (Certificación Zoosanitaria)', 'ANMAT - INAL'],
         die: 16, te: 3, iva: 21, aviso: false
       },
       {
-        keywords: ['vino', 'vino malbec', 'vino tinto', 'vino blanco', 'espumante'],
-        codigoSIM: '2204.21.00.100H',
-        glosa: 'Vino de uvas frescas en recipientes con capacidad inferior o igual a 2 litros',
-        fundamento: 'RGI 1 y 6. Partida 22.04. Clasificación según grado alcohólico y volumen de envase.',
-        intervenciones: ['INV (Instituto Nacional de Vitivinicultura)', 'INAL (Aprobación de Análisis)'],
-        die: 20, te: 3, iva: 21, aviso: false
-      },
-      {
-        keywords: ['cerveza', 'cerveza artesanal', 'malta'],
-        codigoSIM: '2203.00.00.100P',
-        glosa: 'Cerveza de malta, en botellas, latas o barriles',
-        fundamento: 'RGI 1 y 6. Partida 22.03. Bebida fermentada a base de cereales malteados.',
-        intervenciones: ['ANMAT - INAL (Certificado de Libre Circulación)', 'Análisis de Control'],
-        die: 20, te: 3, iva: 21, aviso: false
-      },
-      {
-        keywords: ['galletita', 'galleta', 'bizcocho', 'pan', 'galleteria'],
-        codigoSIM: '1905.31.00.000M',
-        glosa: 'Galletas dulces (con adición de edulcorante), galletitas y productos de galletería',
-        fundamento: 'RGI 1 y 6. Partida 19.05. Productos de panadería y galletería.',
-        intervenciones: ['ANMAT - INAL (RNPA - Registro Nacional de Producto Alimenticio)'],
-        die: 18, te: 3, iva: 21, aviso: false
-      },
-      {
-        keywords: ['carne', 'vacuno', 'carne de res', 'corte vacuno'],
-        codigoSIM: '0201.30.00.100V',
-        glosa: 'Carne de animales de la especie bovina, deshuesada, fresca o refrigerada',
-        fundamento: 'RGI 1 y 6. Capítulo 02. Clasificación por especie bovina y tratamiento térmico/fresco.',
-        intervenciones: ['SENASA (Inspección Veterinaria de Carnes)', 'Cupos/Permisos Fitozoosanitarios'],
-        die: 10, te: 3, iva: 10.5, aviso: false
-      },
-
-      // 6. MEDICAMENTOS, SALUD Y FARMACIA (Capítulos 30 y 90)
-      {
-        keywords: ['remedio', 'medicamento', 'farmaco', 'vacuna', 'jarabe', 'pastilla', 'comprimido'],
+        keywords: ['remedio', 'medicamento', 'farmaco', 'vacuna', 'pastilla'],
         codigoSIM: '3004.90.99.100H',
-        glosa: 'Medicamentos preparados para usos terapéuticos o profilácticos, dosificados',
+        glosa: 'Medicamentos dosificados preparados para usos terapéuticos o profilácticos',
         fundamento: 'RGI 1 y 6. Partida 30.04. Acondicionados para la venta al por menor en dosis.',
-        intervenciones: ['ANMAT (Administración Nacional de Medicamentos)', 'Autorización Sanitaria MNSAL'],
+        intervenciones: ['ANMAT (Administración Nacional de Medicamentos)', 'Autorización Sanitaria'],
         die: 0, te: 0, iva: 21, aviso: false
-      },
-      {
-        keywords: ['equipo medico', 'ecografo', 'tensiometro', 'estetoscopio', 'jeringa'],
-        codigoSIM: '9018.12.00.100C',
-        glosa: 'Aparatos de diagnóstico por exploración ultrasónica (ecógrafos)',
-        fundamento: 'RGI 1 y 6. Partida 90.18. Instrumentos y aparatos de medicina, cirugía o veterinaria.',
-        intervenciones: ['ANMAT (Certificación de Producto Médico)', 'Seguridad Eléctrica Médica'],
-        die: 0, te: 3, iva: 10.5, aviso: false
-      },
-
-      // 7. HERRAMIENTAS, FERRETERÍA Y METALURGIA (Capítulos 73 y 82)
-      {
-        keywords: ['tornillo', 'tuerca', 'arandela', 'perno', 'bulon'],
-        codigoSIM: '7318.15.00.100L',
-        glosa: 'Los demás tornillos y pernos, incluso con sus tuercas o arandelas, de fundición, hierro o acero',
-        fundamento: 'RGI 1 y 6. Partida 73.18. Artículos roscados de metal ferroso.',
-        intervenciones: ['Lealtad Comercial (Ensayos Mecánicos / INTI si aplica)'],
-        die: 16, te: 3, iva: 21, aviso: false
-      },
-      {
-        keywords: ['herramienta', 'llave de mano', 'martillo', 'destornillador', 'pinza', 'alicate'],
-        codigoSIM: '8204.11.00.100G',
-        glosa: 'Llaves de ajuste de mano, de boca fija o ajustables',
-        fundamento: 'RGI 1 y 6. Capítulo 82. Herramientas manuales de metal común.',
-        intervenciones: ['Verificación de Calidad de Aceros (INTI)'],
-        die: 14, te: 3, iva: 21, aviso: false
-      },
-
-      // 8. MAQUINARIA INDUSTRIAL Y ELECTRODOMÉSTICOS (Capítulo 84)
-      {
-        keywords: ['bomba', 'bomba de agua', 'bomba hidraulica', 'motobomba'],
-        codigoSIM: '8413.70.80.100T',
-        glosa: 'Las demás bombas centrífugas para líquidos, de accionamiento mecánico',
-        fundamento: 'RGI 1 y 6. Partida 84.13. Clasificación por principio mecánico de elevación de líquidos.',
-        intervenciones: ['Seguridad de Maquinaria (Res. 92/1998)', 'Seguridad Eléctrica'],
-        die: 14, te: 3, iva: 10.5, aviso: false
-      },
-      {
-        keywords: ['heladera', 'freezer', 'refrigerador', 'congelador'],
-        codigoSIM: '8418.10.00.100W',
-        glosa: 'Combinaciones de refrigerador y congelador con puertas exteriores separadas',
-        fundamento: 'RGI 1 y 6. Partida 84.18. Aparatos para la producción de frío.',
-        intervenciones: ['Seguridad Eléctrica', 'Eficiencia Energética', 'Control de Gases Refrigerantes (OFI)'],
-        die: 20, te: 3, iva: 21, aviso: true
-      },
-
-      // 9. PLÁSTICOS, CAUCHO Y QUÍMICOS (Capítulos 39 y 40)
-      {
-        keywords: ['neumatico', 'cubierta', 'cubierta de auto', 'goma de auto'],
-        codigoSIM: '4011.10.00.100M',
-        glosa: 'Neumáticos nuevos de caucho de los tipos utilizados en automóviles de turismo',
-        fundamento: 'RGI 1 y 6. Partida 40.11. Neumáticos nuevos de caucho para tracción.',
-        intervenciones: ['CHAS (Certificado de Homologación de Autopartes de Seguridad)', 'INTI'],
-        die: 35, te: 3, iva: 21, aviso: true
-      },
-      {
-        keywords: ['bolsa de plastico', 'envase de plastico', 'tupper', 'botella de plastico', 'caja de plastico'],
-        codigoSIM: '3923.30.00.100N',
-        glosa: 'Damasjuanas, botellas, frascos y artículos similares para transporte o envasado, de plástico',
-        fundamento: 'RGI 1 y 6. Partida 39.23. Artículos plásticos de envasado o transporte.',
-        intervenciones: ['Aptitud Sanitaria Plásticos en Contacto con Alimentos (INAL si aplica)'],
-        die: 18, te: 3, iva: 21, aviso: false
-      },
-
-      // 10. JUGUETES Y DEPORTES (Capítulo 95)
-      {
-        keywords: ['juguete', 'muneco', 'muneca', 'juego de mesa', 'pista', 'bloques'],
-        codigoSIM: '9503.00.99.100V',
-        glosa: 'Los demás juguetes; modelos reducidos y modelos similares para entretenimiento',
-        fundamento: 'RGI 1 y 6. Partida 95.03. Triciclos, patinetes, muñecos y juguetes en general.',
-        intervenciones: ['Seguridad del Juguete (Res. 163/2023)', 'Análisis Phthalatos / INTI'],
-        die: 35, te: 3, iva: 21, aviso: true
       }
     ];
 
@@ -1659,7 +2059,6 @@
       const statusBadge = document.getElementById('statusBadge');
 
       if (!btn) return;
-
       btn.disabled = true;
       btn.textContent = '⏳ Analizando NCM/SIM...';
 
@@ -1753,13 +2152,11 @@
         chapter = "7326.90.90"; glosaGen = "Las demás manufacturas de hierro o acero"; dieRate = 16;
       } else if (q.includes('vidrio') || q.includes('cristal')) {
         chapter = "7020.00.90"; glosaGen = "Las demás manufacturas de vidrio"; dieRate = 16;
-      } else if (q.includes('papel') || q.includes('carton')) {
-        chapter = "4823.90.90"; glosaGen = "Las demás manufacturas de papel o cartón"; dieRate = 14;
-      } else if (q.includes('electric') || q.includes('electroni') || q.includes('cable') || q.includes('led')) {
+      } else if (q.includes('electric') || q.includes('electroni') || q.includes('led')) {
         chapter = "8543.70.99"; glosaGen = "Aparatos eléctricos con función propia"; dieRate = 18; interv.push("Seguridad Eléctrica");
       } else if (q.includes('ropa') || q.includes('textil') || q.includes('tela') || q.includes('algodon')) {
         chapter = "6217.10.00"; glosaGen = "Los demás accesorios de vestir confeccionados"; dieRate = 35; interv.push("Etiquetado Textil");
-      } else if (q.includes('alimento') || q.includes('comida') || q.includes('fruta') || q.includes('carne')) {
+      } else if (q.includes('alimento') || q.includes('comida') || q.includes('fruta')) {
         chapter = "2106.90.90"; glosaGen = "Preparaciones alimenticias no expresadas en otra parte"; dieRate = 16; interv.push("ANMAT / SENASA");
       }
 
@@ -1794,11 +2191,7 @@
 
       const aviso = document.getElementById('avisoNormativo');
       if (aviso) {
-        if (data.legislacionAviso) {
-          aviso.style.display = 'block';
-        } else {
-          aviso.style.display = 'none';
-        }
+        aviso.style.display = data.legislacionAviso ? 'block' : 'none';
       }
 
       recalcularLiquidacion();
@@ -1809,48 +2202,35 @@
       document.getElementById('valFOB')?.scrollIntoView({ behavior: 'smooth' });
     }
 
-    /* ── STREAMING_CHUNK:Parsing Google Sheets and rendering news dynamically... ── */
+    /* ── CONEXIÓN DINÁMICA CON GOOGLE SHEETS & RADAR COMEX ── */
     const SPREADSHEET_ID = '1nKvI2EoEm_qRX1hQ8W0Kl6Hsc7kfkCWomzPTjkGlcu0';
     const GOOGLE_SHEET_JSON_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
 
     let noticiasActuales = {};
 
-    /* FUNCIÓN PARA FORMATEAR FECHAS DE GOOGLE SHEETS CORRECTAMENTE */
-    function formatearFechaSheet(cell) {
-      if (!cell) return '';
-      // 1. Si Google Sheets ya proveyó el valor formateado (f), usarlo directamente
-      if (cell.f && typeof cell.f === 'string' && cell.f.trim() !== '') {
-        return cell.f;
-      }
-
-      const val = cell.v;
-      if (!val) return '';
-
-      // 2. Si viene como Date(año, mes_cero_indexado, dia)
-      if (typeof val === 'string' && val.includes('Date(')) {
-        const matches = val.match(/Date\((\d+),\s*(\d+),\s*(\d+)/);
-        if (matches) {
-          const y = parseInt(matches[1]);
-          const m = parseInt(matches[2]); // Google Sheets entrega mes 0-indexed (0=Enero)
-          const d = parseInt(matches[3]);
-          const fechaObj = new Date(y, m, d);
-          return fechaObj.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+    function formatearFechaSheet(celda) {
+      if (!celda) return 'Reciente';
+      if (celda.f) return celda.f;
+      if (typeof celda.v === 'string') {
+        if (celda.v.startsWith('Date(')) {
+          const match = celda.v.match(/Date\((\d+),(\d+),(\d+)\)/);
+          if (match) {
+            const year = parseInt(match[1]);
+            const month = parseInt(match[2]);
+            const day = parseInt(match[3]);
+            const fecha = new Date(year, month, day);
+            return fecha.toLocaleDateString(idiomaActual === 'pt' ? 'pt-BR' : 'es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+          }
         }
+        return celda.v;
       }
-
-      // 3. Si viene como string ISO o convertible por Date()
-      const dObj = new Date(val);
-      if (!isNaN(dObj.getTime()) && String(val).length > 4) {
-        return dObj.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
-      }
-
-      return String(val);
+      return 'Reciente';
     }
 
     async function obtenerNoticias() {
       try {
         const res = await fetch(GOOGLE_SHEET_JSON_URL);
-        if (!res.ok) throw new Error('No se pudo conectar con Google Sheets');
+        if (!res.ok) throw new Error('Error al conectar con Google Sheets');
         
         const rawText = await res.text();
         const json = JSON.parse(rawText.substring(47).slice(0, -2));
@@ -1858,9 +2238,8 @@
 
         const noticias = {};
         rows.forEach((row, index) => {
-          if (!row.c || !row.c[1]) return; // Omitir filas vacías
+          if (!row.c || !row.c[1]) return;
           const id = row.c[0]?.v ? parseInt(row.c[0].v) : (index + 1);
-          
           noticias[id] = {
             id: id,
             titulo: row.c[1]?.v || '',
@@ -1876,10 +2255,28 @@
           return noticias;
         }
       } catch (err) {
-        console.warn('Error al cargar Google Sheets:', err);
+        console.warn('Cargando respaldo local de noticias:', err);
       }
 
-      return noticiasActuales;
+      // Fallback predeterminado
+      return {
+        1: {
+          id: 1,
+          titulo: "Nuevo Régimen de Simplificación para Importaciones Industriales",
+          categoria: "Normativa ARCA",
+          fecha: "24 de Agosto, 2026",
+          subtitulo: "La autoridad aduanera implementa medidas de agilización para bienes de capital e insumos productivos.",
+          cuerpo: "<p>La Dirección General de Aduanas (DGA) oficializó nuevas pautas operativas orientadas a agilizar el despacho a plaza de insumos y bienes de capital destinados a la industria nacional.</p><p>Estas modificaciones reducen los plazos de intervención en canales de selectividad y optimizan la presentación digital de documentos.</p>"
+        },
+        2: {
+          id: 2,
+          titulo: "Incentivos y Reintegros para Economías Regionales del MERCOSUR",
+          categoria: "Exportación",
+          fecha: "18 de Agosto, 2026",
+          subtitulo: "Actualización en el esquema de derechos de exportación y reintegros arancelarios.",
+          cuerpo: "<p>Se publicaron en el Boletín Oficial los nuevos coeficientes de reintegros aduaneros para productos agroindustriales con valor agregado en origen.</p><p>Desde Estudio MACOR acompañamos a las empresas exportadoras en la tramitación integral de permisos y liquidación de cobro de estos beneficios.</p>"
+        }
+      };
     }
 
     async function renderizarNoticiasHome() {
@@ -1890,7 +2287,7 @@
       const ids = Object.keys(noticias).sort((a, b) => Number(b) - Number(a));
 
       if (ids.length === 0) {
-        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--muted);">No hay noticias disponibles en este momento.</div>';
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--muted);">No hay noticias publicadas actualmente.</div>';
         return;
       }
 
@@ -1904,8 +2301,8 @@
               <p>${item.subtitulo}</p>
             </div>
             <div class="news-meta">
-              <span>📅 ${item.fecha || 'Reciente'}</span>
-              <span class="news-read-link">Leer nota completa →</span>
+              <span>📅 ${item.fecha}</span>
+              <span class="news-read-link">${idiomaActual === 'pt' ? 'Ler nota completa →' : 'Leer nota completa →'}</span>
             </div>
           </div>
         `;
@@ -1933,20 +2330,25 @@
       document.body.style.overflow = '';
     }
 
-    function cerrarNoticiaEnFondo(event) {
-      if (event.target.id === 'modalNoticia') {
+    function cerrarNoticiaEnFondo(e) {
+      if (e.target.id === 'modalNoticia') {
         cerrarNoticia();
       }
     }
 
+    /* INICIALIZACIÓN GLOBAL */
     window.onload = function() {
       recalcularLiquidacion();
       renderizarNoticiasHome();
+      if (idiomaActual && idiomaActual !== 'es') {
+        cambiarIdioma(idiomaActual);
+      }
     };
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         cerrarNoticia();
+        closeMenu();
       }
     });
   </script>
