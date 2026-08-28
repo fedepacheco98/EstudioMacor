@@ -1854,53 +1854,57 @@
     }
 
     /* ── BASE DE DATOS LOCAL Y PANEL ADMINISTRADOR DE NOTICIAS ── */
-    const NOTICIAS_DEFAULT = {
-      1: {
-        id: 1,
-        titulo: "Nuevas Resoluciones de la ARCA-DGA para la Operativa Aduanera",
-        categoria: "Normativa & Regulaciones",
-        fecha: "20 de Agosto, 2026",
-        subtitulo: "Actualizaciones en los procedimientos de oficialización, canales de selectividad y fiscalización en despachos de importación y exportación.",
-        cuerpo: `<p>La Agencia de Recaudación y Control Aduanero (ARCA - ex AFIP DGA) ha emitido nuevas pautas operativas destinadas a dinamizar los canales de selectividad e intensificar la digitalización de la documentación complementaria.</p><p>Entre los aspectos más destacados se encuentran la optimización de los tiempos de resolución para canal verde y la simplificación en la transmisión electrónica de certificaciones emitidas por organismos de control intervinientes.</p><h4>¿Cómo impacta en la operativa de su empresa?</h4><p>Para los importadores y exportadores, estas medidas exigen un control exhaustivo y previo de las posiciones arancelarias SIM a 11 dígitos, así como la correcta digitalización de los certificados de origen y licencias antes de oficializar las destinaciones.</p><p>En <strong>Estudio MACOR</strong> asistimos de manera directa a nuestros clientes en la adecuación documental y jurídica para evitar bloqueos operativos y garantizar el despacho fluido de sus cargas.</p>`
-      },
-      2: {
-        id: 2,
-        titulo: "Optimización de Costos en Transporte Multimodal y Contenedores 2026",
-        categoria: "Logística Internacional",
-        fecha: "12 de Agosto, 2026",
-        subtitulo: "Estrategias para reducir el impacto de fletes internacionales, evitar sobrecostos por demurrage y seleccionar el contenedor adecuado.",
-        cuerpo: `<p>El escenario logístico global requiere una selección técnica del tipo de contenedor (Dry, High Cube, Reefer, Flat Rack, Open Top) según la naturaleza y volumen específico de la mercadería.</p><p>Integrar en un solo interlocutor la gestión del flete internacional con el despacho aduanero permite reducir sustancialmente las demoras en puerto y prevenir costos extraordinarios de almacenamiento.</p><h4>Recomendaciones operativas clave</h4><p>Es fundamental planificar la consolidación de la carga en origen, chequear previamente la disponibilidad de turnos en terminales portuarias y coordinar con el despachante la verificación aduanera tan pronto arriba el transporte.</p>`
-      },
-      3: {
-        id: 3,
-        titulo: "Guía de Reintegros a la Exportación para PyMEs Industriales",
-        categoria: "Exportación & Incentivos",
-        fecha: "05 de Agosto, 2026",
-        subtitulo: "Procedimientos esenciales para la tramitación, fiscalización y cobro efectivo de incentivos impositivos a las exportaciones.",
-        cuerpo: `<p>El régimen de reintegros a la exportación constituye un beneficio fiscal clave para devolver los tributos interiores acumulados en el proceso productivo de bienes destinados al mercado externo.</p><p>Para lograr la liquidación y cobro de estos fondos sin demoras administrativas, el permiso de embarque debe quedar correctamente cumplido, sin pendientes ni inconsistencias sistémicas ante la DGA.</p><h4>Acompañamiento integral de Estudio MACOR</h4><p>Nuestro equipo realiza el seguimiento continuo de cada permiso de embarque oficializado hasta la efectiva acreditación de los reintegros en la cuenta del exportador, brindando además patrocinio ante eventuales diferimientos de la aduana.</p>`
-      }
-    };
+ /* ── CONEXIÓN DINÁMICA CON GOOGLE SHEETS & RADAR COMEX ── */
+    const SPREADSHEET_ID = '1nKvI2EoEm_qRX1hQ8W0Kl6Hsc7kfkCWomzPTjkGlcu0';
+    const GOOGLE_SHEET_JSON_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
 
-    function obtenerNoticiasDB() {
-      const db = localStorage.getItem('macor_noticias_db');
-      if (!db) {
-        localStorage.setItem('macor_noticias_db', JSON.stringify(NOTICIAS_DEFAULT));
-        return NOTICIAS_DEFAULT;
+    let noticiasActuales = {};
+
+    async function obtenerNoticias() {
+      try {
+        const res = await fetch(GOOGLE_SHEET_JSON_URL);
+        if (!res.ok) throw new Error('No se pudo conectar con Google Sheets');
+        
+        const rawText = await res.text();
+        // Limpiar el wrapper de la API de Google Visualization
+        const json = JSON.parse(rawText.substring(47).slice(0, -2));
+        const rows = json.table.rows;
+
+        const noticias = {};
+        rows.forEach((row, index) => {
+          if (!row.c || !row.c[1]) return; // Omitir filas vacías
+          const id = row.c[0]?.v ? parseInt(row.c[0].v) : (index + 1);
+          noticias[id] = {
+            id: id,
+            titulo: row.c[1]?.v || '',
+            categoria: row.c[2]?.v || 'Novedades',
+            fecha: row.c[3]?.v || '',
+            subtitulo: row.c[4]?.v || '',
+            cuerpo: row.c[5]?.v || ''
+          };
+        });
+
+        if (Object.keys(noticias).length > 0) {
+          noticiasActuales = noticias;
+          return noticias;
+        }
+      } catch (err) {
+        console.warn('Cargando respaldo local por error en Google Sheets:', err);
       }
-      return JSON.parse(db);
+
+      // Fallback a LocalStorage si no hay conexión
+      noticiasActuales = obtenerNoticiasDB();
+      return noticiasActuales;
     }
 
-    function guardarNoticiasDB(data) {
-      localStorage.setItem('macor_noticias_db', JSON.stringify(data));
-      renderizarNoticiasHome();
-    }
-
-    function renderizarNoticiasHome() {
+    async function renderizarNoticiasHome() {
       const container = document.getElementById('newsGridContainer');
       if (!container) return;
 
-      const noticias = obtenerNoticiasDB();
-      const ids = Object.keys(noticias).sort((a, b) => b - a);
+      container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:30px; color:var(--muted);">Cargando radar de noticias...</div>';
+
+      const noticias = await obtenerNoticias();
+      const ids = Object.keys(noticias).sort((a, b) => Number(b) - Number(a));
 
       if (ids.length === 0) {
         container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--muted);">No hay noticias publicadas actualmente.</div>';
@@ -1926,8 +1930,7 @@
     }
 
     function abrirNoticia(id) {
-      const db = obtenerNoticiasDB();
-      const data = db[id];
+      const data = noticiasActuales[id] || obtenerNoticiasDB()[id];
       if (!data) return;
 
       document.getElementById('modalBadge').textContent = data.categoria;
@@ -1939,18 +1942,6 @@
       const modal = document.getElementById('modalNoticia');
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
-    }
-
-    function cerrarNoticia() {
-      const modal = document.getElementById('modalNoticia');
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function cerrarNoticiaEnFondo(event) {
-      if (event.target.id === 'modalNoticia') {
-        cerrarNoticia();
-      }
     }
 
     /* LÓGICA DE ADMINISTRACIÓN Y AUTENTICACIÓN */
